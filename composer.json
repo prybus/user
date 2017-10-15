@@ -1,0 +1,47 @@
+{
+    "name": "msgphp/user",
+    "type": "library",
+    "license": "MIT",
+    "description": "MsgPhp User domain layer",
+    "authors": [
+        {
+            "name": "Roland Franssen",
+            "email": "franssen.roland@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MsgPhp\\User\\": ""
+        },
+        "exclude-from-classmap": ["/Tests/"]
+    },
+    "require": {
+        "msgphp/domain": "^1.0@dev"
+    },
+    "require-dev": {
+        "doctrine/collections": "^1.5",
+        "doctrine/dbal": "^2.6",
+        "doctrine/orm": "^2.5@dev",
+        "phpunit/phpunit": "^6.4",
+        "psr/log": "^1.0",
+        "ramsey/uuid": "^3.7",
+        "simple-bus/message-bus": "^3.0",
+        "symfony/console": "4.x@dev",
+        "symfony/debug": "@dev",
+        "symfony/security-core": "4.x@dev",
+        "symfony/translation": "@dev",
+        "symfony/validator": "4.x@dev",
+        "twig/twig": "^2.4"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
