@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Command\Handler;
 
+use MsgPhp\Domain\CommandBusInterface;
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\User\Command\SetUserPendingPrimaryEmailCommand;
