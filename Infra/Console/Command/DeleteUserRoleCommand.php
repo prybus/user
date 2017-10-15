@@ -1,6 +1,8 @@
 <?php
 
-namespace Infra\Domain\User\Console\Command;
+declare(strict_types=1);
+
+namespace MsgPhp\User\Infra\Console\Command;
 
 use MsgPhp\Domain\CommandBusInterface;
 use MsgPhp\User\Command as UserCommand;
