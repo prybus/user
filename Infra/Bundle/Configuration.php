@@ -19,10 +19,7 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('pending_user_class')->cannotBeEmpty()->defaultNull()->end()
                 ->scalarNode('user_class')->cannotBeEmpty()->isRequired()->end()
-                ->scalarNode('user_role_class')->cannotBeEmpty()->defaultNull()->end()
-                ->scalarNode('user_secondary_email_class')->cannotBeEmpty()->defaultNull()->end()
             ->end();
 
         return $treeBuilder;
