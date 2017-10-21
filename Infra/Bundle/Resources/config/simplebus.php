@@ -3,7 +3,7 @@
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $container) {
-    $container->services()
+    $services = $container->services()
         ->defaults()
             ->autowire()
             ->public()
@@ -13,7 +13,7 @@ return function (ContainerConfigurator $container) {
         $handler = 'MsgPhp\\User\\Command\\Handler\\'.basename($file, '.php');
         $command = 'MsgPhp\\User\\Command\\'.basename($file, 'Handler.php').'Command';
 
-        $container->services()->set($handler)
+        $services->set($handler)
             ->tag('command_handler', ['handles' => $command])
         ;
     }
