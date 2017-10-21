@@ -9,8 +9,6 @@ use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
- *
- * @final
  */
 class UserRole
 {

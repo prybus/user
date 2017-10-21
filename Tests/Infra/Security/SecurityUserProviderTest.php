@@ -6,10 +6,10 @@ namespace MsgPhp\User\Tests\Infra\Security;
 
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Infra\InMemory\Repository\UserRepository;
-use MsgPhp\User\Infra\PHPUnit\UserEntityTrait;
 use MsgPhp\User\Infra\Security\SecurityUser;
 use MsgPhp\User\Infra\Security\SecurityUserProvider;
 use MsgPhp\User\Infra\Security\UserRoleProviderInterface;
+use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -17,11 +17,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class SecurityUserProviderTest extends TestCase
 {
-    use UserEntityTrait;
-
     public function testLoadUserByUsername()
     {
-        $repository = new UserRepository([$user = $this->createUser('foo@bar.baz')]);
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $repository = new UserRepository([$user]);
         $securityUser = $this->createProvider(['ROLE_USER'], $repository)->loadUserByUsername($user->getEmail());
 
         $this->assertInstanceOf(SecurityUser::class, $securityUser);
@@ -39,7 +38,8 @@ final class SecurityUserProviderTest extends TestCase
 
     public function testRefreshUser()
     {
-        $repository = new UserRepository([$user = $this->createUser('foo@bar.baz')]);
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $repository = new UserRepository([$user]);
         $securityUser = $this->createProvider([], $repository)->refreshUser($oldSecurityUser = new SecurityUser($user));
 
         $this->assertEquals($oldSecurityUser, $securityUser);
@@ -48,9 +48,11 @@ final class SecurityUserProviderTest extends TestCase
 
     public function testRefreshUserWithInvalidId()
     {
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+
         $this->expectException(UsernameNotFoundException::class);
 
-        $this->createProvider()->refreshUser(new SecurityUser($this->createUser('foo@bar.baz')));
+        $this->createProvider()->refreshUser(new SecurityUser($user));
     }
 
     public function testRefreshUnknownUser()

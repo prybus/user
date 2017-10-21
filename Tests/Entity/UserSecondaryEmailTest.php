@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
+use MsgPhp\User\Entity\User;
 use MsgPhp\User\Entity\UserSecondaryEmail;
-use MsgPhp\User\Infra\PHPUnit\UserEntityTrait;
+use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 
 final class UserSecondaryEmailTest extends TestCase
 {
-    use UserEntityTrait;
-
     public function testCreate()
     {
-        $userEmail = new UserSecondaryEmail($user = $this->createUser('foo@bar.baz'), 'other@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
 
         $this->assertSame($user, $userEmail->getUser());
         $this->assertSame($user->getId(), $userEmail->getUserId());
@@ -27,17 +27,20 @@ final class UserSecondaryEmailTest extends TestCase
 
     public function testCreateDuplicateEmail()
     {
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+
         $this->expectException(\LogicException::class);
 
-        new UserSecondaryEmail($this->createUser('foo@bar.baz'), 'foo@bar.baz');
+        new UserSecondaryEmail($user, 'foo@bar.baz');
     }
 
     public function testConfirm()
     {
-        $userEmail = new UserSecondaryEmail($user = $this->createUser('foo@bar.baz'), 'other@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
         $userEmail->confirm();
 
-        $compareUserEmail = new UserSecondaryEmail($this->createUser('foo@bar.baz'), 'other@bar.baz');
+        $compareUserEmail = new UserSecondaryEmail($user, 'other@bar.baz');
         $this->assertNotSame($userEmail->getToken(), $compareUserEmail->getToken());
 
         $this->assertNull($userEmail->getToken());
@@ -46,7 +49,8 @@ final class UserSecondaryEmailTest extends TestCase
 
     public function testMarkPendingPrimary()
     {
-        $userEmail = new UserSecondaryEmail($this->createUser('foo@bar.baz'), 'other@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
         $userEmail->markPendingPrimary();
 
         $this->assertTrue($userEmail->isPendingPrimary());

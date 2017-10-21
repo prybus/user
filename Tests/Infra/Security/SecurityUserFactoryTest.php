@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Infra\Security;
 
+use MsgPhp\User\Entity\User;
 use MsgPhp\User\Infra\InMemory\Repository\UserRepository;
-use MsgPhp\User\Infra\PHPUnit\UserEntityTrait;
 use MsgPhp\User\Infra\Security\SecurityUser;
 use MsgPhp\User\Infra\Security\SecurityUserFactory;
+use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -18,20 +19,22 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 final class SecurityUserFactoryTest extends TestCase
 {
-    use UserEntityTrait;
-
     public function testIsAuthenticated()
     {
         $this->assertFalse($this->createFactory()->isAuthenticated());
         $this->assertFalse($this->createFactory('foo@bar.baz')->isAuthenticated());
         $this->assertFalse($this->createFactory('foo@bar.baz', ['ROLE_USER'])->isAuthenticated());
-        $this->assertFalse($this->createFactory(new SecurityUser($this->createUser('foo@bar.baz')))->isAuthenticated());
-        $this->assertTrue($this->createFactory(new SecurityUser($this->createUser('foo@bar.baz')), ['ROLE_USER'])->isAuthenticated());
+
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+
+        $this->assertFalse($this->createFactory(new SecurityUser($user))->isAuthenticated());
+        $this->assertTrue($this->createFactory(new SecurityUser($user), ['ROLE_USER'])->isAuthenticated());
     }
 
     public function testGetUserId()
     {
-        $factory = $this->createFactory(new SecurityUser($user = $this->createUser('foo@bar.baz')), ['ROLE_USER']);
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $factory = $this->createFactory(new SecurityUser($user), ['ROLE_USER']);
 
         $this->assertSame($user->getId(), $factory->getUserId());
     }
@@ -59,16 +62,19 @@ final class SecurityUserFactoryTest extends TestCase
 
     public function testGetUser()
     {
-        $repository = new UserRepository([$user = $this->createUser('foo@bar.baz')]);
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $repository = new UserRepository([$user]);
 
         $this->assertSame($user, $this->createFactory(new SecurityUser($user), ['ROLE_USER'], $repository)->getUser());
     }
 
     public function testGetUnknownUser()
     {
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+
         $this->expectException(UsernameNotFoundException::class);
 
-        $this->createFactory(new SecurityUser($user = $this->createUser('foo@bar.baz')), ['ROLE_USER'])->getUser();
+        $this->createFactory(new SecurityUser($user), ['ROLE_USER'])->getUser();
     }
 
     private function createFactory($securityUser = null, array $roles = [], UserRepository $repository = null): SecurityUserFactory

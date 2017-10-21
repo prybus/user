@@ -8,8 +8,6 @@ use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
- *
- * @final
  */
 class PendingUser
 {

@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
-use MsgPhp\User\Infra\PHPUnit\UserEntityTrait;
-use MsgPhp\User\Infra\PHPUnit\UserId;
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 
 final class UserTest extends TestCase
 {
-    use UserEntityTrait;
-
     public function testCreate()
     {
-        $user = $this->createUser('foo@bar.baz', 'secret', '1');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
 
-        $this->assertTrue($user->getId()->equals(new UserId('1')));
+        $this->assertInstanceOf(UserIdInterface::class, $user->getId());
         $this->assertSame('foo@bar.baz', $user->getEmail());
         $this->assertSame('secret', $user->getPassword());
         $this->assertFalse($user->isEnabled());
@@ -28,7 +26,7 @@ final class UserTest extends TestCase
 
     public function testChangeEmail()
     {
-        $user = $this->createUser('foo@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
         $lastUpdatedAt = $user->getLastUpdatedAt();
 
         $user->changeEmail('other@bar.baz');
@@ -39,7 +37,7 @@ final class UserTest extends TestCase
 
     public function testChangePassword()
     {
-        $user = $this->createUser('foo@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
         $lastUpdatedAt = $user->getLastUpdatedAt();
 
         $user->changePassword('other');
@@ -50,7 +48,7 @@ final class UserTest extends TestCase
 
     public function testRequestPassword()
     {
-        $user = $this->createUser('foo@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
         $lastUpdatedAt = $user->getLastUpdatedAt();
 
         $user->requestPassword();
@@ -60,13 +58,15 @@ final class UserTest extends TestCase
         $this->assertGreaterThanOrEqual($lastUpdatedAt, $user->getPasswordRequestedAt());
         $this->assertGreaterThanOrEqual($user->getPasswordRequestedAt(), $user->getLastUpdatedAt());
 
-        ($compareUser = $this->createUser('foo@bar.baz'))->requestPassword();
+        $compareUser = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $compareUser->requestPassword();
+
         $this->assertNotSame($user->getPasswordResetToken(), $compareUser->getPasswordResetToken());
     }
 
     public function testEnableDisable()
     {
-        $user = $this->createUser('foo@bar.baz');
+        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
         $lastUpdatedAt = $user->getLastUpdatedAt();
 
         $user->enable();
