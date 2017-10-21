@@ -14,7 +14,6 @@ return function (ContainerConfigurator $container) {
     $container->services()
         ->defaults()
             ->autowire()
-            ->autoconfigure()
             ->private()
         ->set(PasswordEncoder::class)
             ->args([

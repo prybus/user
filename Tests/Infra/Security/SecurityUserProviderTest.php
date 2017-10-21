@@ -20,7 +20,7 @@ final class SecurityUserProviderTest extends TestCase
     public function testLoadUserByUsername()
     {
         $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $repository = new UserRepository([$user]);
+        $repository = new UserRepository([$user], User::class);
         $securityUser = $this->createProvider(['ROLE_USER'], $repository)->loadUserByUsername($user->getEmail());
 
         $this->assertInstanceOf(SecurityUser::class, $securityUser);
@@ -39,7 +39,7 @@ final class SecurityUserProviderTest extends TestCase
     public function testRefreshUser()
     {
         $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $repository = new UserRepository([$user]);
+        $repository = new UserRepository([$user], User::class);
         $securityUser = $this->createProvider([], $repository)->refreshUser($oldSecurityUser = new SecurityUser($user));
 
         $this->assertEquals($oldSecurityUser, $securityUser);
@@ -70,7 +70,7 @@ final class SecurityUserProviderTest extends TestCase
 
     private function createProvider(array $roles = [], UserRepository $repository = null)
     {
-        return new SecurityUserProvider($repository ?? new UserRepository([]), new class($roles) implements UserRoleProviderInterface {
+        return new SecurityUserProvider($repository ?? new UserRepository([], User::class), new class($roles) implements UserRoleProviderInterface {
             private $roles;
 
             public function __construct(array $roles)

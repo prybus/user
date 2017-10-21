@@ -63,7 +63,7 @@ final class SecurityUserFactoryTest extends TestCase
     public function testGetUser()
     {
         $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $repository = new UserRepository([$user]);
+        $repository = new UserRepository([$user], User::class);
 
         $this->assertSame($user, $this->createFactory(new SecurityUser($user), ['ROLE_USER'], $repository)->getUser());
     }
@@ -85,6 +85,6 @@ final class SecurityUserFactoryTest extends TestCase
             $storage->setToken(new UsernamePasswordToken($securityUser, '', 'provider_key', $roles));
         }
 
-        return new SecurityUserFactory($storage, $repository ?? new UserRepository([]));
+        return new SecurityUserFactory($storage, $repository ?? new UserRepository([], User::class));
     }
 }

@@ -16,7 +16,6 @@ final class PendingUserRepository implements PendingUserRepositoryInterface
 {
     use DomainEntityRepositoryTrait;
 
-    private $class = PendingUser::class;
     private $idFields = ['email'];
 
     /**

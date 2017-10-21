@@ -17,7 +17,6 @@ final class UserRepository implements UserRepositoryInterface
 {
     use DomainEntityRepositoryTrait;
 
-    private $class = User::class;
     private $idFields = ['id'];
 
     /**
@@ -25,7 +24,6 @@ final class UserRepository implements UserRepositoryInterface
      */
     public function findAll(int $offset = null, int $limit = null): EntityCollectionInterface
     {
-        // @todo remove offset/limit null api here everywhere (imply 0/MAX|INF)
         return $this->createResultSet($offset, $limit);
     }
 

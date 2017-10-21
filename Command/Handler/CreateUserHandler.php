@@ -6,10 +6,9 @@ namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\CreateUserCommand;
-use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\UserCreatedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
+use MsgPhp\User\UserFactory;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -17,19 +16,21 @@ use MsgPhp\User\Repository\UserRepositoryInterface;
 final class CreateUserHandler
 {
     private $repository;
-    private $passwordEncoder;
+    private $factory;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, UserFactory $factory, EventBusInterface $eventBus)
     {
         $this->repository = $repository;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->factory = $factory;
         $this->eventBus = $eventBus;
     }
 
     public function handle(CreateUserCommand $command): void
     {
-        $user = new User($command->userId, $command->email, $command->plainPassword ? $this->passwordEncoder->encode($command->password) : $command->password);
+        $user = null === $command->userId
+            ? $this->factory->createUser($command->email, $command->password, $command->plainPassword)
+            : $this->factory->createIdentifiedUser($command->userId, $command->email, $command->password, $command->plainPassword);
 
         if ($command->enable) {
             $user->enable();

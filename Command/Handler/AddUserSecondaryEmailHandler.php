@@ -6,10 +6,10 @@ namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\AddUserSecondaryEmailCommand;
-use MsgPhp\User\Entity\UserSecondaryEmail;
 use MsgPhp\User\Event\UserSecondaryEmailAddedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
+use MsgPhp\User\UserFactory;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -18,18 +18,20 @@ final class AddUserSecondaryEmailHandler
 {
     private $userRepository;
     private $userSecondaryEmailRepository;
+    private $factory;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, UserFactory $factory, EventBusInterface $eventBus)
     {
         $this->userRepository = $userRepository;
         $this->userSecondaryEmailRepository = $userSecondaryEmailRepository;
+        $this->factory = $factory;
         $this->eventBus = $eventBus;
     }
 
     public function handle(AddUserSecondaryEmailCommand $command): void
     {
-        $userSecondaryEmail = new UserSecondaryEmail($this->userRepository->find($command->userId), $command->email);
+        $userSecondaryEmail = $this->factory->createUserSecondaryEmail($this->userRepository->find($command->userId), $command->email);
 
         if ($command->confirm) {
             $userSecondaryEmail->confirm();

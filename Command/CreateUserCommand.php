@@ -11,7 +11,7 @@ use MsgPhp\User\UserIdInterface;
  */
 final class CreateUserCommand
 {
-    /** @var UserIdInterface */
+    /** @var UserIdInterface|null */
     public $userId;
 
     /** @var string */
@@ -26,7 +26,7 @@ final class CreateUserCommand
     /** @var bool */
     public $plainPassword;
 
-    public function __construct(UserIdInterface $userId, string $email, string $password, bool $enable = false, bool $plainPassword = true)
+    public function __construct(?UserIdInterface $userId, string $email, string $password, bool $enable = false, bool $plainPassword = true)
     {
         $this->userId = $userId;
         $this->email = $email;

@@ -6,7 +6,6 @@ namespace MsgPhp\User\Infra\Console\Command;
 
 use MsgPhp\Domain\CommandBusInterface;
 use MsgPhp\User\Command as UserCommand;
-use MsgPhp\User\Infra\Uuid\UserId;
 use MsgPhp\User\Infra\Validator\EmailLookupInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
@@ -49,12 +48,11 @@ final class CreateUserCommand extends Command
     public function run(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $userId = new UserId(); // @todo DomainIdFactory
         $email = $this->getEmail($io, $input);
         $password = $this->getPassword($io, $input) ?? ($randomPassword = bin2hex(random_bytes(8)));
         $enabled = $input->getOption('enable');
 
-        $this->commandBus->handle(new UserCommand\CreateUserCommand($userId, $email, $password, $enabled));
+        $this->commandBus->handle(new UserCommand\CreateUserCommand(null, $email, $password, $enabled));
         $io->success(sprintf('User "%s" created.', $email));
 
         if ($enabled) {

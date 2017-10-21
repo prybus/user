@@ -17,7 +17,6 @@ final class UserSecondaryEmailRepository implements UserSecondaryEmailRepository
 {
     use DomainEntityRepositoryTrait;
 
-    private $class = UserSecondaryEmail::class;
     private $alias = 'user_secondary_email';
     private $idFields = ['user', 'email'];
 

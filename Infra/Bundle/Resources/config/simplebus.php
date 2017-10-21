@@ -1,8 +1,13 @@
 <?php
 
+namespace x;
+
+use MsgPhp\Domain\Infra\Bundle\ServiceConfigHelper;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $container) {
+    ServiceConfigHelper::configureSimpleBus($container);
+
     $services = $container->services()
         ->defaults()
             ->autowire()

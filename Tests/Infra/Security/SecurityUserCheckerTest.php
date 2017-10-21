@@ -19,7 +19,7 @@ final class SecurityUserCheckerTest extends TestCase
     public function testPreAuth()
     {
         $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $checker = new SecurityUserChecker(new UserRepository([$user]));
+        $checker = new SecurityUserChecker(new UserRepository([$user], User::class));
 
         try {
             $checker->checkPreAuth($securityUser = new SecurityUser($user));
@@ -46,14 +46,14 @@ final class SecurityUserCheckerTest extends TestCase
 
         $this->expectException(EntityNotFoundException::class);
 
-        (new SecurityUserChecker(new UserRepository([])))
+        (new SecurityUserChecker(new UserRepository([], User::class)))
             ->checkPreAuth(new SecurityUser($user));
     }
 
     public function testPreAuthWithUnsupportedUser()
     {
         try {
-            (new SecurityUserChecker(new UserRepository([])))
+            (new SecurityUserChecker(new UserRepository([], User::class)))
                 ->checkPreAuth($this->getMockBuilder(UserInterface::class)->getMock());
 
             $this->assertTrue(true);

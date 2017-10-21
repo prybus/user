@@ -18,21 +18,27 @@ use MsgPhp\User\Infra\Validator\EmailLookupInterface;
  */
 final class SqlEmailLookup implements EmailLookupInterface
 {
-    private $em;
+    private const EMAIL_FIELD = 'email';
 
-    public function __construct(EntityManagerInterface $em)
+    private $em;
+    private $primaryEntity;
+    private $entities;
+
+    public function __construct(EntityManagerInterface $em, string $primaryEntity, array $entities = [])
     {
         $this->em = $em;
+        $this->primaryEntity = $primaryEntity;
+        $this->entities = $entities;
     }
 
     public function exists(string $email): bool
     {
-        return !!$this->createQuery([User::class => 'email', UserSecondaryEmail::class => 'email', PendingUser::class => 'email'], $email)->getScalarResult();
+        return $this->entities ? !!$this->createQuery(array_fill_keys($this->entities, self::EMAIL_FIELD), $email)->getScalarResult() : $this->existsPrimary($email);
     }
 
     public function existsPrimary(string $email): bool
     {
-        return !!$this->createQuery([User::class => 'email'], $email)->getScalarResult();
+        return !!$this->createQuery([$this->primaryEntity => self::EMAIL_FIELD], $email)->getScalarResult();
     }
 
     private function createSql(string $entity, string $field): string
