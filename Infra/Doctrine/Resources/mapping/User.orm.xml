@@ -8,7 +8,7 @@
             <index name="email_idx" columns="email" />
         </indexes>
 
-        <id name="id" type="MsgPhp.User.Infra.Doctrine.Type.UserIdType" />
+        <id name="id" type="msgphp_user_id" />
 
         <field name="email" unique="true" />
         <field name="password" />

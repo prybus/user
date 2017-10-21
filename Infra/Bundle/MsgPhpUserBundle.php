@@ -6,6 +6,7 @@ namespace MsgPhp\User\Infra\Bundle;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use MsgPhp\User\Entity\User;
+use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -47,6 +48,11 @@ final class MsgPhpUserBundle extends Bundle
 
                 if (in_array(DoctrineBundle::class, $bundles, true)) {
                     $container->prependExtensionConfig('doctrine', [
+                        'dbal' => [
+                            'types' => [
+                                UserIdType::NAME => $config['doctrine']['user_id_type_class'],
+                            ],
+                        ],
                         'orm' => [
                             'resolve_target_entities' => [
                                 User::class => $config['user_class'],

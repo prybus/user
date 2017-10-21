@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Bundle;
 
+use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,7 +21,14 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('user_class')->cannotBeEmpty()->isRequired()->end()
-            ->end();
+                ->arrayNode('doctrine')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('user_id_type_class')->cannotBeEmpty()->defaultValue(UserIdType::class)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

@@ -13,6 +13,13 @@ use MsgPhp\User\Infra\Uuid\UserId;
  */
 final class UserIdType extends DomainUuidType
 {
+    public const NAME = 'msgphp_user_id';
+
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
     protected function convertToDomainId(string $value): DomainId
     {
         return new UserId($value);
