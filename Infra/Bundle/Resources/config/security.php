@@ -11,21 +11,20 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyP
 use function Symfony\Component\DependencyInjection\Loader\Configurator\{inline, ref};
 
 return function (ContainerConfigurator $container) {
-    $container
-        ->services()
-            ->defaults()
-                ->autowire()
-                ->autoconfigure()
-                ->private()
-            ->set(PasswordEncoder::class)
-                ->args([
-                    inline(SymfonyPasswordEncoderInterface::class)
-                        ->factory([ref('security.encoder_factory'), 'getEncoder'])
-                        ->args([SecurityUser::class])
-                ])
-            ->alias(PasswordEncoderInterface::class, PasswordEncoder::class)
-            ->set(SecurityUserChecker::class)
-            ->set(SecurityUserFactory::class)
-            ->set(SecurityUserProvider::class)
+    $container->services()
+        ->defaults()
+            ->autowire()
+            ->autoconfigure()
+            ->private()
+        ->set(PasswordEncoder::class)
+            ->args([
+                inline(SymfonyPasswordEncoderInterface::class)
+                    ->factory([ref('security.encoder_factory'), 'getEncoder'])
+                    ->args([SecurityUser::class])
+            ])
+        ->alias(PasswordEncoderInterface::class, PasswordEncoder::class)
+        ->set(SecurityUserChecker::class)
+        ->set(SecurityUserFactory::class)
+        ->set(SecurityUserProvider::class)
     ;
 };
