@@ -15,20 +15,18 @@ use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
  */
 final class ChangeUserEmailHandler
 {
-    private $userRepository;
-    private $userSecondaryEmailRepository;
+    private $repository;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus)
     {
-        $this->userRepository = $userRepository;
-        $this->userSecondaryEmailRepository = $userSecondaryEmailRepository;
+        $this->repository = $repository;
         $this->eventBus = $eventBus;
     }
 
     public function handle(ChangeUserEmailCommand $command): void
     {
-        $user = $this->userRepository->find($command->userId);
+        $user = $this->repository->find($command->userId);
 
         if ($command->email === $oldEmail = $user->getEmail()) {
             return;
@@ -36,7 +34,7 @@ final class ChangeUserEmailHandler
 
         $user->changeEmail($command->email);
 
-        $this->userRepository->save($user);
+        $this->repository->save($user);
         $this->eventBus->handle(new UserEmailChangedEvent($user, $oldEmail));
     }
 }

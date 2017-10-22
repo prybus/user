@@ -24,16 +24,18 @@ final class SqlEmailLookup implements EmailLookupInterface
     private $primaryEntity;
     private $entities;
 
-    public function __construct(EntityManagerInterface $em, string $primaryEntity, array $entities = [])
+    public function __construct(EntityManagerInterface $em, string $primaryEntity, array $subEntities = [])
     {
         $this->em = $em;
         $this->primaryEntity = $primaryEntity;
-        $this->entities = $entities;
+        $this->entities = $subEntities;
+
+        array_unshift($this->entities, $this->primaryEntity);
     }
 
     public function exists(string $email): bool
     {
-        return $this->entities ? !!$this->createQuery(array_fill_keys($this->entities, self::EMAIL_FIELD), $email)->getScalarResult() : $this->existsPrimary($email);
+        return !!$this->createQuery(array_fill_keys($this->entities, self::EMAIL_FIELD), $email)->getScalarResult();
     }
 
     public function existsPrimary(string $email): bool

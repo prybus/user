@@ -1,7 +1,5 @@
 <?php
 
-namespace Foo;
-
 use MsgPhp\User\Infra\Doctrine\Repository\{PendingUserRepository, UserRepository, UserRoleRepository, UserSecondaryEmailRepository};
 use MsgPhp\User\Infra\Doctrine\SqlEmailLookup;
 use MsgPhp\User\Repository\{PendingUserRepositoryInterface, UserRepositoryInterface, UserRoleRepositoryInterface, UserSecondaryEmailRepositoryInterface};

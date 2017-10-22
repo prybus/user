@@ -87,6 +87,11 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
             ] as $repository => $class) {
                 if (null === $class) {
                     $container->removeDefinition($repository);
+                    foreach ($container->getAliases() as $id => $alias) {
+                        if ((string) $alias === $repository) {
+                            $container->removeAlias($id);
+                        }
+                    }
                 } else {
                     $container->getDefinition($repository)->setArgument('$class', $class);
                 }
@@ -94,7 +99,7 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
 
             $container->getDefinition(SqlEmailLookup::class)
                 ->setArgument('$primaryEntity', $config['user_class'])
-                ->setArgument('$entities', array_filter([$config['pending_user_class'], $config['user_class'], $config['user_secondary_email_class']]))
+                ->setArgument('$subEntities', array_filter([$config['pending_user_class'], $config['user_secondary_email_class']]))
             ;
         }
 
