@@ -133,7 +133,7 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
             $loader->load('twig.php');
         }
 
-        if (isset($bundles[FrameworkBundle::class]) && class_exists(ValidatorInterface::class)) {
+        if (isset($bundles[FrameworkBundle::class]) && interface_exists(ValidatorInterface::class)) {
             $loader->load('validator.php');
 
             if (!$container->has(EmailLookupInterface::class) && $container->has(SqlEmailLookup::class)) {
