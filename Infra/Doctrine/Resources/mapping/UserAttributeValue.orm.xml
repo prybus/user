@@ -3,15 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="MsgPhp\User\Entity\UserRole">
-        <id name="user" association-key="true" />
-        <id name="role" />
-
-        <field name="createdAt" type="datetime" />
-
-        <one-to-one field="user" target-entity="MsgPhp\User\Entity\User">
-            <join-column on-delete="CASCADE" />
-        </one-to-one>
+    <mapped-superclass name="MsgPhp\User\Entity\UserAttributeValue">
+        <many-to-one field="user" target-entity="MsgPhp\User\Entity\User">
+            <join-column nullable="false" on-delete="CASCADE" />
+        </many-to-one>
     </mapped-superclass>
 
 </doctrine-mapping>

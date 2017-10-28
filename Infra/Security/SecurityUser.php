@@ -62,8 +62,7 @@ final class SecurityUser implements UserInterface, EquatableInterface, \Serializ
             && $this->getId()->equals($user->getId())
             && $this->getRoles() === $user->getRoles()
             && $this->getPassword() === $user->getPassword()
-            && $this->getUsername() === $user->getUsername()
-            && $this->getSalt() === $user->getSalt();
+            && $this->getUsername() === $user->getUsername();
     }
 
     public function serialize(): string

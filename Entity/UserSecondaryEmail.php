@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity;
 
 use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
-use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -13,6 +12,7 @@ use MsgPhp\User\UserIdInterface;
 class UserSecondaryEmail
 {
     use CreatedAtFieldTrait;
+    use UserFieldTrait;
 
     private $user;
     private $email;
@@ -33,16 +33,6 @@ class UserSecondaryEmail
         $this->email = $email;
         $this->token = bin2hex(random_bytes(32));
         $this->createdAt = new \DateTime();
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function getUserId(): UserIdInterface
-    {
-        return $this->user->getId();
     }
 
     public function getEmail(): string

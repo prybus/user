@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity;
 
 use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
-use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -13,8 +12,8 @@ use MsgPhp\User\UserIdInterface;
 class UserRole
 {
     use CreatedAtFieldTrait;
+    use UserFieldTrait;
 
-    private $user;
     private $role;
 
     /**
@@ -25,16 +24,6 @@ class UserRole
         $this->user = $user;
         $this->role = $role;
         $this->createdAt = new \DateTime();
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function getUserId(): UserIdInterface
-    {
-        return $this->user->getId();
     }
 
     public function getRole(): string

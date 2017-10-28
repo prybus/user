@@ -17,7 +17,7 @@
         <field name="createdAt" type="datetime" />
 
         <one-to-one field="user" target-entity="MsgPhp\User\Entity\User">
-            <join-column name="user_id" on-delete="CASCADE" />
+            <join-column on-delete="CASCADE" />
         </one-to-one>
     </mapped-superclass>
 

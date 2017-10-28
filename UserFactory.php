@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace MsgPhp\User;
 
-use MsgPhp\User\Entity\{PendingUser, User, UserRole, UserSecondaryEmail};
+use MsgPhp\Eav\Entity\Attribute;
+use MsgPhp\User\Entity\{
+    PendingUser, User, UserAttributeValue, UserRole, UserSecondaryEmail
+};
 use MsgPhp\User\Infra\Uuid\UserId;
 
 /**
@@ -59,5 +62,12 @@ final class UserFactory
         $class = $this->classMapping[UserSecondaryEmail::class] ?? UserSecondaryEmail::class;
 
         return new $class($user, $email);
+    }
+
+    public function createUserAttributeValue(User $user, Attribute $attribute, $value): UserAttributeValue
+    {
+        $class = $this->classMapping[UserAttributeValue::class] ?? UserAttributeValue::class;
+
+        return new $class($user, $attribute, $value);
     }
 }
