@@ -19,6 +19,6 @@ final class UserRoleTest extends TestCase
         $this->assertSame($user, $userRole->getUser());
         $this->assertSame($user->getId(), $userRole->getUserId());
         $this->assertSame('ROLE_USER', $userRole->getRole());
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $userRole->getCreatedAt());
     }
 }

@@ -23,7 +23,7 @@ class UserRole
     {
         $this->user = $user;
         $this->role = $role;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getRole(): string

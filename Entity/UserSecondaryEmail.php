@@ -32,7 +32,7 @@ class UserSecondaryEmail
         $this->user = $user;
         $this->email = $email;
         $this->token = bin2hex(random_bytes(32));
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getEmail(): string
@@ -50,7 +50,7 @@ class UserSecondaryEmail
         return $this->pendingPrimary;
     }
 
-    public function getConfirmedAt(): ?\DateTime
+    public function getConfirmedAt(): ?\DateTimeInterface
     {
         return $this->confirmedAt;
     }
@@ -61,7 +61,7 @@ class UserSecondaryEmail
     public function confirm(): void
     {
         $this->token = null;
-        $this->confirmedAt = new \DateTime();
+        $this->confirmedAt = new \DateTimeImmutable();
     }
 
     /**

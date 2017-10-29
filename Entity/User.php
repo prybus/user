@@ -31,8 +31,8 @@ class User
         $this->id = $id;
         $this->email = $email;
         $this->password = $password;
-        $this->createdAt = new \DateTime();
-        $this->lastUpdatedAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): UserIdInterface
@@ -55,7 +55,7 @@ class User
         return $this->passwordResetToken;
     }
 
-    public function getPasswordRequestedAt(): ?\DateTime
+    public function getPasswordRequestedAt(): ?\DateTimeInterface
     {
         return $this->passwordRequestedAt;
     }
@@ -71,7 +71,7 @@ class User
     public function changeEmail(string $email): void
     {
         $this->email = $email;
-        $this->lastUpdatedAt = new \DateTime();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -82,7 +82,7 @@ class User
         $this->password = $password;
         $this->passwordResetToken = null;
         $this->passwordRequestedAt = null;
-        $this->lastUpdatedAt = new \DateTime();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -91,25 +91,25 @@ class User
     public function requestPassword(): void
     {
         $this->passwordResetToken = bin2hex(random_bytes(32));
-        $this->passwordRequestedAt = new \DateTime();
-        $this->lastUpdatedAt = new \DateTime();
+        $this->passwordRequestedAt = new \DateTimeImmutable();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
     /**
      * @internal
      */
-    public function enable()
+    public function enable(): void
     {
         $this->enabled = true;
-        $this->lastUpdatedAt = new \DateTime();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
     /**
      * @internal
      */
-    public function disable()
+    public function disable(): void
     {
         $this->enabled = false;
-        $this->lastUpdatedAt = new \DateTime();
+        $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 }

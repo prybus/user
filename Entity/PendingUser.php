@@ -25,7 +25,7 @@ class PendingUser
         $this->token = bin2hex(random_bytes(32));
         $this->email = $email;
         $this->password = $password;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getToken(): string

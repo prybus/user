@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\CommandBusInterface;
+use MsgPhp\Domain\Entity\EntityFactoryInterface;
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\User\Command\SetUserPendingPrimaryEmailCommand;
+use MsgPhp\User\Entity\UserSecondaryEmail;
 use MsgPhp\User\Event\UserPendingPrimaryEmailCancelledEvent;
 use MsgPhp\User\Event\UserPendingPrimaryEmailSetEvent;
 use MsgPhp\User\Event\UserSecondaryEmailAddedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
-use MsgPhp\User\UserFactory;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -26,7 +27,7 @@ final class SetUserPendingPrimaryEmailHandler
     private $commandBus;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, UserFactory $factory, CommandBusInterface $commandBus, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EntityFactoryInterface $factory, CommandBusInterface $commandBus, EventBusInterface $eventBus)
     {
         $this->userRepository = $userRepository;
         $this->userSecondaryEmailRepository = $userSecondaryEmailRepository;
@@ -76,7 +77,10 @@ final class SetUserPendingPrimaryEmailHandler
 
             $this->userSecondaryEmailRepository->save($userSecondaryEmail);
         } catch (EntityNotFoundException $e) {
-            $userSecondaryEmail = $this->factory->createUserSecondaryEmail($user, $command->email);
+            $userSecondaryEmail = $this->factory->create(UserSecondaryEmail::class, [
+                'user' => $user,
+                'email' => $command->email,
+            ]);
 
             $userSecondaryEmail->markPendingPrimary();
 

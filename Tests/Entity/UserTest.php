@@ -18,8 +18,8 @@ final class UserTest extends TestCase
         $this->assertSame('foo@bar.baz', $user->getEmail());
         $this->assertSame('secret', $user->getPassword());
         $this->assertFalse($user->isEnabled());
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt());
-        $this->assertInstanceOf(\DateTime::class, $user->getLastUpdatedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $user->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $user->getLastUpdatedAt());
         $this->assertNull($user->getPasswordResetToken());
         $this->assertNull($user->getPasswordRequestedAt());
     }

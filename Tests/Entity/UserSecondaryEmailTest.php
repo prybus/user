@@ -22,7 +22,7 @@ final class UserSecondaryEmailTest extends TestCase
         $this->assertTrue(is_string($userEmail->getToken()));
         $this->assertFalse($userEmail->isPendingPrimary());
         $this->assertNull($userEmail->getConfirmedAt());
-        $this->assertInstanceOf(\DateTime::class, $userEmail->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $userEmail->getCreatedAt());
     }
 
     public function testCreateDuplicateEmail()
@@ -44,7 +44,7 @@ final class UserSecondaryEmailTest extends TestCase
         $this->assertNotSame($userEmail->getToken(), $compareUserEmail->getToken());
 
         $this->assertNull($userEmail->getToken());
-        $this->assertInstanceOf(\DateTime::class, $userEmail->getConfirmedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $userEmail->getConfirmedAt());
     }
 
     public function testMarkPendingPrimary()

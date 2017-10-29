@@ -23,7 +23,7 @@ final class UserExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('current_user', [$this->securityUserFactory, 'getUser']),
+            new TwigFunction('msgphp_current_user', [$this->securityUserFactory, 'getUser']),
         ];
     }
 }

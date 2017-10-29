@@ -15,9 +15,13 @@ final class CreatePendingUserCommand
     /** @var string */
     public $password;
 
-    public function __construct(string $email, string $password)
+    /** @var bool */
+    public $plainPassword;
+
+    public function __construct(string $email, string $password, bool $plainPassword = true)
     {
         $this->email = $email;
         $this->password = $password;
+        $this->plainPassword = $plainPassword;
     }
 }

@@ -15,7 +15,7 @@ final class PendingUserTest extends TestCase
 
         $this->assertSame('foo@bar.baz', $user->getEmail());
         $this->assertSame('secret', $user->getPassword());
-        $this->assertInstanceOf(\DateTime::class, $user->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $user->getCreatedAt());
         $this->assertNotSame((new PendingUser('foo@bar.baz', 'secret'))->getToken(), $user->getToken());
     }
 }
