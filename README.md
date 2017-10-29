@@ -16,3 +16,4 @@ A domain layer providing basic user management.
 - Primary / secondary e-mails
 - Disabled / enabled users
 - User roles
+- User attribute values
