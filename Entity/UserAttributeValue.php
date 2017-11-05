@@ -4,24 +4,31 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\Eav\AttributeValueIdInterface;
-use MsgPhp\Eav\Entity\Attribute;
+use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
 use MsgPhp\Eav\Entity\AttributeValue;
+use MsgPhp\Eav\Entity\AttributeValueFieldTrait;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class UserAttributeValue extends AttributeValue
+class UserAttributeValue
 {
+    use CreatedAtFieldTrait;
     use UserFieldTrait;
+    use AttributeValueFieldTrait;
 
     /**
      * @internal
      */
-    public function __construct(AttributeValueIdInterface $id, User $user, Attribute $attribute, $value)
+    public function __construct(User $user, AttributeValue $attributeValue)
     {
-        parent::__construct($id, $attribute, $value);
-
         $this->user = $user;
+        $this->attributeValue = $attributeValue;
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    public function getValue()
+    {
+        return $this->getAttributeValue()->getValue();
     }
 }

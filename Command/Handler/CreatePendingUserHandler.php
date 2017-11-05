@@ -35,7 +35,7 @@ final class CreatePendingUserHandler
         $pendingUser = $this->factory->create(PendingUser::class, [
             'email' => $command->email,
             'password' => $command->plainPassword ? $this->passwordEncoder->encode($command->password) : $command->password,
-        ]);
+        ] + $command->context);
 
         $this->repository->save($pendingUser);
         $this->eventBus->handle(new PendingUserCreatedEvent($pendingUser));

@@ -35,7 +35,7 @@ final class AddUserRoleHandler
         $userRole = $this->factory->create(UserRole::class, [
             'user' => $this->userRepository->find($command->userId),
             'role' => $command->role,
-        ]);
+        ] + $command->context);
 
         $this->userRoleRepository->save($userRole);
         $this->eventBus->handle(new UserRoleAddedEvent($userRole));

@@ -17,9 +17,13 @@ final class AddUserRoleCommand
     /** @var string */
     public $role;
 
-    public function __construct(UserIdInterface $userId, string $role)
+    /** @var array */
+    public $context;
+
+    public function __construct(UserIdInterface $userId, string $role, array $context = [])
     {
         $this->userId = $userId;
         $this->role = $role;
+        $this->context = $context;
     }
 }

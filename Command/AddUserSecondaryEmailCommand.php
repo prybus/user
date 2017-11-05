@@ -20,10 +20,14 @@ final class AddUserSecondaryEmailCommand
     /** @var bool */
     public $confirm;
 
-    public function __construct(UserIdInterface $userId, string $email, bool $confirm = false)
+    /** @var array */
+    public $context;
+
+    public function __construct(UserIdInterface $userId, string $email, bool $confirm = false, array $context = [])
     {
         $this->userId = $userId;
         $this->email = $email;
         $this->confirm = $confirm;
+        $this->context = $context;
     }
 }

@@ -36,7 +36,7 @@ final class CreateUserHandler
             'id' => null === $command->userId ? $this->factory->nextIdentity(User::class) : $command->userId,
             'email' => $command->email,
             'password' => $command->plainPassword ? $this->passwordEncoder->encode($command->password) : $command->password,
-        ]);
+        ] + $command->context);
 
         if ($command->enable) {
             $user->enable();

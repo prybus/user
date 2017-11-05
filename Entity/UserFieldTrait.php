@@ -15,10 +15,6 @@ trait UserFieldTrait
 
     public function getUser(): User
     {
-        if (null === $this->user) {
-            throw new \LogicException('User is not set.');
-        }
-
         return $this->user;
     }
 

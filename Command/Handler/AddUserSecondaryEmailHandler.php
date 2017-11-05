@@ -35,7 +35,7 @@ final class AddUserSecondaryEmailHandler
         $userSecondaryEmail = $this->factory->create(UserSecondaryEmail::class, [
             'user' => $this->userRepository->find($command->userId),
             'email' => $command->email,
-        ]);
+        ] + $command->context);
 
         if ($command->confirm) {
             $userSecondaryEmail->confirm();
