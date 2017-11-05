@@ -33,10 +33,30 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     /**
      * @return EntityCollectionInterface|UserAttributeValue[]
      */
+    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): EntityCollectionInterface
+    {
+        return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($attributeId, $value) {
+            return $userAttributeValue->getAttributeId()->equals($attributeId) && $value === $userAttributeValue->getValue();
+        });
+    }
+
+    /**
+     * @return EntityCollectionInterface|UserAttributeValue[]
+     */
     public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($userId) {
             return $userAttributeValue->getUserId()->equals($userId);
+        });
+    }
+
+    /**
+     * @return EntityCollectionInterface|UserAttributeValue[]
+     */
+    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface
+    {
+        return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($userId, $attributeId) {
+            return $userAttributeValue->getUserId()->equals($userId) && $userAttributeValue->getAttributeId()->equals($attributeId);
         });
     }
 

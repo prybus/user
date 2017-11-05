@@ -22,7 +22,17 @@ interface UserAttributeValueRepositoryInterface
     /**
      * @return EntityCollectionInterface|UserAttributeValue[]
      */
+    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): EntityCollectionInterface;
+
+    /**
+     * @return EntityCollectionInterface|UserAttributeValue[]
+     */
     public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface;
+
+    /**
+     * @return EntityCollectionInterface|UserAttributeValue[]
+     */
+    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface;
     public function find(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId): UserAttributeValue;
     public function exists(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId): bool;
 
