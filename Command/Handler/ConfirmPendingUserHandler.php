@@ -20,7 +20,7 @@ final class ConfirmPendingUserHandler
     private $commandBus;
     private $eventBus;
 
-    public function __construct(PendingUserRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus)
+    public function __construct(PendingUserRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->commandBus = $commandBus;
@@ -33,6 +33,9 @@ final class ConfirmPendingUserHandler
 
         $this->commandBus->handle(new CreateUserCommand($command->userId, $pendingUser->getEmail(), $pendingUser->getPassword(), $command->enableUser, false));
         $this->repository->delete($pendingUser);
-        $this->eventBus->handle(new PendingUserConfirmedEvent($pendingUser, $command->userId));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new PendingUserConfirmedEvent($pendingUser, $command->userId));
+        }
     }
 }

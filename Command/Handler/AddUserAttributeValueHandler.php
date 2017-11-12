@@ -24,7 +24,7 @@ final class AddUserAttributeValueHandler
     private $factory;
     private $eventBus;
 
-    public function __construct(UserAttributeValueRepositoryInterface $userAttributeValueRepository, UserRepositoryInterface $userRepository, AttributeRepositoryInterface $attributeRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus)
+    public function __construct(UserAttributeValueRepositoryInterface $userAttributeValueRepository, UserRepositoryInterface $userRepository, AttributeRepositoryInterface $attributeRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus = null)
     {
         $this->userAttributeValueRepository = $userAttributeValueRepository;
         $this->userRepository = $userRepository;
@@ -45,6 +45,9 @@ final class AddUserAttributeValueHandler
         ]));
 
         $this->userAttributeValueRepository->save($userAttributeValue);
-        $this->eventBus->handle(new UserAttributeValueAddedEvent($userAttributeValue));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserAttributeValueAddedEvent($userAttributeValue));
+        }
     }
 }

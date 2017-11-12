@@ -25,7 +25,7 @@ final class ChangeUserAttributeValueHandler
     private $factory;
     private $eventBus;
 
-    public function __construct(UserAttributeValueRepositoryInterface $repository, UserRepositoryInterface $userRepository, AttributeRepositoryInterface $attributeRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus)
+    public function __construct(UserAttributeValueRepositoryInterface $repository, UserRepositoryInterface $userRepository, AttributeRepositoryInterface $attributeRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->userRepository = $userRepository;
@@ -45,6 +45,9 @@ final class ChangeUserAttributeValueHandler
         $userAttributeValue->getAttributeValue()->changeValue($command->value);
 
         $this->repository->save($userAttributeValue);
-        $this->eventBus->handle(new UserAttributeValueChangedEvent($userAttributeValue, $oldValue));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserAttributeValueChangedEvent($userAttributeValue, $oldValue));
+        }
     }
 }

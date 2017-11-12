@@ -27,7 +27,7 @@ final class SetUserPendingPrimaryEmailHandler
     private $commandBus;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EntityFactoryInterface $factory, CommandBusInterface $commandBus, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EntityFactoryInterface $factory, CommandBusInterface $commandBus, EventBusInterface $eventBus = null)
     {
         $this->userRepository = $userRepository;
         $this->userSecondaryEmailRepository = $userSecondaryEmailRepository;
@@ -59,7 +59,7 @@ final class SetUserPendingPrimaryEmailHandler
         }
 
         if (null === $command->email) {
-            if (null !== $currentPendingPrimaryEmail) {
+            if (null !== $currentPendingPrimaryEmail && null !== $this->eventBus) {
                 $this->eventBus->handle(new UserPendingPrimaryEmailCancelledEvent($currentPendingPrimaryEmail));
             }
 
@@ -85,9 +85,14 @@ final class SetUserPendingPrimaryEmailHandler
             $userSecondaryEmail->markPendingPrimary();
 
             $this->userSecondaryEmailRepository->save($userSecondaryEmail);
-            $this->eventBus->handle(new UserSecondaryEmailAddedEvent($userSecondaryEmail));
+
+            if (null !== $this->eventBus) {
+                $this->eventBus->handle(new UserSecondaryEmailAddedEvent($userSecondaryEmail));
+            }
         }
 
-        $this->eventBus->handle(new UserPendingPrimaryEmailSetEvent($userSecondaryEmail));
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserPendingPrimaryEmailSetEvent($userSecondaryEmail));
+        }
     }
 }

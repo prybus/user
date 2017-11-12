@@ -6,9 +6,7 @@ namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\CommandBusInterface;
 use MsgPhp\Domain\EventBusInterface;
-use MsgPhp\User\Command\ChangeUserEmailCommand;
-use MsgPhp\User\Command\ConfirmUserSecondaryEmailCommand;
-use MsgPhp\User\Command\DeleteUserSecondaryEmailCommand;
+use MsgPhp\User\Command\{ConfirmUserSecondaryEmailCommand, MarkUserSecondaryEmailPrimaryCommand};
 use MsgPhp\User\Event\UserSecondaryEmailConfirmedEvent;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
 
@@ -21,7 +19,7 @@ final class ConfirmUserSecondaryEmailHandler
     private $commandBus;
     private $eventBus;
 
-    public function __construct(UserSecondaryEmailRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus)
+    public function __construct(UserSecondaryEmailRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->commandBus = $commandBus;
@@ -32,15 +30,18 @@ final class ConfirmUserSecondaryEmailHandler
     {
         $userSecondaryEmail = $this->repository->findByToken($command->token);
 
-        if ($userSecondaryEmail->isPendingPrimary()) {
-            $this->commandBus->handle(new ChangeUserEmailCommand($userSecondaryEmail->getUserId(), $userSecondaryEmail->getEmail()));
-            $this->commandBus->handle(new DeleteUserSecondaryEmailCommand($userSecondaryEmail->getUserId(), $userSecondaryEmail->getEmail()));
-        } else {
+        if (null === $userSecondaryEmail->getConfirmedAt()) {
             $userSecondaryEmail->confirm();
 
             $this->repository->save($userSecondaryEmail);
+
+            if (null !== $this->eventBus) {
+                $this->eventBus->handle(new UserSecondaryEmailConfirmedEvent($userSecondaryEmail));
+            }
         }
 
-        $this->eventBus->handle(new UserSecondaryEmailConfirmedEvent($userSecondaryEmail));
+        if ($userSecondaryEmail->isPendingPrimary()) {
+            $this->commandBus->handle(new MarkUserSecondaryEmailPrimaryCommand($userSecondaryEmail->getUserId(), $userSecondaryEmail->getEmail()));
+        }
     }
 }

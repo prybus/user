@@ -17,7 +17,7 @@ final class RequestUserPasswordHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -30,6 +30,9 @@ final class RequestUserPasswordHandler
         $user->requestPassword();
 
         $this->repository->save($user);
-        $this->eventBus->handle(new UserPasswordRequestedEvent($user));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserPasswordRequestedEvent($user));
+        }
     }
 }

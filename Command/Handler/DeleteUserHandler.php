@@ -17,7 +17,7 @@ final class DeleteUserHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -28,6 +28,9 @@ final class DeleteUserHandler
         $user = $this->repository->find($command->userId);
 
         $this->repository->delete($user);
-        $this->eventBus->handle(new UserDeletedEvent($user));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserDeletedEvent($user));
+        }
     }
 }

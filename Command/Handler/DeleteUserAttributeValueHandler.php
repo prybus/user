@@ -17,7 +17,7 @@ final class DeleteUserAttributeValueHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserAttributeValueRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserAttributeValueRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -28,6 +28,9 @@ final class DeleteUserAttributeValueHandler
         $userAttributeValue = $this->repository->find($command->userId, $command->attributeValueId);
 
         $this->repository->delete($userAttributeValue);
-        $this->eventBus->handle(new UserAttributeValueDeletedEvent($userAttributeValue));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserAttributeValueDeletedEvent($userAttributeValue));
+        }
     }
 }

@@ -18,7 +18,7 @@ final class ChangeUserEmailHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -35,6 +35,9 @@ final class ChangeUserEmailHandler
         $user->changeEmail($command->email);
 
         $this->repository->save($user);
-        $this->eventBus->handle(new UserEmailChangedEvent($user, $oldEmail));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserEmailChangedEvent($user, $oldEmail));
+        }
     }
 }

@@ -17,7 +17,7 @@ final class DisableUserHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -34,6 +34,9 @@ final class DisableUserHandler
         $user->disable();
 
         $this->repository->save($user);
-        $this->eventBus->handle(new UserDisabledEvent($user));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserDisabledEvent($user));
+        }
     }
 }

@@ -19,7 +19,7 @@ final class ChangeUserPasswordHandler
     private $passwordEncoder;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->passwordEncoder = $passwordEncoder;
@@ -38,6 +38,9 @@ final class ChangeUserPasswordHandler
         $user->changePassword($password);
 
         $this->repository->save($user);
-        $this->eventBus->handle(new UserPasswordChangedEvent($user, $oldPassword));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserPasswordChangedEvent($user, $oldPassword));
+        }
     }
 }

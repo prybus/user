@@ -23,7 +23,7 @@ final class MarkUserSecondaryEmailPrimaryHandler
     private $commandBus;
     private $eventBus;
 
-    public function __construct(UserSecondaryEmailRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus)
+    public function __construct(UserSecondaryEmailRepositoryInterface $repository, CommandBusInterface $commandBus, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->commandBus = $commandBus;
@@ -43,6 +43,8 @@ final class MarkUserSecondaryEmailPrimaryHandler
             $this->commandBus->handle(new SetUserPendingPrimaryEmailCommand($command->userId, $command->email));
         }
 
-        $this->eventBus->handle(new UserSecondaryEmailMarkedPrimaryEvent($userSecondaryEmail));
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserSecondaryEmailMarkedPrimaryEvent($userSecondaryEmail));
+        }
     }
 }

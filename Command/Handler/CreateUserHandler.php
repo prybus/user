@@ -22,7 +22,7 @@ final class CreateUserHandler
     private $passwordEncoder;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->factory = $factory;
@@ -43,6 +43,9 @@ final class CreateUserHandler
         }
 
         $this->repository->save($user);
-        $this->eventBus->handle(new UserCreatedEvent($user));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserCreatedEvent($user));
+        }
     }
 }

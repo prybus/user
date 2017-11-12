@@ -17,7 +17,7 @@ final class DeleteUserSecondaryEmailHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserSecondaryEmailRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserSecondaryEmailRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -28,6 +28,9 @@ final class DeleteUserSecondaryEmailHandler
         $userSecondaryEmail = $this->repository->find($command->userId, $command->email);
 
         $this->repository->delete($userSecondaryEmail);
-        $this->eventBus->handle(new UserSecondaryEmailDeletedEvent($userSecondaryEmail));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserSecondaryEmailDeletedEvent($userSecondaryEmail));
+        }
     }
 }

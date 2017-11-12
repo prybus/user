@@ -22,7 +22,7 @@ final class CreatePendingUserHandler
     private $passwordEncoder;
     private $eventBus;
 
-    public function __construct(PendingUserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus)
+    public function __construct(PendingUserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->factory = $factory;
@@ -38,6 +38,9 @@ final class CreatePendingUserHandler
         ] + $command->context);
 
         $this->repository->save($pendingUser);
-        $this->eventBus->handle(new PendingUserCreatedEvent($pendingUser));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new PendingUserCreatedEvent($pendingUser));
+        }
     }
 }

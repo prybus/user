@@ -22,7 +22,7 @@ final class AddUserRoleHandler
     private $factory;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserRoleRepositoryInterface $userRoleRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $userRepository, UserRoleRepositoryInterface $userRoleRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus = null)
     {
         $this->userRepository = $userRepository;
         $this->userRoleRepository = $userRoleRepository;
@@ -38,6 +38,9 @@ final class AddUserRoleHandler
         ] + $command->context);
 
         $this->userRoleRepository->save($userRole);
-        $this->eventBus->handle(new UserRoleAddedEvent($userRole));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserRoleAddedEvent($userRole));
+        }
     }
 }

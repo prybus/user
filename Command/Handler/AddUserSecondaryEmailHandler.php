@@ -22,7 +22,7 @@ final class AddUserSecondaryEmailHandler
     private $factory;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus)
+    public function __construct(UserRepositoryInterface $userRepository, UserSecondaryEmailRepositoryInterface $userSecondaryEmailRepository, EntityFactoryInterface $factory, EventBusInterface $eventBus = null)
     {
         $this->userRepository = $userRepository;
         $this->userSecondaryEmailRepository = $userSecondaryEmailRepository;
@@ -42,6 +42,9 @@ final class AddUserSecondaryEmailHandler
         }
 
         $this->userSecondaryEmailRepository->save($userSecondaryEmail);
-        $this->eventBus->handle(new UserSecondaryEmailAddedEvent($userSecondaryEmail));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserSecondaryEmailAddedEvent($userSecondaryEmail));
+        }
     }
 }

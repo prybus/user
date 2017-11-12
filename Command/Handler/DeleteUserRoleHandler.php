@@ -17,7 +17,7 @@ final class DeleteUserRoleHandler
     private $repository;
     private $eventBus;
 
-    public function __construct(UserRoleRepositoryInterface $repository, EventBusInterface $eventBus)
+    public function __construct(UserRoleRepositoryInterface $repository, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->eventBus = $eventBus;
@@ -28,6 +28,9 @@ final class DeleteUserRoleHandler
         $userRole = $this->repository->find($command->userId, $command->role);
 
         $this->repository->delete($userRole);
-        $this->eventBus->handle(new UserRoleDeletedEvent($userRole));
+
+        if (null !== $this->eventBus) {
+            $this->eventBus->handle(new UserRoleDeletedEvent($userRole));
+        }
     }
 }
