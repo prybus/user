@@ -14,10 +14,10 @@ final class SetUserPendingPrimaryEmailCommand
     /** @var UserIdInterface */
     public $userId;
 
-    /** @var string|null */
+    /** @var string */
     public $email;
 
-    public function __construct(UserIdInterface $userId, ?string $email)
+    public function __construct(UserIdInterface $userId, string $email)
     {
         $this->userId = $userId;
         $this->email = $email;

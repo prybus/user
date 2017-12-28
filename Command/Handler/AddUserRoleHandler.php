@@ -9,8 +9,7 @@ use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\AddUserRoleCommand;
 use MsgPhp\User\Entity\UserRole;
 use MsgPhp\User\Event\UserRoleAddedEvent;
-use MsgPhp\User\Repository\UserRepositoryInterface;
-use MsgPhp\User\Repository\UserRoleRepositoryInterface;
+use MsgPhp\User\Repository\{UserRepositoryInterface, UserRoleRepositoryInterface};
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

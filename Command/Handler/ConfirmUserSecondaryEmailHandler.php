@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Command\Handler;
 
-use MsgPhp\Domain\CommandBusInterface;
-use MsgPhp\Domain\EventBusInterface;
+use MsgPhp\Domain\{CommandBusInterface, EventBusInterface};
 use MsgPhp\User\Command\{ConfirmUserSecondaryEmailCommand, MarkUserSecondaryEmailPrimaryCommand};
 use MsgPhp\User\Event\UserSecondaryEmailConfirmedEvent;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;

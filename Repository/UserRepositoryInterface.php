@@ -22,8 +22,6 @@ interface UserRepositoryInterface
 
     public function findByEmail(string $email): User;
 
-    public function findByPasswordResetToken(string $token): User;
-
     public function exists(UserIdInterface $id): bool;
 
     /**

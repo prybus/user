@@ -9,8 +9,7 @@ use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\AddUserSecondaryEmailCommand;
 use MsgPhp\User\Entity\UserSecondaryEmail;
 use MsgPhp\User\Event\UserSecondaryEmailAddedEvent;
-use MsgPhp\User\Repository\UserRepositoryInterface;
-use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
+use MsgPhp\User\Repository\{UserRepositoryInterface, UserSecondaryEmailRepositoryInterface};
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

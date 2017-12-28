@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Command\Handler;
 
-use MsgPhp\Domain\CommandBusInterface;
-use MsgPhp\Domain\EventBusInterface;
-use MsgPhp\User\Command\AddUserSecondaryEmailCommand;
-use MsgPhp\User\Command\ChangeUserEmailCommand;
-use MsgPhp\User\Command\DeleteUserSecondaryEmailCommand;
-use MsgPhp\User\Command\MarkUserSecondaryEmailPrimaryCommand;
-use MsgPhp\User\Command\SetUserPendingPrimaryEmailCommand;
+use MsgPhp\Domain\{CommandBusInterface, EventBusInterface};
+use MsgPhp\User\Command\{AddUserSecondaryEmailCommand, ChangeUserEmailCommand, DeleteUserSecondaryEmailCommand, MarkUserSecondaryEmailPrimaryCommand, SetUserPendingPrimaryEmailCommand};
 use MsgPhp\User\Event\UserSecondaryEmailMarkedPrimaryEvent;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
 
@@ -35,7 +30,7 @@ final class MarkUserSecondaryEmailPrimaryHandler
         $userSecondaryEmail = $this->repository->find($command->userId, $command->email);
         $currentPrimaryEmail = $userSecondaryEmail->getUser()->getEmail();
 
-        if ($userSecondaryEmail->getConfirmedAt()) {
+        if (null !== $userSecondaryEmail->getConfirmedAt()) {
             $this->commandBus->handle(new ChangeUserEmailCommand($command->userId, $command->email));
             $this->commandBus->handle(new DeleteUserSecondaryEmailCommand($command->userId, $command->email));
             $this->commandBus->handle(new AddUserSecondaryEmailCommand($command->userId, $currentPrimaryEmail, true));

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Command\Handler;
 
-use MsgPhp\Domain\CommandBusInterface;
-use MsgPhp\Domain\EventBusInterface;
-use MsgPhp\User\Command\ConfirmPendingUserCommand;
-use MsgPhp\User\Command\CreateUserCommand;
+use MsgPhp\Domain\{CommandBusInterface, EventBusInterface};
+use MsgPhp\User\Command\{ConfirmPendingUserCommand, CreateUserCommand};
 use MsgPhp\User\Event\PendingUserConfirmedEvent;
 use MsgPhp\User\Repository\PendingUserRepositoryInterface;
 

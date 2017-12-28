@@ -37,11 +37,6 @@ final class UserRepository implements UserRepositoryInterface
         return $this->doFindByFields(['email' => $email]);
     }
 
-    public function findByPasswordResetToken(string $token): User
-    {
-        return $this->doFindByFields(['passwordResetToken' => $token]);
-    }
-
     public function exists(UserIdInterface $id): bool
     {
         return $this->doExists($id);
