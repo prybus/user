@@ -26,9 +26,4 @@ class UserAttributeValue
         $this->attributeValue = $attributeValue;
         $this->createdAt = new \DateTimeImmutable();
     }
-
-    public function getValue()
-    {
-        return $this->getAttributeValue()->getValue();
-    }
 }
