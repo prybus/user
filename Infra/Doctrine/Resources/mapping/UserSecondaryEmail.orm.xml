@@ -16,9 +16,9 @@
         <field name="confirmedAt" type="datetime" nullable="true" />
         <field name="createdAt" type="datetime" />
 
-        <one-to-one field="user" target-entity="MsgPhp\User\Entity\User">
+        <many-to-one field="user" target-entity="MsgPhp\User\Entity\User">
             <join-column on-delete="CASCADE" />
-        </one-to-one>
+        </many-to-one>
     </mapped-superclass>
 
 </doctrine-mapping>
