@@ -25,7 +25,7 @@ final class UserFieldTraitTest extends TestCase
 
     private function getObject($value)
     {
-        return new class ($value) {
+        return new class($value) {
             use UserFieldTrait;
 
             public function __construct($value)
