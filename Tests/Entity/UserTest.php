@@ -12,16 +12,17 @@ final class UserTest extends TestCase
 {
     public function testCreate(): void
     {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
+        $now = new \DateTime();
+        $user = new User($id = $this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
 
-        $this->assertInstanceOf(UserIdInterface::class, $user->getId());
+        $this->assertSame($id, $user->getId());
         $this->assertSame('foo@bar.baz', $user->getEmail());
         $this->assertSame('secret', $user->getPassword());
         $this->assertFalse($user->isEnabled());
-        $this->assertInstanceOf(\DateTimeInterface::class, $user->getCreatedAt());
-        $this->assertInstanceOf(\DateTimeInterface::class, $user->getLastUpdatedAt());
         $this->assertNull($user->getPasswordResetToken());
         $this->assertNull($user->getPasswordRequestedAt());
+        $this->assertGreaterThanOrEqual($now, $user->getCreatedAt());
+        $this->assertGreaterThanOrEqual($now, $user->getLastUpdatedAt());
     }
 
     public function testChangeEmail(): void
@@ -53,15 +54,14 @@ final class UserTest extends TestCase
 
         $user->requestPassword();
 
-        $this->assertInternalType('string', $user->getPasswordResetToken());
+        $this->assertNotNull($user->getPasswordResetToken());
         $this->assertGreaterThanOrEqual($lastUpdatedAt, $user->getLastUpdatedAt());
-        $this->assertGreaterThanOrEqual($lastUpdatedAt, $user->getPasswordRequestedAt());
         $this->assertGreaterThanOrEqual($user->getPasswordRequestedAt(), $user->getLastUpdatedAt());
 
         $compareUser = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
         $compareUser->requestPassword();
 
-        $this->assertNotSame($user->getPasswordResetToken(), $compareUser->getPasswordResetToken());
+        $this->assertNotSame($compareUser->getPasswordResetToken(), $user->getPasswordResetToken());
     }
 
     public function testEnableDisable(): void

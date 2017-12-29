@@ -68,7 +68,7 @@ final class SecurityUserProviderTest extends TestCase
         $this->assertFalse($this->createProvider()->supportsClass(UserInterface::class));
     }
 
-    private function createProvider(array $roles = [], UserRepository $repository = null)
+    private function createProvider(array $roles = [], UserRepository $repository = null): SecurityUserProvider
     {
         return new SecurityUserProvider($repository ?? new UserRepository([], User::class), new class($roles) implements UserRoleProviderInterface {
             private $roles;

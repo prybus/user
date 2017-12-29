@@ -22,10 +22,6 @@ class UserSecondaryEmail
 
     public function __construct(User $user, string $email)
     {
-        if ($email === $user->getEmail()) {
-            throw new \LogicException('Secondary e-mail cannot be the same as the current primary e-mail.');
-        }
-
         $this->user = $user;
         $this->email = $email;
         $this->token = bin2hex(random_bytes(32));

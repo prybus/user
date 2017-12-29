@@ -4,44 +4,29 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
-use MsgPhp\User\Entity\User;
-use MsgPhp\User\Entity\UserSecondaryEmail;
-use MsgPhp\User\UserIdInterface;
+use MsgPhp\User\Entity\{User, UserSecondaryEmail};
 use PHPUnit\Framework\TestCase;
 
 final class UserSecondaryEmailTest extends TestCase
 {
     public function testCreate(): void
     {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
+        $now = new \DateTime();
+        $userEmail = new UserSecondaryEmail($user = $this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock(), 'foo@bar.baz');
 
         $this->assertSame($user, $userEmail->getUser());
-        $this->assertSame($user->getId(), $userEmail->getUserId());
-        $this->assertSame('other@bar.baz', $userEmail->getEmail());
-        $this->assertInternalType('string', $userEmail->getToken());
+        $this->assertSame('foo@bar.baz', $userEmail->getEmail());
+        $this->assertNotNull($userEmail->getToken());
+        $this->assertNotSame((new UserSecondaryEmail($this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock(), 'foo@bar.baz'))->getToken(), $userEmail->getToken());
         $this->assertFalse($userEmail->isPendingPrimary());
         $this->assertNull($userEmail->getConfirmedAt());
-        $this->assertInstanceOf(\DateTimeInterface::class, $userEmail->getCreatedAt());
-    }
-
-    public function testCreateDuplicateEmail(): void
-    {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-
-        $this->expectException(\LogicException::class);
-
-        new UserSecondaryEmail($user, 'foo@bar.baz');
+        $this->assertGreaterThanOrEqual($now, $userEmail->getCreatedAt());
     }
 
     public function testConfirm(): void
     {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
+        $userEmail = new UserSecondaryEmail($this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock(), 'foo@bar.baz');
         $userEmail->confirm();
-
-        $compareUserEmail = new UserSecondaryEmail($user, 'other@bar.baz');
-        $this->assertNotSame($userEmail->getToken(), $compareUserEmail->getToken());
 
         $this->assertNull($userEmail->getToken());
         $this->assertInstanceOf(\DateTimeInterface::class, $userEmail->getConfirmedAt());
@@ -49,8 +34,7 @@ final class UserSecondaryEmailTest extends TestCase
 
     public function testMarkPendingPrimary(): void
     {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $userEmail = new UserSecondaryEmail($user, 'other@bar.baz');
+        $userEmail = new UserSecondaryEmail($this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock(), 'foo@bar.baz');
         $userEmail->markPendingPrimary();
 
         $this->assertTrue($userEmail->isPendingPrimary());

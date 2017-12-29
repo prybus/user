@@ -23,6 +23,7 @@
         "doctrine/collections": "^1.5",
         "doctrine/dbal": "^2.6",
         "doctrine/orm": "^2.5",
+        "msgphp/eav": "^1.0",
         "psr/log": "^1.0",
         "ramsey/uuid": "^3.7",
         "simple-bus/message-bus": "^3.0",
