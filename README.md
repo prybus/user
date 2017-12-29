@@ -2,7 +2,11 @@
 
 A domain layer providing basic user management.
 
-[![Build Status](https://travis-ci.org/msgphp/user.svg?branch=master)](https://travis-ci.org/msgphp/user)
+## Installation
+
+```bash
+composer require msgphp/user
+```
 
 ## Features
 
