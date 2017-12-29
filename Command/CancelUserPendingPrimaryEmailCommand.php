@@ -11,7 +11,6 @@ use MsgPhp\User\UserIdInterface;
  */
 final class CancelUserPendingPrimaryEmailCommand
 {
-    /** @var UserIdInterface */
     public $userId;
 
     public function __construct(UserIdInterface $userId)

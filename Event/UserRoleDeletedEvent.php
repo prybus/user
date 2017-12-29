@@ -11,7 +11,6 @@ use MsgPhp\User\Entity\UserRole;
  */
 final class UserRoleDeletedEvent
 {
-    /** @var UserRole */
     public $userRole;
 
     public function __construct(UserRole $userRole)

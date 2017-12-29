@@ -12,13 +12,8 @@ use MsgPhp\User\UserIdInterface;
  */
 final class ChangeUserAttributeValueCommand
 {
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var AttributeValueIdInterface */
     public $attributeValueId;
-
-    /** @var mixed */
     public $value;
 
     public function __construct(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId, $value)

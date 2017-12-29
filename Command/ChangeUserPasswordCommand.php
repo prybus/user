@@ -11,10 +11,7 @@ use MsgPhp\User\UserIdInterface;
  */
 final class ChangeUserPasswordCommand
 {
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var string */
     public $password;
 
     public function __construct(UserIdInterface $userId, string $password)

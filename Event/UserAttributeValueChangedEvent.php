@@ -11,10 +11,7 @@ use MsgPhp\User\Entity\UserAttributeValue;
  */
 final class UserAttributeValueChangedEvent
 {
-    /** @var UserAttributeValue */
     public $userAttributeValue;
-
-    /** @var mixed */
     public $oldValue;
 
     public function __construct(UserAttributeValue $userAttributeValue, $oldValue)

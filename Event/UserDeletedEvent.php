@@ -11,7 +11,6 @@ use MsgPhp\User\Entity\User;
  */
 final class UserDeletedEvent
 {
-    /** @var User */
     public $user;
 
     public function __construct(User $user)

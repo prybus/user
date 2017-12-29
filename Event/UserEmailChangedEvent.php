@@ -11,10 +11,7 @@ use MsgPhp\User\Entity\User;
  */
 final class UserEmailChangedEvent
 {
-    /** @var User */
     public $user;
-
-    /** @var string */
     public $oldEmail;
 
     public function __construct(User $user, string $oldEmail)

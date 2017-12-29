@@ -11,10 +11,7 @@ use MsgPhp\User\Entity\User;
  */
 final class UserPasswordChangedEvent
 {
-    /** @var User */
     public $user;
-
-    /** @var string */
     public $oldPassword;
 
     public function __construct(User $user, string $oldPassword)

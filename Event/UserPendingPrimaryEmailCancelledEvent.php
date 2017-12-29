@@ -11,7 +11,6 @@ use MsgPhp\User\Entity\UserSecondaryEmail;
  */
 final class UserPendingPrimaryEmailCancelledEvent
 {
-    /** @var UserSecondaryEmail */
     public $userSecondaryEmail;
 
     public function __construct(UserSecondaryEmail $userSecondaryEmail)

@@ -11,10 +11,7 @@ use MsgPhp\User\UserIdInterface;
  */
 final class ChangeUserEmailCommand
 {
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var string */
     public $email;
 
     public function __construct(UserIdInterface $userId, string $email)

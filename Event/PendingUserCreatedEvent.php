@@ -11,7 +11,6 @@ use MsgPhp\User\Entity\PendingUser;
  */
 final class PendingUserCreatedEvent
 {
-    /** @var PendingUser */
     public $pendingUser;
 
     public function __construct(PendingUser $pendingUser)

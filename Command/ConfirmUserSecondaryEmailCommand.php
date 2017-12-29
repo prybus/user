@@ -9,7 +9,6 @@ namespace MsgPhp\User\Command;
  */
 final class ConfirmUserSecondaryEmailCommand
 {
-    /** @var string */
     public $token;
 
     public function __construct(string $token)

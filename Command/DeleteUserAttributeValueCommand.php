@@ -12,10 +12,7 @@ use MsgPhp\User\UserIdInterface;
  */
 final class DeleteUserAttributeValueCommand
 {
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var AttributeValueIdInterface */
     public $attributeValueId;
 
     public function __construct(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId)

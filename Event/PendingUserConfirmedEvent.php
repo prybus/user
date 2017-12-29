@@ -12,10 +12,7 @@ use MsgPhp\User\UserIdInterface;
  */
 final class PendingUserConfirmedEvent
 {
-    /** @var PendingUser */
     public $pendingUser;
-
-    /** @var UserIdInterface */
     public $userId;
 
     public function __construct(PendingUser $pendingUser, UserIdInterface $userId)

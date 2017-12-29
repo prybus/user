@@ -11,13 +11,8 @@ use MsgPhp\User\UserIdInterface;
  */
 final class ConfirmPendingUserCommand
 {
-    /** @var string */
     public $token;
-
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var bool */
     public $enableUser;
 
     public function __construct(string $token, UserIdInterface $userId, bool $enableUser = true)

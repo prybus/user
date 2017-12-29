@@ -11,16 +11,9 @@ use MsgPhp\User\UserIdInterface;
  */
 final class AddUserSecondaryEmailCommand
 {
-    /** @var UserIdInterface */
     public $userId;
-
-    /** @var string */
     public $email;
-
-    /** @var bool */
     public $confirm;
-
-    /** @var array */
     public $context;
 
     public function __construct(UserIdInterface $userId, string $email, bool $confirm = false, array $context = [])

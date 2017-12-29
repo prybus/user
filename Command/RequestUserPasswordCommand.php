@@ -9,7 +9,6 @@ namespace MsgPhp\User\Command;
  */
 final class RequestUserPasswordCommand
 {
-    /** @var string */
     public $email;
 
     public function __construct(string $email)
