@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity;
 
 use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
-use MsgPhp\Eav\Entity\AttributeValue;
-use MsgPhp\Eav\Entity\AttributeValueFieldTrait;
+use MsgPhp\Eav\Entity\{AttributeValue, AttributeValueFieldTrait};
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

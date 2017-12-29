@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
-use MsgPhp\Domain\Entity\LastUpdatedAtFieldTrait;
+use MsgPhp\Domain\Entity\{CreatedAtFieldTrait, LastUpdatedAtFieldTrait};
 use MsgPhp\User\UserIdInterface;
 
 /**
