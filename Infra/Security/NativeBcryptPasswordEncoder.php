@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infra\Security;
 
 use MsgPhp\User\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as BasePasswordEncoder;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
