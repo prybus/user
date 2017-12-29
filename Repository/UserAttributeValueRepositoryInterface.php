@@ -38,13 +38,7 @@ interface UserAttributeValueRepositoryInterface
 
     public function exists(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId): bool;
 
-    /**
-     * @internal
-     */
     public function save(UserAttributeValue $userAttributeValue): void;
 
-    /**
-     * @internal
-     */
     public function delete(UserAttributeValue $userAttributeValue): void;
 }

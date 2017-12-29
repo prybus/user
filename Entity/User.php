@@ -23,9 +23,6 @@ class User
     private $passwordRequestedAt;
     private $enabled = false;
 
-    /**
-     * @internal
-     */
     public function __construct(UserIdInterface $id, string $email, string $password)
     {
         $this->id = $id;
@@ -65,18 +62,12 @@ class User
         return $this->enabled;
     }
 
-    /**
-     * @internal
-     */
     public function changeEmail(string $email): void
     {
         $this->email = $email;
         $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @internal
-     */
     public function changePassword(string $password): void
     {
         $this->password = $password;
@@ -85,9 +76,6 @@ class User
         $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @internal
-     */
     public function requestPassword(): void
     {
         $this->passwordResetToken = bin2hex(random_bytes(32));
@@ -95,18 +83,12 @@ class User
         $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @internal
-     */
     public function enable(): void
     {
         $this->enabled = true;
         $this->lastUpdatedAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @internal
-     */
     public function disable(): void
     {
         $this->enabled = false;

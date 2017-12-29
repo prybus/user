@@ -17,9 +17,6 @@ class UserAttributeValue
     use UserFieldTrait;
     use AttributeValueFieldTrait;
 
-    /**
-     * @internal
-     */
     public function __construct(User $user, AttributeValue $attributeValue)
     {
         $this->user = $user;

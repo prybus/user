@@ -16,9 +16,6 @@ class UserRole
 
     private $role;
 
-    /**
-     * @internal
-     */
     public function __construct(User $user, string $role)
     {
         $this->user = $user;

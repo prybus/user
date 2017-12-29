@@ -17,9 +17,6 @@ class PendingUser
     private $email;
     private $password;
 
-    /**
-     * @internal
-     */
     public function __construct(string $email, string $password)
     {
         $this->token = bin2hex(random_bytes(32));

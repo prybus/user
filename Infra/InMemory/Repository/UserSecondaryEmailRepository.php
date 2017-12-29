@@ -54,17 +54,11 @@ final class UserSecondaryEmailRepository implements UserSecondaryEmailRepository
         return $this->doExists(...func_get_args());
     }
 
-    /**
-     * @internal
-     */
     public function save(UserSecondaryEmail $userSecondaryEmail): void
     {
         $this->doSave($userSecondaryEmail);
     }
 
-    /**
-     * @internal
-     */
     public function delete(UserSecondaryEmail $userSecondaryEmail): void
     {
         $this->doDelete($userSecondaryEmail);

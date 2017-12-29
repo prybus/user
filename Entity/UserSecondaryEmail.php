@@ -20,9 +20,6 @@ class UserSecondaryEmail
     private $pendingPrimary = false;
     private $confirmedAt;
 
-    /**
-     * @internal
-     */
     public function __construct(User $user, string $email)
     {
         if ($email === $user->getEmail()) {
@@ -55,18 +52,12 @@ class UserSecondaryEmail
         return $this->confirmedAt;
     }
 
-    /**
-     * @internal
-     */
     public function confirm(): void
     {
         $this->token = null;
         $this->confirmedAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @internal
-     */
     public function markPendingPrimary(bool $flag = true): void
     {
         if ($flag && $this->confirmedAt) {

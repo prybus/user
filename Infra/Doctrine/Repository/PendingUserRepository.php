@@ -42,17 +42,11 @@ final class PendingUserRepository implements PendingUserRepositoryInterface
         return $this->doExists($email);
     }
 
-    /**
-     * @internal
-     */
     public function save(PendingUser $user): void
     {
         $this->doSave($user);
     }
 
-    /**
-     * @internal
-     */
     public function delete(PendingUser $user): void
     {
         $this->doDelete($user);

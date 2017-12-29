@@ -43,17 +43,11 @@ final class UserRepository implements UserRepositoryInterface
         return $this->doExists($id);
     }
 
-    /**
-     * @internal
-     */
     public function save(User $user): void
     {
         $this->doSave($user);
     }
 
-    /**
-     * @internal
-     */
     public function delete(User $user): void
     {
         $this->doDelete($user);

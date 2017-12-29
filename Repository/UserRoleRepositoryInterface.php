@@ -22,13 +22,7 @@ interface UserRoleRepositoryInterface
 
     public function exists(UserIdInterface $userId, string $role): bool;
 
-    /**
-     * @internal
-     */
     public function save(UserRole $userRole): void;
 
-    /**
-     * @internal
-     */
     public function delete(UserRole $userRole): void;
 }

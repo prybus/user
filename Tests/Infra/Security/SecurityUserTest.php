@@ -44,9 +44,6 @@ final class SecurityUserTest extends TestCase
     }
 }
 
-/**
- * @internal
- */
 class UserId extends DomainId implements UserIdInterface
 {
 }

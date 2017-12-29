@@ -24,13 +24,7 @@ interface UserRepositoryInterface
 
     public function exists(UserIdInterface $id): bool;
 
-    /**
-     * @internal
-     */
     public function save(User $user): void;
 
-    /**
-     * @internal
-     */
     public function delete(User $user): void;
 }

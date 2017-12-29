@@ -28,13 +28,7 @@ interface UserSecondaryEmailRepositoryInterface
 
     public function exists(UserIdInterface $userId, string $email): bool;
 
-    /**
-     * @internal
-     */
     public function save(UserSecondaryEmail $userSecondaryEmail): void;
 
-    /**
-     * @internal
-     */
     public function delete(UserSecondaryEmail $userSecondaryEmail): void;
 }

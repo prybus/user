@@ -23,13 +23,7 @@ interface PendingUserRepositoryInterface
 
     public function exists(string $email): bool;
 
-    /**
-     * @internal
-     */
     public function save(PendingUser $user): void;
 
-    /**
-     * @internal
-     */
     public function delete(PendingUser $user): void;
 }

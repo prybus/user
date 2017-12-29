@@ -41,17 +41,11 @@ final class UserRoleRepository implements UserRoleRepositoryInterface
         return $this->doExists(...func_get_args());
     }
 
-    /**
-     * @internal
-     */
     public function save(UserRole $userRole): void
     {
         $this->doSave($userRole);
     }
 
-    /**
-     * @internal
-     */
     public function delete(UserRole $userRole): void
     {
         $this->doDelete($userRole);

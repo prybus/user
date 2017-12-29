@@ -78,17 +78,11 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
         return $this->doExists(...func_get_args());
     }
 
-    /**
-     * @internal
-     */
     public function save(UserAttributeValue $userAttributeValue): void
     {
         $this->doSave($userAttributeValue);
     }
 
-    /**
-     * @internal
-     */
     public function delete(UserAttributeValue $userAttributeValue): void
     {
         $this->doDelete($userAttributeValue);
