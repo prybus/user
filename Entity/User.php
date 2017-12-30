@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\Domain\Entity\Features\CanBeEnabled;
 use MsgPhp\Domain\Entity\Fields\{CreatedAtField, LastUpdatedAtField};
 use MsgPhp\User\UserIdInterface;
 
