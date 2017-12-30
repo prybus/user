@@ -12,8 +12,8 @@ use MsgPhp\User\UserIdInterface;
  */
 class User
 {
-    use CreatedAtField;
-    use LastUpdatedAtField;
+    use CreatedAtField; // @todo remove
+    use LastUpdatedAtField; // @todo remove
 
     private $id;
     private $email;

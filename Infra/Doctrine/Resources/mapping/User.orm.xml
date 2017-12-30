@@ -14,7 +14,6 @@
         <field name="password" />
         <field name="passwordResetToken" nullable="true" />
         <field name="passwordRequestedAt" type="datetime" nullable="true" />
-        <field name="enabled" type="boolean" />
         <field name="createdAt" type="datetime" />
         <field name="lastUpdatedAt" type="datetime" />
     </mapped-superclass>
