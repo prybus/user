@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\Domain\Entity\{CreatedAtFieldTrait, LastUpdatedAtFieldTrait};
+use MsgPhp\Domain\Entity\Fields\{CreatedAtField, LastUpdatedAtField};
 use MsgPhp\User\UserIdInterface;
 
 /**
@@ -12,8 +12,8 @@ use MsgPhp\User\UserIdInterface;
  */
 class User
 {
-    use CreatedAtFieldTrait;
-    use LastUpdatedAtFieldTrait;
+    use CreatedAtField;
+    use LastUpdatedAtField;
 
     private $id;
     private $email;

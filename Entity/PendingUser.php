@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\Domain\Entity\CreatedAtFieldTrait;
+use MsgPhp\Domain\Entity\Fields\CreatedAtField;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
 class PendingUser
 {
-    use CreatedAtFieldTrait;
+    use CreatedAtField;
 
     private $token;
     private $email;
