@@ -1,4 +1,4 @@
-# MsgPhp User Domain
+# User Domain
 
 A domain layer providing basic user management.
 
@@ -21,3 +21,7 @@ composer require msgphp/user
 - Disabled / enabled users
 - User roles
 - User attribute values
+
+## Contributing
+
+This repository is **READ ONLY**. Issues and pull requests should be submitted in the [main development repository](https://github.com/msgphp/msgphp).
