@@ -18,7 +18,6 @@ final class UserTest extends TestCase
         $this->assertSame($id, $user->getId());
         $this->assertSame('foo@bar.baz', $user->getEmail());
         $this->assertSame('secret', $user->getPassword());
-        $this->assertFalse($user->isEnabled());
         $this->assertNull($user->getPasswordResetToken());
         $this->assertNull($user->getPasswordRequestedAt());
         $this->assertGreaterThanOrEqual($now, $user->getCreatedAt());
@@ -62,21 +61,5 @@ final class UserTest extends TestCase
         $compareUser->requestPassword();
 
         $this->assertNotSame($compareUser->getPasswordResetToken(), $user->getPasswordResetToken());
-    }
-
-    public function testEnableDisable(): void
-    {
-        $user = new User($this->getMockBuilder(UserIdInterface::class)->getMock(), 'foo@bar.baz', 'secret');
-        $lastUpdatedAt = $user->getLastUpdatedAt();
-
-        $user->enable();
-
-        $this->assertTrue($user->isEnabled());
-        $this->assertGreaterThanOrEqual($lastUpdatedAt, $lastUpdatedAt = $user->getLastUpdatedAt());
-
-        $user->disable();
-
-        $this->assertFalse($user->isEnabled());
-        $this->assertGreaterThanOrEqual($lastUpdatedAt, $user->getLastUpdatedAt());
     }
 }
