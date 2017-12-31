@@ -15,35 +15,54 @@ final class SecurityUserTest extends TestCase
 {
     public function testCreateNewSecurityUser(): void
     {
-        $user = new User(new UserId(), 'foo@bar.baz', 'secret');
+        $user = new User($id = $this->createMock(UserIdInterface::class), 'foo@bar.baz', 'secret');
         $securityUser = new SecurityUser($user);
 
-        $this->assertTrue($user->getId()->equals($securityUser->getId()));
-        $this->assertSame($user->getEmail(), $securityUser->getUsername());
-        $this->assertSame($user->getPassword(), $securityUser->getPassword());
+        $this->assertSame($id, $securityUser->getId());
+        $this->assertSame('foo@bar.baz', $securityUser->getUsername());
+        $this->assertSame('secret', $securityUser->getPassword());
+        $this->assertNull($securityUser->getSalt());
+    }
+
+    public function testEraseCredentials(): void
+    {
+        $user = new User($this->createMock(UserIdInterface::class), 'foo@bar.baz', 'secret');
+        $securityUser = new SecurityUser($user);
+        $securityUser->eraseCredentials();
+
+        $this->assertSame('secret', $securityUser->getPassword());
     }
 
     public function testIsEqualTo(): void
     {
-        $user = new User(new UserId(), 'foo@bar.baz', 'secret');
+        $id = $this->createMock(UserIdInterface::class);
+        $id->expects($this->any())
+            ->method('equals')
+            ->willReturnCallback(function (UserIdInterface $other) {
+                return '1' === $other->toString();
+            });
+        $id->expects($this->any())
+            ->method('toString')
+            ->willReturn('1');
+        $user = new User($id, 'foo@bar.baz', 'secret');
         $securityUser = new SecurityUser($user);
 
         $this->assertTrue($securityUser->isEqualTo(new SecurityUser($user)));
-        $this->assertTrue($securityUser->isEqualTo(new SecurityUser(new User($user->getId(), 'foo@bar.baz', 'secret'))));
-        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User($user->getId(), 'foo@bar.baz', 'other'))));
-        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User($user->getId(), 'other', 'secret'))));
-        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User(new UserId(), 'foo@bar.baz', 'secret'))));
+        $this->assertTrue($securityUser->isEqualTo(new SecurityUser(new User($id, 'foo@bar.baz', 'secret'))));
+        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User($id, 'foo@bar.baz', 'other'))));
+        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User($id, 'other', 'secret'))));
+        $this->assertFalse($securityUser->isEqualTo(new SecurityUser(new User($this->createMock(UserIdInterface::class), 'foo@bar.baz', 'secret'))));
         $this->assertFalse($securityUser->isEqualTo($this->createMock(UserInterface::class)));
     }
 
     public function testSerialize(): void
     {
-        $user = new User(new UserId(), 'foo@bar.baz', 'secret');
+        $user = new User(new SerializableUserId(), 'foo@bar.baz', 'secret');
 
         $this->assertTrue(($serialized = serialize(new SecurityUser($user))) === serialize(unserialize($serialized)));
     }
 }
 
-class UserId extends DomainId implements UserIdInterface
+class SerializableUserId extends DomainId implements UserIdInterface
 {
 }
