@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\InMemory\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\InMemory\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Repository\UserRepositoryInterface;
@@ -20,9 +20,9 @@ final class UserRepository implements UserRepositoryInterface
     private $idFields = ['id'];
 
     /**
-     * @return EntityCollectionInterface|User[]
+     * @return DomainCollectionInterface|User[]
      */
-    public function findAll(int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAll(int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit);
     }

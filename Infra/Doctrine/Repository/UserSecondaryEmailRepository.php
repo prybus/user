@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\UserSecondaryEmail;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
@@ -21,9 +21,9 @@ final class UserSecondaryEmailRepository implements UserSecondaryEmailRepository
     private $idFields = ['user', 'email'];
 
     /**
-     * @return EntityCollectionInterface|UserSecondaryEmail[]
+     * @return DomainCollectionInterface|UserSecondaryEmail[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addFieldCriteria($qb, ['user' => $userId]);

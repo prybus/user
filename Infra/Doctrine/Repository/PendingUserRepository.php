@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\PendingUser;
 use MsgPhp\User\Repository\PendingUserRepositoryInterface;
@@ -20,9 +20,9 @@ final class PendingUserRepository implements PendingUserRepositoryInterface
     private $idFields = ['email'];
 
     /**
-     * @return EntityCollectionInterface|PendingUser[]
+     * @return DomainCollectionInterface|PendingUser[]
      */
-    public function findAll(int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAll(int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($this->createQueryBuilder($offset, $limit)->getQuery());
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\UserRole;
 use MsgPhp\User\Repository\UserRoleRepositoryInterface;
@@ -21,9 +21,9 @@ final class UserRoleRepository implements UserRoleRepositoryInterface
     private $idFields = ['user', 'role'];
 
     /**
-     * @return EntityCollectionInterface|UserRole[]
+     * @return DomainCollectionInterface|UserRole[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addFieldCriteria($qb, ['user' => $userId]);

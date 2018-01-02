@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\UserIdInterface;
 
@@ -14,9 +14,9 @@ use MsgPhp\User\UserIdInterface;
 interface UserRepositoryInterface
 {
     /**
-     * @return EntityCollectionInterface|User[]
+     * @return DomainCollectionInterface|User[]
      */
-    public function findAll(int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAll(int $offset = null, int $limit = null): DomainCollectionInterface;
 
     public function find(UserIdInterface $id): User;
 

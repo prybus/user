@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\User\Entity\PendingUser;
 
 /**
@@ -13,9 +13,9 @@ use MsgPhp\User\Entity\PendingUser;
 interface PendingUserRepositoryInterface
 {
     /**
-     * @return EntityCollectionInterface|PendingUser[]
+     * @return DomainCollectionInterface|PendingUser[]
      */
-    public function findAll(int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAll(int $offset = null, int $limit = null): DomainCollectionInterface;
 
     public function find(string $email): PendingUser;
 

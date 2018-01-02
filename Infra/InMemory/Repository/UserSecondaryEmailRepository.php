@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\InMemory\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\InMemory\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\UserSecondaryEmail;
 use MsgPhp\User\Repository\UserSecondaryEmailRepositoryInterface;
@@ -20,9 +20,9 @@ final class UserSecondaryEmailRepository implements UserSecondaryEmailRepository
     private $idFields = ['userId', 'email'];
 
     /**
-     * @return EntityCollectionInterface|UserSecondaryEmail[]
+     * @return DomainCollectionInterface|UserSecondaryEmail[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserSecondaryEmail $userSecondaryEmail) use ($userId) {
             return $userSecondaryEmail->getUserId()->equals($userId);

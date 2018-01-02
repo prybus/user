@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\Eav\{AttributeIdInterface, AttributeValueIdInterface};
 use MsgPhp\User\Entity\UserAttributeValue;
@@ -24,9 +24,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     private $idFields = ['user', 'attributeValue'];
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addAttributeCriteria($qb, $attributeId);
@@ -35,9 +35,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addAttributeCriteria($qb, $attributeId, $value);
@@ -46,9 +46,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addFieldCriteria($qb, ['user' => $userId]);
@@ -57,9 +57,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder($offset, $limit);
         $this->addFieldCriteria($qb, ['user' => $userId]);

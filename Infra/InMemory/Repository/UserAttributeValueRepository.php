@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\InMemory\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\InMemory\DomainEntityRepositoryTrait;
 use MsgPhp\Eav\{AttributeIdInterface, AttributeValueIdInterface};
 use MsgPhp\User\Entity\UserAttributeValue;
@@ -21,9 +21,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     private $idFields = ['userId', 'attributeValueId'];
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($attributeId) {
             return $userAttributeValue->getAttributeId()->equals($attributeId);
@@ -31,9 +31,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($attributeId, $value) {
             return $userAttributeValue->getAttributeId()->equals($attributeId) && $value === $userAttributeValue->getValue();
@@ -41,9 +41,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($userId) {
             return $userAttributeValue->getUserId()->equals($userId);
@@ -51,9 +51,9 @@ final class UserAttributeValueRepository implements UserAttributeValueRepository
     }
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface
+    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface
     {
         return $this->createResultSet($offset, $limit, function (UserAttributeValue $userAttributeValue) use ($userId, $attributeId) {
             return $userAttributeValue->getUserId()->equals($userId) && $userAttributeValue->getAttributeId()->equals($attributeId);

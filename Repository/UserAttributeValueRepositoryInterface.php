@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Repository;
 
-use MsgPhp\Domain\Entity\EntityCollectionInterface;
+use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Eav\{AttributeIdInterface, AttributeValueIdInterface};
 use MsgPhp\User\Entity\UserAttributeValue;
 use MsgPhp\User\UserIdInterface;
@@ -15,24 +15,24 @@ use MsgPhp\User\UserIdInterface;
 interface UserAttributeValueRepositoryInterface
 {
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAllByAttributeId(AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface;
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAllByAttributeIdAndValue(AttributeIdInterface $attributeId, $value, int $offset = null, int $limit = null): DomainCollectionInterface;
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAllByUserId(UserIdInterface $userId, int $offset = null, int $limit = null): DomainCollectionInterface;
 
     /**
-     * @return EntityCollectionInterface|UserAttributeValue[]
+     * @return DomainCollectionInterface|UserAttributeValue[]
      */
-    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): EntityCollectionInterface;
+    public function findAllByUserIdAndAttributeId(UserIdInterface $userId, AttributeIdInterface $attributeId, int $offset = null, int $limit = null): DomainCollectionInterface;
 
     public function find(UserIdInterface $userId, AttributeValueIdInterface $attributeValueId): UserAttributeValue;
 
