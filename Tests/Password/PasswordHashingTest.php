@@ -136,7 +136,7 @@ final class PasswordHashingTest extends TestCase
     /**
      * @dataProvider provideInvalidSaltIterations
      */
-    public function testSaltedAlgorithmWithInvalidIteration(int $iteration)
+    public function testSaltedAlgorithmWithInvalidIteration(int $iteration): void
     {
         $hashing = new PasswordHashing(PasswordAlgorithm::createLegacySalted(new PasswordSalt('token', $iteration), false, 'md5'), false);
 
@@ -145,7 +145,7 @@ final class PasswordHashingTest extends TestCase
         $hashing->hash('password');
     }
 
-    public function provideInvalidSaltIterations()
+    public function provideInvalidSaltIterations(): iterable
     {
         yield [0];
         yield [-1];
@@ -154,7 +154,7 @@ final class PasswordHashingTest extends TestCase
     /**
      * @dataProvider provideInvalidSaltFormats
      */
-    public function testSaltedAlgorithmWithInvalidFormat(string $format)
+    public function testSaltedAlgorithmWithInvalidFormat(string $format): void
     {
         $hashing = new PasswordHashing(PasswordAlgorithm::createLegacySalted(new PasswordSalt('token', 1, $format), false, 'md5'), false);
 
@@ -163,7 +163,7 @@ final class PasswordHashingTest extends TestCase
         $hashing->hash('password');
     }
 
-    public function provideInvalidSaltFormats()
+    public function provideInvalidSaltFormats(): iterable
     {
         yield ['foo'];
         yield ['foo %s'];
