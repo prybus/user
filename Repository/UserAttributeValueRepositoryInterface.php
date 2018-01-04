@@ -11,6 +11,9 @@ use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @todo move findAllByAttributeId+findAllByAttributeIdAndValue to Eav\AttributeValueRepositoryInterface
+ * @todo extend from Eav\EntityAttributeValueRepositoryInterface?
  */
 interface UserAttributeValueRepositoryInterface
 {
