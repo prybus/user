@@ -31,7 +31,7 @@ final class UserExtension extends AbstractExtension
     public function getCurrentUser(): User
     {
         if (null === $this->securityUserFactory) {
-            throw new \LogicException('Current user is unavailable.');
+            throw new \LogicException('Current user is unavailable. Try `composer require symfony/security-bundle`');
         }
 
         return $this->securityUserFactory->getUser();
