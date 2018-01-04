@@ -39,7 +39,7 @@ final class CreateUserHandler
         ] + $command->context);
 
         if ($command->enable) {
-            $user->enable();
+            $user->enable(); // @fixme Feature depending availability + dispatch EnableUserCommand
         }
 
         $this->repository->save($user);

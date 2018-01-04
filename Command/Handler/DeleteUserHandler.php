@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\EventBusInterface;
-use MsgPhp\User\Command\CreateUserCommand;
+use MsgPhp\User\Command\DeleteUserCommand;
 use MsgPhp\User\Event\UserDeletedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
@@ -23,7 +23,7 @@ final class DeleteUserHandler
         $this->eventBus = $eventBus;
     }
 
-    public function handle(CreateUserCommand $command): void
+    public function handle(DeleteUserCommand $command): void
     {
         $user = $this->repository->find($command->userId);
 

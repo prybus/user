@@ -60,7 +60,7 @@ final class SqlEmailLookup implements EmailLookupInterface
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('1', '1');
 
-        $sql = implode(' UNION ', array_map(function ($entity, $field) {
+        $sql = implode(' UNION ', array_map(function ($entity, $field): string {
             return $this->createSql($entity, $field);
         }, array_keys($entities), $entities));
 
