@@ -9,7 +9,7 @@ use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\CreatePendingUserCommand;
 use MsgPhp\User\Entity\PendingUser;
 use MsgPhp\User\Event\PendingUserCreatedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use MsgPhp\User\Repository\PendingUserRepositoryInterface;
 
 /**
@@ -19,14 +19,14 @@ final class CreatePendingUserHandler
 {
     private $repository;
     private $factory;
-    private $passwordEncoder;
+    private $passwordHashing;
     private $eventBus;
 
-    public function __construct(PendingUserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
+    public function __construct(PendingUserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordHashingInterface $passwordHashing, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->factory = $factory;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHashing = $passwordHashing;
         $this->eventBus = $eventBus;
     }
 
@@ -34,7 +34,7 @@ final class CreatePendingUserHandler
     {
         $pendingUser = $this->factory->create(PendingUser::class, [
             'email' => $command->email,
-            'password' => $command->plainPassword ? $this->passwordEncoder->encode($command->password) : $command->password,
+            'password' => $command->plainPassword ? $this->passwordHashing->hash($command->password) : $command->password,
         ] + $command->context);
 
         $this->repository->save($pendingUser);

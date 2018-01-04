@@ -9,7 +9,7 @@ use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\CreateUserCommand;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\UserCreatedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
 /**
@@ -19,14 +19,14 @@ final class CreateUserHandler
 {
     private $repository;
     private $factory;
-    private $passwordEncoder;
+    private $passwordHashing;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
+    public function __construct(UserRepositoryInterface $repository, EntityFactoryInterface $factory, PasswordHashingInterface $passwordHashing, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
         $this->factory = $factory;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHashing = $passwordHashing;
         $this->eventBus = $eventBus;
     }
 
@@ -35,7 +35,7 @@ final class CreateUserHandler
         $user = $this->factory->create(User::class, [
             'id' => null === $command->userId ? $this->factory->nextIdentity(User::class) : $command->userId,
             'email' => $command->email,
-            'password' => $command->plainPassword ? $this->passwordEncoder->encode($command->password) : $command->password,
+            'password' => $command->plainPassword ? $this->passwordHashing->hash($command->password) : $command->password,
         ] + $command->context);
 
         if ($command->enable) {

@@ -7,7 +7,7 @@ namespace MsgPhp\User\Command\Handler;
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\ChangeUserPasswordCommand;
 use MsgPhp\User\Event\UserPasswordChangedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
 /**
@@ -16,20 +16,20 @@ use MsgPhp\User\Repository\UserRepositoryInterface;
 final class ChangeUserPasswordHandler
 {
     private $repository;
-    private $passwordEncoder;
+    private $passwordHashing;
     private $eventBus;
 
-    public function __construct(UserRepositoryInterface $repository, PasswordEncoderInterface $passwordEncoder, EventBusInterface $eventBus = null)
+    public function __construct(UserRepositoryInterface $repository, PasswordHashingInterface $passwordHashing, EventBusInterface $eventBus = null)
     {
         $this->repository = $repository;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHashing = $passwordHashing;
         $this->eventBus = $eventBus;
     }
 
     public function handle(ChangeUserPasswordCommand $command): void
     {
         $user = $this->repository->find($command->userId);
-        $password = $this->passwordEncoder->encode($command->password);
+        $password = $this->passwordHashing->hash($command->password);
 
         if ($password === $oldPassword = $user->getPassword()) {
             return;
