@@ -10,7 +10,6 @@ composer require msgphp/user
 
 ## Features
 
-- Event / command driven
 - Doctrine and in-memory persistence
 - Symfony console commands
 - Symfony security infrastructure
