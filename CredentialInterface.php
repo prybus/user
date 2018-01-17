@@ -9,5 +9,7 @@ namespace MsgPhp\User;
  */
 interface CredentialInterface
 {
+    public static function getUsernameField(): string;
+
     public function getUsername(): string;
 }

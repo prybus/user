@@ -9,7 +9,7 @@ use MsgPhp\Domain\Factory\EntityFactoryInterface;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Infra\Security\{SecurityUser, SecurityUserProvider, UserRolesProviderInterface};
 use MsgPhp\User\Repository\UserRepositoryInterface;
-use MsgPhp\User\UserIdInterface;
+use MsgPhp\User\{CredentialInterface, UserIdInterface};
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -19,7 +19,7 @@ final class SecurityUserProviderTest extends TestCase
 {
     public function testLoadUserByUsername(): void
     {
-        $user = (new SecurityUserProvider($this->createRepository($this->createUser('id')), $this->createFactory()))->loadUserByUsername('id');
+        $user = (new SecurityUserProvider($this->createRepository($this->createUser()), $this->createFactory()))->loadUserByUsername('username');
 
         $this->assertSame('id', $user->getUsername());
         $this->assertSame([], $user->getRoles());
@@ -33,7 +33,7 @@ final class SecurityUserProviderTest extends TestCase
         $roleProvider->expects($this->any())
             ->method('getRoles')
             ->willReturn(['ROLE_FOO']);
-        $user = (new SecurityUserProvider($this->createRepository($this->createUser('id')), $this->createFactory(), $roleProvider))->loadUserByUsername('id');
+        $user = (new SecurityUserProvider($this->createRepository($this->createUser()), $this->createFactory(), $roleProvider))->loadUserByUsername('username');
 
         $this->assertSame('id', $user->getUsername());
         $this->assertSame(['ROLE_FOO'], $user->getRoles());
@@ -47,13 +47,13 @@ final class SecurityUserProviderTest extends TestCase
 
         $this->expectException(UsernameNotFoundException::class);
 
-        $provider->loadUserByUsername('id');
+        $provider->loadUserByUsername('username');
     }
 
     public function testRefreshUser(): void
     {
-        $provider = new SecurityUserProvider($this->createRepository($this->createUser('id')), $this->createFactory());
-        $user = $provider->refreshUser($originUser = $provider->loadUserByUsername('id'));
+        $provider = new SecurityUserProvider($this->createRepository($this->createUser()), $this->createFactory());
+        $user = $provider->refreshUser($originUser = $provider->loadUserByUsername('username'));
 
         $this->assertEquals($originUser, $user);
         $this->assertNotSame($originUser, $user);
@@ -65,7 +65,7 @@ final class SecurityUserProviderTest extends TestCase
 
         $this->expectException(UsernameNotFoundException::class);
 
-        $provider->refreshUser(new SecurityUser($this->createUser('unknown')));
+        $provider->refreshUser(new SecurityUser($this->createUser()));
     }
 
     public function testRefreshUserWithUnsupportedUser(): void
@@ -114,20 +114,36 @@ final class SecurityUserProviderTest extends TestCase
 
                 return $user;
             });
+        $repository->expects($this->any())
+            ->method('findByUsername')
+            ->willReturnCallback(function (string $username) use ($user) {
+                if (null === $user || $username !== $user->getCredential()->getUsername()) {
+                    throw EntityNotFoundException::createForFields(User::class, ['username' => $$username]);
+                }
+
+                return $user;
+            });
 
         return $repository;
     }
 
-    private function createUser(string $id): User
+    private function createUser(string $id = 'id', string $username = 'username'): User
     {
-        $userId = $this->createMock(UserIdInterface::class);
+        $user = $this->createMock(User::class);
+
+        $user->expects($this->any())
+            ->method('getId')
+            ->willReturn($userId = $this->createMock(UserIdInterface::class));
         $userId->expects($this->any())
             ->method('toString')
             ->willReturn($id);
-        $user = $this->createMock(User::class);
+
         $user->expects($this->any())
-            ->method('getId')
-            ->willReturn($userId);
+            ->method('getCredential')
+            ->willReturn($credential = $this->createMock(CredentialInterface::class));
+        $credential->expects($this->any())
+            ->method('getUsername')
+            ->willReturn($username);
 
         return $user;
     }

@@ -32,10 +32,12 @@ final class SecurityUserProvider implements UserProviderInterface
     public function loadUserByUsername($username): UserInterface
     {
         try {
-            return $this->createUser($username);
+            $user = $this->repository->findByUsername($username);
         } catch (EntityNotFoundException $e) {
             throw new UsernameNotFoundException($e->getMessage());
         }
+
+        return $this->fromUser($user);
     }
 
     public function refreshUser(UserInterface $user): UserInterface
@@ -45,10 +47,12 @@ final class SecurityUserProvider implements UserProviderInterface
         }
 
         try {
-            return $this->createUser($user->getUsername());
+            $user = $this->repository->find($this->factory->identify(User::class, $user->getUsername()));
         } catch (EntityNotFoundException $e) {
             throw new UsernameNotFoundException($e->getMessage());
         }
+
+        return $this->fromUser($user);
     }
 
     public function supportsClass($class): bool
@@ -56,10 +60,8 @@ final class SecurityUserProvider implements UserProviderInterface
         return SecurityUser::class === $class;
     }
 
-    private function createUser(string $id): SecurityUser
+    private function fromUser(User $user): SecurityUser
     {
-        $user = $this->repository->find($this->factory->identify(User::class, $id));
-
         return new SecurityUser($user, $this->roleProvider ? $this->roleProvider->getRoles($user) : []);
     }
 }

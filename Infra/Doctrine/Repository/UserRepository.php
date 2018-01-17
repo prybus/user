@@ -32,6 +32,11 @@ final class UserRepository implements UserRepositoryInterface
         return $this->doFind($id);
     }
 
+    public function findByUsername(string $username): User
+    {
+        return $this->doFindByFields(['username' => $username]);
+    }
+
     public function exists(UserIdInterface $id): bool
     {
         return $this->doExists($id);

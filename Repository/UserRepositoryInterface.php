@@ -20,6 +20,8 @@ interface UserRepositoryInterface
 
     public function find(UserIdInterface $id): User;
 
+    public function findByUsername(string $username): User;
+
     public function exists(UserIdInterface $id): bool;
 
     public function save(User $user): void;
