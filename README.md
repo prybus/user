@@ -10,9 +10,10 @@ composer require msgphp/user
 
 ## Features
 
-- Doctrine and in-memory persistence
+- Doctrine persistence
 - Symfony console commands
 - Symfony security infrastructure
+- Symfony validators
 - Credential independent (supports e-mail, nickname, etc.)
 - Disabled / enabled users
 - User roles
