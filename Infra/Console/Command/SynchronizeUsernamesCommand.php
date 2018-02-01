@@ -23,9 +23,9 @@ final class SynchronizeUsernamesCommand extends Command
 
     public function __construct(UsernameRepositoryInterface $repository)
     {
-        parent::__construct();
-
         $this->repository = $repository;
+
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -35,7 +35,7 @@ final class SynchronizeUsernamesCommand extends Command
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Perform a dry run');
     }
 
-    public function run(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $dryRun = $input->getOption('dry-run');
