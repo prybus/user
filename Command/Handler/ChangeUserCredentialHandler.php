@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\Command\EventSourcingCommandHandlerTrait;
-use MsgPhp\Domain\Event\DisableEvent;
 use MsgPhp\Domain\Factory\EntityAwareFactoryInterface;
 use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
-use MsgPhp\User\Command\DisableUserCommand;
+use MsgPhp\User\Command\ChangeUserCredentialCommand;
 use MsgPhp\User\Entity\User;
-use MsgPhp\User\Event\UserDisabledEvent;
+use MsgPhp\User\Event\Domain\ChangeCredentialEvent;
+use MsgPhp\User\Event\UserCredentialChangedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class DisableUserHandler
+final class ChangeUserCredentialHandler
 {
     use EventSourcingCommandHandlerTrait;
     use MessageDispatchingTrait;
@@ -30,20 +30,22 @@ final class DisableUserHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(DisableUserCommand $command): void
+    public function __invoke(ChangeUserCredentialCommand $command): void
     {
-        $this->handle($command, function (User $user): void {
+        $oldCredential = $this->getDomainEventHandler($command)->getCredential();
+
+        $this->handle($command, function (User $user) use ($oldCredential): void {
             $this->repository->save($user);
-            $this->dispatch(UserDisabledEvent::class, [$user]);
+            $this->dispatch(UserCredentialChangedEvent::class, [$user, $oldCredential, $user->getCredential()]);
         });
     }
 
-    protected function getDomainEvent(DisableUserCommand $command): DisableEvent
+    protected function getDomainEvent(ChangeUserCredentialCommand $command): ChangeCredentialEvent
     {
-        return $this->factory->create(DisableEvent::class);
+        return $this->factory->create(ChangeCredentialEvent::class, [$command->context]);
     }
 
-    protected function getDomainEventHandler(DisableUserCommand $command): User
+    protected function getDomainEventHandler(ChangeUserCredentialCommand $command): User
     {
         return $this->repository->find($this->factory->identify(User::class, $command->userId));
     }
