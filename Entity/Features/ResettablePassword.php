@@ -33,6 +33,12 @@ trait ResettablePassword
         $this->passwordRequestedAt = new \DateTimeImmutable();
     }
 
+    public function clearPasswordRequest(): void
+    {
+        $this->passwordResetToken = null;
+        $this->passwordRequestedAt = null;
+    }
+
     private function handleRequestPasswordEvent(RequestPasswordEvent $event): bool
     {
         if (null === $event->token || $event->token !== $this->passwordResetToken) {
