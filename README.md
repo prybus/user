@@ -1,4 +1,4 @@
-# User Domain
+# User domain layer
 
 A domain layer providing basic user management.
 
