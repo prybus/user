@@ -11,7 +11,7 @@ class DisableUserCommand
 {
     public $userId;
 
-    public function __construct($userId)
+    final public function __construct($userId)
     {
         $this->userId = $userId;
     }

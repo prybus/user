@@ -11,7 +11,7 @@ class CreateUserCommand
 {
     public $context;
 
-    public function __construct(array $context)
+    final public function __construct(array $context)
     {
         $this->context = $context;
     }

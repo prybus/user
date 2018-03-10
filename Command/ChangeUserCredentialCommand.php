@@ -12,7 +12,7 @@ class ChangeUserCredentialCommand
     public $userId;
     public $context;
 
-    public function __construct($userId, array $context)
+    final public function __construct($userId, array $context)
     {
         $this->userId = $userId;
         $this->context = $context;

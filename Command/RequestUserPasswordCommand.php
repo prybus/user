@@ -12,7 +12,7 @@ class RequestUserPasswordCommand
     public $userId;
     public $token;
 
-    public function __construct($userId, string $token = null)
+    final public function __construct($userId, string $token = null)
     {
         $this->userId = $userId;
         $this->token = $token;
