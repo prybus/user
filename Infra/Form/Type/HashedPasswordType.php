@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,7 +65,9 @@ final class HashedPasswordType extends AbstractType
                     : (is_callable($algorithm) ? $algorithm() : $algorithm);
 
                 if (!$this->passwordHashing->isValid($user->getPassword(), $plainPassword, $algorithm)) {
-                    $context->addViolation($passwordOptions['invalid_message'], $passwordOptions['invalid_message_parameters']);
+                    /** @var FormInterface $form */
+                    $form = $context->getObject();
+                    $form->addError(new FormError($passwordOptions['invalid_message'], $passwordOptions['invalid_message'], $passwordOptions['invalid_message_parameters'], null, $this));
                 }
             }));
         }
@@ -97,7 +100,9 @@ final class HashedPasswordType extends AbstractType
                 }
 
                 if (!$this->passwordHashing->isValid($password, $value, is_callable($algorithm) ? $algorithm() : $algorithm)) {
-                    $context->addViolation($passwordConfirmOptions['invalid_message'], $passwordConfirmOptions['invalid_message_parameters']);
+                    /** @var FormInterface $form */
+                    $form = $context->getObject();
+                    $form->addError(new FormError($passwordConfirmOptions['invalid_message'], $passwordConfirmOptions['invalid_message'], $passwordConfirmOptions['invalid_message_parameters'], null, $this));
                 }
             }));
 
