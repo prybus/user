@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use MsgPhp\Domain\{DomainCollectionInterface, DomainIdentityHelper};
 use MsgPhp\Domain\Factory\DomainCollectionFactory;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
-use MsgPhp\User\Entity\Username;
+use MsgPhp\User\Entity\{User, Username};
 use MsgPhp\User\Repository\UsernameRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 
@@ -72,7 +72,7 @@ final class UsernameRepository implements UsernameRepositoryInterface
 
                     $userField = $mapping['mapped_by'];
                 } else {
-                    $userField = reset($idFields);
+                    $userField = null;
                 }
 
                 $qb->addSelect(sprintf('partial %s.{%s}', $alias, implode(', ', array_keys($fields))));
@@ -87,8 +87,20 @@ final class UsernameRepository implements UsernameRepositoryInterface
             $metadata = $this->em->getClassMetadata($class = ClassUtils::getRealClass(get_class($targetEntity)));
 
             foreach ($targetInfo[$class] as $info) {
-                if (null === $user = $metadata->getFieldValue($targetEntity, $info['user_field'])) {
-                    continue;
+                if ($targetEntity instanceof User) {
+                    $user = $targetEntity;
+                } elseif (isset($info['user_field'])) {
+                    $user = $metadata->getFieldValue($targetEntity, $info['user_field']);
+
+                    if (null === $user) {
+                        continue;
+                    }
+
+                    if ($user instanceof User) {
+                        throw new \LogicException(sprintf('Field "%s.%s" must return an instance of "%s" or null, got "%s".', $class, $info['user_field'], User::class, is_object($user) ? get_class($user) : gettype($user)));
+                    }
+                } else {
+                    throw new \LogicException(sprintf('No user field mapped for entity "%s".', $class));
                 }
 
                 if (null === $username = $metadata->getFieldValue($targetEntity, $info['username_field'])) {

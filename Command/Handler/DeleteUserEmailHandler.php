@@ -8,7 +8,7 @@ use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\Domain\Factory\EntityAwareFactoryInterface;
 use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
 use MsgPhp\User\Command\DeleteUserEmailCommand;
-use MsgPhp\User\Entity\{User, UserEmail};
+use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\UserEmailDeletedEvent;
 use MsgPhp\User\Repository\UserEmailRepositoryInterface;
 

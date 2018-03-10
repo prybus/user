@@ -50,21 +50,18 @@ final class HashedPasswordType extends AbstractType
             }
 
             $passwordOptions = self::withConstraint($passwordOptions, new Callback(function (?string $value, ExecutionContextInterface $context) use ($algorithm, $passwordOptions, &$plainPassword): void {
-                if (null === $value || '' === $value) {
-                    return;
+                $valid = true;
+                if (null === $value || '' === $value || null === $this->tokenStorage || null === ($token = $this->tokenStorage->getToken()) || !($user = $token->getUser()) instanceof UserInterface) {
+                    $valid = false;
+                } else {
+                    $algorithm = null === $algorithm && null !== ($salt = $user->getSalt())
+                        ? PasswordAlgorithm::createLegacySalted(new PasswordSalt($salt))
+                        : (is_callable($algorithm) ? $algorithm() : $algorithm);
+
+                    $valid = $this->passwordHashing->isValid($user->getPassword(), $plainPassword, $algorithm);
                 }
 
-                if (null === $this->tokenStorage || null === ($token = $this->tokenStorage->getToken()) || !($user = $token->getUser()) instanceof UserInterface) {
-                    $context->addViolation($passwordOptions['invalid_message'], $passwordOptions['invalid_message_parameters']);
-
-                    return;
-                }
-
-                $algorithm = null === $algorithm && null !== ($salt = $user->getSalt())
-                    ? PasswordAlgorithm::createLegacySalted(new PasswordSalt($salt))
-                    : (is_callable($algorithm) ? $algorithm() : $algorithm);
-
-                if (!$this->passwordHashing->isValid($user->getPassword(), $plainPassword, $algorithm)) {
+                if (!$valid) {
                     /** @var FormInterface $form */
                     $form = $context->getObject();
                     $form->addError(new FormError($passwordOptions['invalid_message'], $passwordOptions['invalid_message'], $passwordOptions['invalid_message_parameters'], null, $this));
