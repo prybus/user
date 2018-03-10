@@ -96,7 +96,7 @@ final class UsernameRepository implements UsernameRepositoryInterface
                         continue;
                     }
 
-                    if ($user instanceof User) {
+                    if (!$user instanceof User) {
                         throw new \LogicException(sprintf('Field "%s.%s" must return an instance of "%s" or null, got "%s".', $class, $info['user_field'], User::class, is_object($user) ? get_class($user) : gettype($user)));
                     }
                 } else {

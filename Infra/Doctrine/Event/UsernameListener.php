@@ -98,9 +98,9 @@ final class UsernameListener
             }
         }
 
-        $em->flush();
-
         $this->updateUsernames = [];
+
+        $em->flush();
     }
 
     /**
