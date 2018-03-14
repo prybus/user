@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infra\Console\Command;
 
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\Domain\Infra\Console\ContextBuilder\ContextBuilderInterface;
+use MsgPhp\Domain\Infra\Console\Context\ContextFactoryInterface;
 use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait, MessageReceivingInterface};
 use MsgPhp\User\Command\CreateUserCommand as CreateUserDomainCommand;
 use MsgPhp\User\Event\UserCreatedEvent;
@@ -24,16 +24,16 @@ final class CreateUserCommand extends Command implements MessageReceivingInterfa
 
     protected static $defaultName = 'user:create';
 
-    private $contextBuilder;
+    private $contextFactory;
 
     /** @var StyleInterface */
     private $io;
 
-    public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, ContextBuilderInterface $contextBuilder)
+    public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, ContextFactoryInterface $contextFactory)
     {
         $this->factory = $factory;
         $this->bus = $bus;
-        $this->contextBuilder = $contextBuilder;
+        $this->contextFactory = $contextFactory;
 
         parent::__construct();
     }
@@ -53,13 +53,13 @@ final class CreateUserCommand extends Command implements MessageReceivingInterfa
         parent::configure();
 
         $this->setDescription('Create a user');
-        $this->contextBuilder->configure($this->getDefinition());
+        $this->contextFactory->configure($this->getDefinition());
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
-        $context = $this->contextBuilder->getContext($input, $this->io);
+        $context = $this->contextFactory->getContext($input, $this->io);
 
         $this->dispatch(CreateUserDomainCommand::class, [$context]);
 
