@@ -70,7 +70,6 @@ final class EntityFieldsMapping implements ObjectFieldMappingProviderInterface
                     'type' => self::TYPE_ONE_TO_MANY,
                     'targetEntity' => UserRole::class,
                     'mappedBy' => 'user',
-                    'indexBy' => 'name',
                 ],
             ],
             Fields\UserField::class => [
