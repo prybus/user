@@ -11,7 +11,6 @@ use MsgPhp\Domain\Factory\DomainCollectionFactory;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\{User, Username};
 use MsgPhp\User\Repository\UsernameRepositoryInterface;
-use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -79,6 +78,14 @@ final class UsernameRepository implements UsernameRepositoryInterface
                 $qb->from($mapping['target'], $alias);
 
                 $targetInfo[$class][] = ['user_field' => $userField, 'username_field' => $mapping['field']];
+
+                foreach ((array) $metadata->discriminatorMap as $discriminatorClass) {
+                    if (isset($targetInfo[$discriminatorClass]) || isset($this->targetMapping[$discriminatorClass])) {
+                        continue;
+                    }
+
+                    $targetInfo[$discriminatorClass] = $targetInfo[$class];
+                }
             }
         }
 
@@ -116,14 +123,14 @@ final class UsernameRepository implements UsernameRepositoryInterface
         return $offset || $limit ? $result->slice($offset, $limit) : $result;
     }
 
-    public function find(UserIdInterface $userId, string $username): Username
+    public function find(string $username): Username
     {
-        return $this->doFind(['user' => $userId, 'username' => $username]);
+        return $this->doFind($username);
     }
 
-    public function exists(UserIdInterface $userId, string $username): bool
+    public function exists(string $username): bool
     {
-        return $this->doExists(['user' => $userId, 'username' => $username]);
+        return $this->doExists($username);
     }
 
     public function save(Username $user): void
