@@ -50,8 +50,6 @@ final class CreateUserCommand extends Command implements MessageReceivingInterfa
 
     protected function configure(): void
     {
-        parent::configure();
-
         $this->setDescription('Create a user');
         $this->contextFactory->configure($this->getDefinition());
     }
