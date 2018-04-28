@@ -38,13 +38,18 @@ final class ChangeUserCredentialCommand extends UserCommand
     public function onMessageReceived($message): void
     {
         if ($message instanceof UserCredentialChangedEvent) {
-            $messages = ['Changed user credential for '.$message->user->getCredential()->getUsername()];
+            $this->io->success('Changed user credential for '.$message->user->getCredential()->getUsername());
+
+            $rows = [];
             foreach (array_diff((array) $message->newCredential, $oldValues = (array) $message->oldCredential) as $key => $value) {
                 $field = false === ($i = strrpos($key, "\00")) ? $key : substr($key, $i + 1);
-                $messages[] = sprintf('> Field "%s" changed from %s to %s', $field, json_encode($oldValues[$key] ?? null), json_encode($value));
+                // @todo use VarDumper
+                $rows[] = [$field, json_encode($oldValues[$key] ?? null), json_encode($value)];
             }
 
-            $this->io->success($messages);
+            if ($rows) {
+                $this->io->table(['Field', 'Old Value', 'New Value'], $rows);
+            }
         }
     }
 
