@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @todo rename to UserArgumentValueResolver
  */
 final class UserValueResolver implements ArgumentValueResolverInterface
 {
