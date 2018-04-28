@@ -11,20 +11,14 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
- *
- * @todo rename to UserArgumentValueResolver
  */
-final class UserValueResolver implements ArgumentValueResolverInterface
+final class UserArgumentValueResolver implements ArgumentValueResolverInterface
 {
     use TokenStorageAwareTrait;
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        if (User::class === ($type = $argument->getType()) || is_subclass_of($type, User::class)) {
-            return $argument->isNullable() || $this->isUser();
-        }
-
-        return false;
+        return is_a($argument->getType(), User::class, true) ? ($argument->isNullable() || $this->isUser()) : false;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator

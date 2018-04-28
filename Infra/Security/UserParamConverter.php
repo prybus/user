@@ -29,10 +29,6 @@ final class UserParamConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration): bool
     {
-        if (User::class == ($class = $configuration->getClass()) || is_subclass_of($class, User::class)) {
-            return $configuration->isOptional() || $this->isUser();
-        }
-
-        return false;
+        return is_a($configuration->getClass(), User::class, true) ? ($configuration->isOptional() || $this->isUser()) : false;
     }
 }
