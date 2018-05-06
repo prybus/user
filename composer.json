@@ -2,7 +2,7 @@
     "name": "msgphp/user",
     "type": "library",
     "license": "MIT",
-    "description": "User domain layer",
+    "description": "A domain layer providing basic user management",
     "keywords": ["user", "security"],
     "authors": [
         {
