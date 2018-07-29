@@ -91,10 +91,20 @@ final class SecurityUserProviderTest extends TestCase
         $rolesProvider->expects($this->once())
             ->method('getRoles')
             ->willReturn($roles = ['ROLE_FOO']);
+        $user = $this->createMock(User::class);
+        $user->expects($this->once())
+            ->method('getId')
+            ->willReturn($userId = $this->createMock(UserIdInterface::class));
+        $userId->expects($this->once())
+            ->method('toString')
+            ->willReturn('123');
         $provider = new SecurityUserProvider($this->createMock(UserRepositoryInterface::class), $this->createMock(EntityAwareFactoryInterface::class), $rolesProvider);
+        $securityUser = $provider->fromUser($user);
 
-        $this->assertInstanceOf(SecurityUser::class, $user = $provider->fromUser($this->createMock(User::class)));
-        $this->assertSame($roles, $user->getRoles());
+        $this->assertSame('123', $securityUser->getUsername());
+        $this->assertSame('', $securityUser->getPassword());
+        $this->assertNull($securityUser->getSalt());
+        $this->assertSame($roles, $securityUser->getRoles());
     }
 
     private function createFactory(): EntityAwareFactoryInterface

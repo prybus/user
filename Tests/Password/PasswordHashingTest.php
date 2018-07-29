@@ -92,7 +92,7 @@ final class PasswordHashingTest extends TestCase
         $algorithm2 = PasswordAlgorithm::createLegacyBase64Encoded('sha1');
 
         $this->assertNotSame($baseHash = $hashing->hash('password'), $hashing->hash('password', $algorithm));
-        $this->assertSame($hash = base64_encode(hex2bin($baseHash)), $hashing->hash('password', $algorithm));
+        $this->assertSame($hash = base64_encode((string) hex2bin($baseHash)), $hashing->hash('password', $algorithm));
         $this->assertNotSame($hash, $hashing->hash('password', $algorithm2));
 
         $this->assertFalse($hashing->isValid($baseHash, 'password', $algorithm));
