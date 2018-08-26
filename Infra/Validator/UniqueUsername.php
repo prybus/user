@@ -7,6 +7,9 @@ namespace MsgPhp\User\Infra\Validator;
 use Symfony\Component\Validator\Constraint;
 
 /**
+ * @Annotation
+ * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
+ *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
 final class UniqueUsername extends Constraint
