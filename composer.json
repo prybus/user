@@ -3,7 +3,7 @@
     "type": "library",
     "license": "MIT",
     "description": "A domain layer providing basic user management",
-    "keywords": ["rich domain model", "user", "security"],
+    "keywords": ["ddd", "domain-driven-design", "rich domain model", "user", "security"],
     "authors": [
         {
             "name": "Roland Franssen",
