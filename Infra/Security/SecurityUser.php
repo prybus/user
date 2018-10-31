@@ -92,6 +92,6 @@ final class SecurityUser implements UserInterface, EquatableInterface, \Serializ
 
     public function unserialize($serialized): void
     {
-        list($this->id, $this->originUsername, $this->roles, $this->password, $this->passwordSalt) = unserialize($serialized);
+        [$this->id, $this->originUsername, $this->roles, $this->password, $this->passwordSalt] = unserialize($serialized);
     }
 }
