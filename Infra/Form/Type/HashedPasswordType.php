@@ -175,7 +175,7 @@ final class HashedPasswordType extends AbstractType
     }
 
     /**
-     * @param null|callable|int|string|PasswordAlgorithm $algorithm
+     * @param callable|int|string|PasswordAlgorithm|null $algorithm
      */
     private function createAlgorithm($algorithm, bool $current = false): ?PasswordAlgorithm
     {
