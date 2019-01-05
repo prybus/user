@@ -45,7 +45,8 @@ abstract class UserCommand extends Command implements MessageReceivingInterface
     {
         $this
             ->addOption('by-id', null, InputOption::VALUE_NONE, 'Find user by identifier')
-            ->addArgument('user', InputArgument::OPTIONAL, 'The username or user ID');
+            ->addArgument('user', InputArgument::OPTIONAL, 'The username or user ID')
+        ;
     }
 
     protected function getUser(InputInterface $input, StyleInterface $io): User

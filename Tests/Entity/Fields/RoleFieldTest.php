@@ -15,7 +15,8 @@ final class RoleFieldTest extends TestCase
         $value = $this->createMock(Role::class);
         $value->expects(self::any())
             ->method('getName')
-            ->willReturn('ROLE_FOO');
+            ->willReturn('ROLE_FOO')
+        ;
 
         $object = $this->getObject($value);
 
