@@ -107,7 +107,7 @@ final class UserRepository implements UserRepositoryInterface
         }
 
         $qb = $this->createQueryBuilder();
-        $qb->join($this->usernameClass, 'username', Join::WITH, 'username.user = '.$this->alias);
+        $qb->join($this->usernameClass, 'username', Join::WITH, 'username.user = '.$this->getAlias());
         $qb->where($qb->expr()->eq('username.username', ':username'));
         $qb->setMaxResults(1);
         $qb->setParameter('username', $username);
