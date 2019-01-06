@@ -36,7 +36,7 @@ final class UsernameRepository implements UsernameRepositoryInterface
     public function findAll(int $offset = 0, int $limit = 0): DomainCollectionInterface
     {
         $qb = $this->createQueryBuilder();
-        $qb->indexBy($this->alias, 'username');
+        $qb->indexBy($this->getAlias(), 'username');
 
         return $this->createResultSet($qb->getQuery(), $offset, $limit);
     }
