@@ -97,7 +97,7 @@ final class HashedPasswordType extends AbstractType
 
             if (\function_exists('sodium_memzero')) {
                 sodium_memzero($value);
-                if (!$confirmCurrent) {
+                if (!$confirmCurrent && \is_string($plainPassword)) {
                     sodium_memzero($plainPassword);
                 }
             }
