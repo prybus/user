@@ -111,7 +111,7 @@ final class UsernameListener
 
         $qb = $em->createQueryBuilder();
         $qb->select('u');
-        $qb->from(Username::class, 'u');
+        $qb->from($this->factory->getClass(Username::class), 'u');
         $qb->where($qb->expr()->in('u.username', ':usernames'));
         $qb->setParameter('usernames', array_keys($this->updateUsernames));
 
