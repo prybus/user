@@ -20,8 +20,6 @@ abstract class RoleCommand extends Command implements MessageReceivingInterface
         dispatch as protected;
     }
 
-    private $repository;
-
     public function __construct(EntityAwareFactoryInterface $factory, DomainMessageBusInterface $bus, RoleRepositoryInterface $repository)
     {
         $this->factory = $factory;
