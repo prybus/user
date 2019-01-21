@@ -63,6 +63,10 @@ final class AddUserRoleCommand extends UserRoleCommand
         } catch (EntityNotFoundException $e) {
             $roleName = $input->getArgument('role');
 
+            if (!\is_string($roleName)) {
+                throw new \UnexpectedValueException('Role name must be a string.');
+            }
+
             if (!$input->isInteractive() || !$this->io->confirm(sprintf('Role "%s" does not exists. Create it now?', $roleName))) {
                 throw $e;
             }
