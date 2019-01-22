@@ -21,6 +21,9 @@ final class DisableUserHandler
     use EventSourcingCommandHandlerTrait;
     use MessageDispatchingTrait;
 
+    /**
+     * @var UserRepositoryInterface
+     */
     private $repository;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserRepositoryInterface $repository)

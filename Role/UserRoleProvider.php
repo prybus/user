@@ -12,6 +12,9 @@ use MsgPhp\User\Repository\UserRoleRepositoryInterface;
  */
 final class UserRoleProvider implements RoleProviderInterface
 {
+    /**
+     * @var UserRoleRepositoryInterface
+     */
     private $repository;
 
     public function __construct(UserRoleRepositoryInterface $repository)

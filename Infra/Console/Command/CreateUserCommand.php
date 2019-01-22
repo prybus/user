@@ -24,9 +24,14 @@ final class CreateUserCommand extends Command implements MessageReceivingInterfa
 
     protected static $defaultName = 'user:create';
 
+    /**
+     * @var ContextFactoryInterface
+     */
     private $contextFactory;
 
-    /** @var StyleInterface */
+    /**
+     * @var StyleInterface
+     */
     private $io;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, ContextFactoryInterface $contextFactory)

@@ -18,6 +18,9 @@ final class DeleteUserEmailHandler
 {
     use MessageDispatchingTrait;
 
+    /**
+     * @var UserEmailRepositoryInterface
+     */
     private $repository;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserEmailRepositoryInterface $repository)

@@ -9,6 +9,9 @@ namespace MsgPhp\User\Command;
  */
 class DeleteUserEmailCommand
 {
+    /**
+     * @var string
+     */
     public $email;
 
     final public function __construct(string $email)

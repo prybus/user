@@ -22,9 +22,19 @@ final class UserRepository implements UserRepositoryInterface
 {
     use DomainEntityRepositoryTrait;
 
+    /**
+     * @var string|null
+     */
     private $usernameField;
+
+    /**
+     * @var string|null
+     */
     private $usernameClass;
 
+    /**
+     * @psalm-param class-string $class
+     */
     public function __construct(string $class, EntityManagerInterface $em, ?string $usernameField, ?string $usernameClass)
     {
         $this->class = $class;

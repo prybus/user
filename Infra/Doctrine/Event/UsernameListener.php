@@ -19,10 +19,24 @@ use MsgPhp\User\Entity\{User, Username};
  */
 final class UsernameListener
 {
+    /**
+     * @var DomainObjectFactoryInterface
+     */
     private $factory;
+
+    /**
+     * @var array[]
+     */
     private $targetMappings;
+
+    /**
+     * @var array
+     */
     private $updateUsernames = [];
 
+    /**
+     * @param array[] $targetMappings
+     */
     public function __construct(DomainObjectFactoryInterface $factory, array $targetMappings)
     {
         $this->factory = $factory;
@@ -155,7 +169,7 @@ final class UsernameListener
     }
 
     /**
-     * @psalm-suppress DeprecatedClass
+     * @param object $entity
      */
     private function getTargetMapping($entity, EntityManagerInterface $em): array
     {

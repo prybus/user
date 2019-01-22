@@ -11,7 +11,14 @@ use MsgPhp\User\UserIdInterface;
  */
 class DeleteUserRoleCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
+
+    /**
+     * @var string
+     */
     public $roleName;
 
     final public function __construct(UserIdInterface $userId, string $roleName)

@@ -18,8 +18,16 @@ final class UsernameRepository implements UsernameRepositoryInterface
 {
     use DomainEntityRepositoryTrait;
 
+    /**
+     * @var array[]
+     */
     private $targetMappings;
 
+    /**
+     * @psalm-param class-string $class
+     *
+     * @param array[] $targetMappings
+     */
     public function __construct(string $class, EntityManagerInterface $em, array $targetMappings = [])
     {
         $this->class = $class;
@@ -39,8 +47,6 @@ final class UsernameRepository implements UsernameRepositoryInterface
     }
 
     /**
-     * @psalm-suppress DeprecatedClass
-     *
      * @return DomainCollectionInterface|Username[]
      */
     public function findAllFromTargets(int $offset = 0, int $limit = 0): DomainCollectionInterface
@@ -77,6 +83,7 @@ final class UsernameRepository implements UsernameRepositoryInterface
         foreach ($results ? array_merge(...$results) : [] as $target) {
             $metadata = $this->em->getClassMetadata($class = ClassUtils::getRealClass(\get_class($target)));
 
+            /** @var string $field */
             foreach ($targets[$class] as $field => $mappedBy) {
                 $user = null === $mappedBy ? $target : $metadata->getFieldValue($target, $mappedBy);
 

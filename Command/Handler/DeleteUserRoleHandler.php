@@ -18,6 +18,9 @@ final class DeleteUserRoleHandler
 {
     use MessageDispatchingTrait;
 
+    /**
+     * @var UserRoleRepositoryInterface
+     */
     private $repository;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserRoleRepositoryInterface $repository)

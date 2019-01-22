@@ -11,7 +11,14 @@ use MsgPhp\User\UserIdInterface;
  */
 class ChangeUserCredentialCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
+
+    /**
+     * @var array
+     */
     public $fields;
 
     final public function __construct(UserIdInterface $userId, array $fields)

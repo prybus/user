@@ -18,8 +18,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class SecurityUserProvider implements PayloadAwareUserProviderInterface
 {
+    /**
+     * @var BaseSecurityUserProvider
+     */
     private $provider;
+
+    /**
+     * @var UserRepositoryInterface
+     */
     private $repository;
+
+    /**
+     * @var DomainObjectFactoryInterface
+     */
     private $factory;
 
     public function __construct(BaseSecurityUserProvider $provider, UserRepositoryInterface $repository, DomainObjectFactoryInterface $factory)

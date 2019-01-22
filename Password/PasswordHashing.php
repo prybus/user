@@ -9,7 +9,14 @@ namespace MsgPhp\User\Password;
  */
 final class PasswordHashing implements PasswordHashingInterface
 {
+    /**
+     * @var PasswordAlgorithm
+     */
     private $defaultAlgorithm;
+
+    /**
+     * @var bool
+     */
     private $deprecateLegacyApi;
 
     public function __construct(PasswordAlgorithm $defaultAlgorithm = null, bool $deprecateLegacyApi = true)
@@ -23,7 +30,7 @@ final class PasswordHashing implements PasswordHashingInterface
         $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
         if (!$algorithm->legacy) {
-            $hash = password_hash($plainPassword, $algorithm->type, $algorithm->options);
+            $hash = password_hash($plainPassword, (int) $algorithm->type, $algorithm->options ?? []);
 
             if (\function_exists('sodium_memzero')) {
                 sodium_memzero($plainPassword);
@@ -40,6 +47,8 @@ final class PasswordHashing implements PasswordHashingInterface
             @trigger_error(sprintf('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "%s::create()" instead.', PasswordAlgorithm::class), \E_USER_DEPRECATED);
         }
 
+        $type = (string) $algorithm->type;
+
         if (null !== $algorithm->salt) {
             if (1 > $algorithm->salt->iterations) {
                 throw new \LogicException(sprintf('No. of password salt iterations must be 1 or higher, got %d.', $algorithm->salt->iterations));
@@ -55,13 +64,13 @@ final class PasswordHashing implements PasswordHashingInterface
                 sodium_memzero($plainPassword);
             }
 
-            $hash = hash($algorithm->type, $salted, true);
+            $hash = hash($type, $salted, true);
 
             for ($i = 1; $i < $algorithm->salt->iterations; ++$i) {
-                $hash = hash($algorithm->type, $hash.$salted, true);
+                $hash = hash($type, $hash.$salted, true);
             }
         } else {
-            $hash = hash($algorithm->type, $plainPassword, true);
+            $hash = hash($type, $plainPassword, true);
 
             if (\function_exists('sodium_memzero')) {
                 sodium_memzero($plainPassword);

@@ -11,7 +11,14 @@ use MsgPhp\User\UserIdInterface;
  */
 class RequestUserPasswordCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
+
+    /**
+     * @var string|null
+     */
     public $token;
 
     final public function __construct(UserIdInterface $userId, string $token = null)

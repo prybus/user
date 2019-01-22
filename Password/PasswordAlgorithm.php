@@ -11,19 +11,29 @@ final class PasswordAlgorithm
 {
     public const DEFAULT_LEGACY = 'sha512';
 
-    /** @var int|string */
+    /**
+     * @var int|string
+     */
     public $type;
 
-    /** @var array|null */
+    /**
+     * @var array|null
+     */
     public $options;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     public $legacy;
 
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     public $encodeBase64;
 
-    /** @var PasswordSalt|null */
+    /**
+     * @var PasswordSalt|null
+     */
     public $salt;
 
     /**
@@ -64,6 +74,9 @@ final class PasswordAlgorithm
         return $instance;
     }
 
+    /**
+     * @param int|string $type
+     */
     private function __construct($type, bool $legacy = false)
     {
         $this->type = $type;

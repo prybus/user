@@ -11,6 +11,9 @@ use MsgPhp\User\Entity\UserEmail;
  */
 class UserEmailConfirmedEvent
 {
+    /**
+     * @var UserEmail
+     */
     public $userEmail;
 
     final public function __construct(UserEmail $userEmail)

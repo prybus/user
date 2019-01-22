@@ -14,6 +14,9 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class ExistingUsernameValidator extends ConstraintValidator
 {
+    /**
+     * @var UserRepositoryInterface
+     */
     private $repository;
 
     public function __construct(UserRepositoryInterface $repository)

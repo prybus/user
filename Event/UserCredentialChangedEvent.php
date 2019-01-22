@@ -12,8 +12,19 @@ use MsgPhp\User\Entity\User;
  */
 class UserCredentialChangedEvent
 {
+    /**
+     * @var User
+     */
     public $user;
+
+    /**
+     * @var CredentialInterface
+     */
     public $oldCredential;
+
+    /**
+     * @var CredentialInterface
+     */
     public $newCredential;
 
     final public function __construct(User $user, CredentialInterface $oldCredential, CredentialInterface $newCredential)

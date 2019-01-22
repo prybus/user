@@ -25,7 +25,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 final class HashedPasswordType extends AbstractType
 {
+    /**
+     * @var PasswordHashingInterface
+     */
     private $passwordHashing;
+
+    /**
+     * @var TokenStorageInterface|null
+     */
     private $tokenStorage;
 
     public function __construct(PasswordHashingInterface $passwordHashing, TokenStorageInterface $tokenStorage = null)

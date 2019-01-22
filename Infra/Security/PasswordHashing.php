@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyP
  */
 final class PasswordHashing implements PasswordHashingInterface
 {
+    /**
+     * @var SymfonyPasswordHashingInterface
+     */
     private $hashing;
 
     public function __construct(SymfonyPasswordHashingInterface $hashing)

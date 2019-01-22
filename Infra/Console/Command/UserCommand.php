@@ -25,11 +25,15 @@ abstract class UserCommand extends Command implements MessageReceivingInterface
         dispatch as protected;
     }
 
+    /**
+     * @var UserRepositoryInterface
+     */
     private $repository;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserRepositoryInterface $repository)
     {
         $this->init($factory, $bus);
+
         $this->repository = $repository;
 
         parent::__construct();

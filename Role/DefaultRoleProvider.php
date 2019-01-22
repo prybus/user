@@ -11,6 +11,9 @@ use MsgPhp\User\Entity\User;
  */
 final class DefaultRoleProvider implements RoleProviderInterface
 {
+    /**
+     * @var string[]
+     */
     private $roles;
 
     /**

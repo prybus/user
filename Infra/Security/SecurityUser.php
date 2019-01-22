@@ -16,10 +16,29 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class SecurityUser implements UserInterface, EquatableInterface, \Serializable
 {
+    /**
+     * @var UserIdInterface
+     */
     private $id;
+
+    /**
+     * @var string|null
+     */
     private $originUsername;
+
+    /**
+     * @var string[]
+     */
     private $roles;
+
+    /**
+     * @var string|null
+     */
     private $password;
+
+    /**
+     * @var string|null
+     */
     private $passwordSalt;
 
     /**

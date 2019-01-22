@@ -11,6 +11,9 @@ use MsgPhp\User\UserIdInterface;
  */
 class EnableUserCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
 
     final public function __construct(UserIdInterface $userId)

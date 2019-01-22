@@ -24,9 +24,15 @@ final class AddUserRoleCommand extends UserRoleCommand
 {
     protected static $defaultName = 'user:role:add';
 
-    /** @var StyleInterface */
-    private $io;
+    /**
+     * @var ContextFactoryInterface
+     */
     private $contextFactory;
+
+    /**
+     * @var StyleInterface
+     */
+    private $io;
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository, ContextFactoryInterface $contextFactory)
     {

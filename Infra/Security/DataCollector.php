@@ -28,6 +28,9 @@ use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
  */
 final class DataCollector extends BaseDataCollector
 {
+    /**
+     * @var UserRepositoryInterface|null
+     */
     private $repository;
 
     public function __construct(TokenStorageInterface $tokenStorage = null, RoleHierarchyInterface $roleHierarchy = null, LogoutUrlGenerator $logoutUrlGenerator = null, AccessDecisionManagerInterface $accessDecisionManager = null, FirewallMapInterface $firewallMap = null, TraceableFirewallListener $firewall = null, UserRepositoryInterface $repository = null)

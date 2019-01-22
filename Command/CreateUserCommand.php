@@ -9,6 +9,9 @@ namespace MsgPhp\User\Command;
  */
 class CreateUserCommand
 {
+    /**
+     * @var array
+     */
     public $context;
 
     final public function __construct(array $context)

@@ -18,7 +18,9 @@ final class EnableUserCommand extends UserCommand
 {
     protected static $defaultName = 'user:enable';
 
-    /** @var StyleInterface */
+    /**
+     * @var StyleInterface
+     */
     private $io;
 
     public function onMessageReceived($message): void

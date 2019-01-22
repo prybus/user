@@ -18,7 +18,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 final class SecurityUserProvider implements UserProviderInterface
 {
+    /**
+     * @var UserRepositoryInterface
+     */
     private $repository;
+
+    /**
+     * @var RoleProviderInterface|null
+     */
     private $roleProvider;
 
     public function __construct(UserRepositoryInterface $repository, RoleProviderInterface $roleProvider = null)

@@ -13,6 +13,9 @@ abstract class Username
 {
     use UserField;
 
+    /**
+     * @var string
+     */
     private $username;
 
     public function __construct(User $user, string $username)

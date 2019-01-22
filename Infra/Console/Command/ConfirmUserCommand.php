@@ -18,7 +18,9 @@ final class ConfirmUserCommand extends UserCommand
 {
     protected static $defaultName = 'user:confirm';
 
-    /** @var StyleInterface */
+    /**
+     * @var StyleInterface
+     */
     private $io;
 
     public function onMessageReceived($message): void

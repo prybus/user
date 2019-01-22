@@ -23,9 +23,19 @@ final class ChangeUserCredentialCommand extends UserCommand
 {
     protected static $defaultName = 'user:change-credential';
 
-    /** @var StyleInterface */
+    /**
+     * @var StyleInterface
+     */
     private $io;
+
+    /**
+     * @var ContextFactoryInterface
+     */
     private $contextFactory;
+
+    /**
+     * @var string[]
+     */
     private $fields = [];
 
     public function __construct(DomainObjectFactoryInterface $factory, DomainMessageBusInterface $bus, UserRepositoryInterface $repository, ContextFactoryInterface $contextFactory)

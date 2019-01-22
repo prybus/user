@@ -19,6 +19,9 @@ final class SynchronizeUsernamesCommand extends Command
 {
     protected static $defaultName = 'user:synchronize-usernames';
 
+    /**
+     * @var UsernameRepositoryInterface
+     */
     private $repository;
 
     public function __construct(UsernameRepositoryInterface $repository)

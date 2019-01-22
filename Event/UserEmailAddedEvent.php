@@ -11,6 +11,9 @@ use MsgPhp\User\Entity\UserEmail;
  */
 class UserEmailAddedEvent
 {
+    /**
+     * @var UserEmail
+     */
     public $userEmail;
 
     final public function __construct(UserEmail $userEmail)

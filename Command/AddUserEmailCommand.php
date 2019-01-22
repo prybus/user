@@ -11,8 +11,19 @@ use MsgPhp\User\UserIdInterface;
  */
 class AddUserEmailCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
+
+    /**
+     * @var string
+     */
     public $email;
+
+    /**
+     * @var array
+     */
     public $context;
 
     final public function __construct(UserIdInterface $userId, string $email, array $context = [])

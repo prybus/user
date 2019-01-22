@@ -9,6 +9,9 @@ namespace MsgPhp\User\Command;
  */
 class CreateRoleCommand
 {
+    /**
+     * @var array
+     */
     public $context;
 
     final public function __construct(array $context)

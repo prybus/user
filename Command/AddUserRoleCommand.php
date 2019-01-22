@@ -11,8 +11,19 @@ use MsgPhp\User\UserIdInterface;
  */
 class AddUserRoleCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
+
+    /**
+     * @var string
+     */
     public $roleName;
+
+    /**
+     * @var array
+     */
     public $context;
 
     final public function __construct(UserIdInterface $userId, string $roleName, array $context = [])

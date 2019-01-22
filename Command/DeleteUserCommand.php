@@ -11,6 +11,9 @@ use MsgPhp\User\UserIdInterface;
  */
 class DeleteUserCommand
 {
+    /**
+     * @var UserIdInterface
+     */
     public $userId;
 
     final public function __construct(UserIdInterface $userId)
