@@ -33,12 +33,16 @@ trait TokenStorageAwareTrait
 
     private function isUser(): bool
     {
-        return null !== ($token = $this->tokenStorage->getToken()) && $token->getUser() instanceof SecurityUser;
+        $token = $this->tokenStorage->getToken();
+
+        return null !== $token && $token->getUser() instanceof SecurityUser;
     }
 
     private function toUser(): ?User
     {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        $token = $this->tokenStorage->getToken();
+
+        if (null === $token) {
             return null;
         }
 
