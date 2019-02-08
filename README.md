@@ -21,5 +21,5 @@ composer require msgphp/user
 
 This repository is **READ ONLY**. Issues and pull requests should be submitted in the [main development repository](https://github.com/msgphp/msgphp).
 
-[packagist]: https://packagist.org/packages/msgphp/domain
-[packagist:img]: https://img.shields.io/packagist/v/msgphp/domain.svg?style=flat-square
+[packagist]: https://packagist.org/packages/msgphp/user
+[packagist:img]: https://img.shields.io/packagist/v/msgphp/user.svg?style=flat-square
