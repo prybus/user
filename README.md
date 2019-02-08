@@ -2,7 +2,7 @@
 
 A domain layer providing basic user management.
 
-[![Latest Stable Version](https://poser.pugx.org/msgphp/user/v/stable)](https://packagist.org/packages/msgphp/user)
+[![Latest Stable Version][packagist:img]][packagist]
 
 ## Installation
 
@@ -20,3 +20,6 @@ composer require msgphp/user
 ## Contributing
 
 This repository is **READ ONLY**. Issues and pull requests should be submitted in the [main development repository](https://github.com/msgphp/msgphp).
+
+[packagist]: https://packagist.org/packages/msgphp/domain
+[packagist:img]: https://img.shields.io/packagist/v/msgphp/domain.svg?style=flat-square
