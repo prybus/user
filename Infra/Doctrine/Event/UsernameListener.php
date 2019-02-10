@@ -8,7 +8,6 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\MappingException;
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
@@ -27,27 +26,22 @@ final class UsernameListener
     /**
      * @var array[]
      */
-    private $targetMappings;
+    private $mapping;
 
     /**
-     * @var array
+     * @param array[] $mapping
      */
-    private $updateUsernames = [];
-
-    /**
-     * @param array[] $targetMappings
-     */
-    public function __construct(DomainObjectFactoryInterface $factory, array $targetMappings)
+    public function __construct(DomainObjectFactoryInterface $factory, array $mapping)
     {
         $this->factory = $factory;
-        $this->targetMappings = $targetMappings;
+        $this->mapping = $mapping;
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $event): void
     {
         $metadata = $event->getClassMetadata();
 
-        if (!isset($this->targetMappings[$metadata->getName()])) {
+        if (!isset($this->mapping[$metadata->getName()])) {
             return;
         }
 
@@ -67,7 +61,7 @@ final class UsernameListener
     {
         $em = $event->getEntityManager();
 
-        foreach ($this->getUsernames($entity, $em) as $username) {
+        foreach ($this->createUsernames($entity, $em) as $username) {
             $em->persist($username);
         }
     }
@@ -79,21 +73,24 @@ final class UsernameListener
     {
         $em = $event->getEntityManager();
 
-        foreach ($this->getTargetMapping($entity, $event->getEntityManager()) as $field => $mappedBy) {
+        foreach ($this->getMapping($entity, $em) as $field => $mappedBy) {
             if (!$event->hasChangedField($field)) {
                 continue;
             }
 
-            if (null !== $username = $event->getOldValue($field)) {
-                $this->updateUsernames[$username] = $event->getNewValue($field);
-            } elseif (null !== $username = $event->getNewValue($field)) {
+            $oldUsername = $event->getOldValue($field);
+            $newUsername = $event->getNewValue($field);
+
+            if (null !== $oldUsername) {
+                $em->remove($this->getUsername($oldUsername));
+            }
+
+            if (null !== $newUsername) {
                 $user = null === $mappedBy ? $entity : $em->getClassMetadata(\get_class($entity))->getFieldValue($entity, $mappedBy);
 
-                if (null === $user) {
-                    continue;
+                if (null !== $user) {
+                    $em->persist($this->createUsername($user, $newUsername));
                 }
-
-                $em->persist($this->createUsername($user, $username));
             }
         }
     }
@@ -106,41 +103,13 @@ final class UsernameListener
         $em = $event->getEntityManager();
         $metadata = $em->getClassMetadata(\get_class($entity));
 
-        foreach (array_keys($this->getTargetMapping($entity, $em)) as $field) {
+        foreach (array_keys($this->getMapping($entity, $em)) as $field) {
             if (null === $username = $metadata->getFieldValue($entity, $field)) {
                 continue;
             }
 
-            $this->updateUsernames[$username] = null;
+            $em->remove($this->getUsername($username));
         }
-    }
-
-    public function postFlush(PostFlushEventArgs $event): void
-    {
-        if (!$this->updateUsernames) {
-            return;
-        }
-
-        $em = $event->getEntityManager();
-
-        $qb = $em->createQueryBuilder();
-        $qb->select('u');
-        $qb->from($this->factory->getClass(Username::class), 'u');
-        $qb->where($qb->expr()->in('u.username', ':usernames'));
-        $qb->setParameter('usernames', array_keys($this->updateUsernames));
-
-        /** @var Username $username */
-        foreach ($qb->getQuery()->getResult() as $username) {
-            $em->remove($username);
-
-            if (isset($this->updateUsernames[$usernameValue = (string) $username])) {
-                $em->persist($this->createUsername($username->getUser(), $this->updateUsernames[$usernameValue]));
-            }
-        }
-
-        $this->updateUsernames = [];
-
-        $em->flush();
     }
 
     /**
@@ -148,11 +117,11 @@ final class UsernameListener
      *
      * @return Username[]
      */
-    private function getUsernames($entity, EntityManagerInterface $em): iterable
+    private function createUsernames($entity, EntityManagerInterface $em): iterable
     {
         $metadata = $em->getClassMetadata(\get_class($entity));
 
-        foreach ($this->getTargetMapping($entity, $em) as $field => $mappedBy) {
+        foreach ($this->getMapping($entity, $em) as $field => $mappedBy) {
             $user = null === $mappedBy ? $entity : $metadata->getFieldValue($entity, $mappedBy);
 
             if (null === $user || null === $username = $metadata->getFieldValue($entity, $field)) {
@@ -168,18 +137,23 @@ final class UsernameListener
         return $this->factory->create(Username::class, compact('user', 'username'));
     }
 
+    private function getUsername(string $username): Username
+    {
+        return $this->factory->reference(Username::class, compact('username'));
+    }
+
     /**
      * @param object $entity
      */
-    private function getTargetMapping($entity, EntityManagerInterface $em): array
+    private function getMapping($entity, EntityManagerInterface $em): array
     {
-        if (isset($this->targetMappings[$class = ClassUtils::getClass($entity)])) {
-            return $this->targetMappings[$class];
+        if (isset($this->mapping[$class = ClassUtils::getClass($entity)])) {
+            return $this->mapping[$class];
         }
 
         foreach ($em->getClassMetadata($class)->parentClasses as $parent) {
-            if (isset($this->targetMappings[$parent])) {
-                return $this->targetMappings[$parent];
+            if (isset($this->mapping[$parent])) {
+                return $this->mapping[$parent];
             }
         }
 
