@@ -20,8 +20,8 @@ final class SecurityUserTest extends TestCase
         $user = new SecurityUser($entity = $this->createUser('id'), null, ['ROLE_FOO']);
 
         self::assertSame($entity->getId(), $user->getUserId());
-        self::assertSame('username', $user->getOriginUsername());
         self::assertSame('id', $user->getUsername());
+        self::assertNull($user->getOriginUsername());
         self::assertSame(['ROLE_FOO'], $user->getRoles());
         self::assertSame('', $user->getPassword());
         self::assertNull($user->getSalt());
@@ -140,11 +140,6 @@ final class SecurityUserTest extends TestCase
                 ->willReturn(null === $salt ? PasswordAlgorithm::create() : PasswordAlgorithm::createLegacySalted(new PasswordSalt($salt)))
             ;
         }
-
-        $credential->expects(self::any())
-            ->method('getUsername')
-            ->willReturn('username')
-        ;
 
         $user->expects(self::any())
             ->method('getCredential')

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Security;
 
-use MsgPhp\User\Entity\Credential\Anonymous;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Password\PasswordProtectedInterface;
 use MsgPhp\User\UserIdInterface;
@@ -52,14 +51,10 @@ final class SecurityUser implements UserInterface, EquatableInterface
             throw new \LogicException('The user ID cannot be empty.');
         }
 
-        $credential = $user->getCredential();
-
-        if (null === $originUsername && !$credential instanceof Anonymous) {
-            $originUsername = $credential->getUsername();
-        }
-
         $this->originUsername = $originUsername;
         $this->roles = $roles;
+
+        $credential = $user->getCredential();
 
         if ($credential instanceof PasswordProtectedInterface) {
             $this->password = $credential->getPassword();

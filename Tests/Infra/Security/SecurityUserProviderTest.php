@@ -34,7 +34,7 @@ final class SecurityUserProviderTest extends TestCase
     public function testLoadUserByUsernameWithOriginUsername(): void
     {
         /** @var SecurityUser $user */
-        $user = (new SecurityUserProvider($this->createRepository($entity = $this->createUser(), 'origin-username')))->loadUserByUsername('origin-username');
+        $user = (new SecurityUserProvider($this->createRepository($entity = $this->createUser())))->loadUserByUsername('origin-username');
 
         self::assertInstanceOf(SecurityUser::class, $user);
         self::assertSame($entity->getId(), $user->getUserId());
@@ -89,7 +89,7 @@ final class SecurityUserProviderTest extends TestCase
 
     public function testRefreshUserWithOriginUsername(): void
     {
-        $provider = new SecurityUserProvider($this->createRepository($this->createUser(), 'origin-username'));
+        $provider = new SecurityUserProvider($this->createRepository($this->createUser()));
 
         /** @var SecurityUser $user */
         $user = $provider->refreshUser($originUser = $provider->loadUserByUsername('origin-username'));
@@ -139,10 +139,10 @@ final class SecurityUserProviderTest extends TestCase
 
         self::assertSame($user->getId(), $securityUser->getUserId());
         self::assertSame('id', $securityUser->getUsername());
-        self::assertSame('username', $securityUser->getOriginUsername());
+        self::assertNull($securityUser->getOriginUsername());
+        self::assertSame(['ROLE_FOO'], $securityUser->getRoles());
         self::assertSame('', $securityUser->getPassword());
         self::assertNull($securityUser->getSalt());
-        self::assertSame(['ROLE_FOO'], $securityUser->getRoles());
     }
 
     public function testFromUserWithOriginUsername(): void
@@ -153,7 +153,7 @@ final class SecurityUserProviderTest extends TestCase
         self::assertSame('origin-username', $securityUser->getOriginUsername());
     }
 
-    private function createRepository(User $user = null, string $originUsername = null): UserRepositoryInterface
+    private function createRepository(User $user = null): UserRepositoryInterface
     {
         $repository = $this->createMock(UserRepositoryInterface::class);
         $repository->expects(self::any())
@@ -168,12 +168,12 @@ final class SecurityUserProviderTest extends TestCase
         ;
         $repository->expects(self::any())
             ->method('findByUsername')
-            ->willReturnCallback(function (string $username) use ($user, $originUsername) {
-                if (null === $user || ($username !== $originUsername && $username !== $user->getCredential()->getUsername())) {
-                    throw EntityNotFoundException::createForFields(User::class, ['username' => $username]);
+            ->willReturnCallback(function (string $username) use ($user) {
+                if (null !== $user && \in_array($username, ['username', 'origin-username'], true)) {
+                    return $user;
                 }
 
-                return $user;
+                throw EntityNotFoundException::createForFields(User::class, ['username' => $username]);
             })
         ;
 
@@ -196,10 +196,6 @@ final class SecurityUserProviderTest extends TestCase
         $user->expects(self::any())
             ->method('getCredential')
             ->willReturn($credential = $this->createMock(CredentialInterface::class))
-        ;
-        $credential->expects(self::any())
-            ->method('getUsername')
-            ->willReturn($username)
         ;
 
         return $user;
