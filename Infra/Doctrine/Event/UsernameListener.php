@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine\Event;
 
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
@@ -147,11 +146,14 @@ final class UsernameListener
      */
     private function getMapping($entity, EntityManagerInterface $em): array
     {
-        if (isset($this->mapping[$class = ClassUtils::getClass($entity)])) {
+        $metadata = $em->getClassMetadata(\get_class($entity));
+        $class = $metadata->getName();
+
+        if (isset($this->mapping[$class])) {
             return $this->mapping[$class];
         }
 
-        foreach ($em->getClassMetadata($class)->parentClasses as $parent) {
+        foreach ($metadata->parentClasses as $parent) {
             if (isset($this->mapping[$parent])) {
                 return $this->mapping[$parent];
             }
