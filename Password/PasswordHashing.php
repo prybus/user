@@ -36,7 +36,7 @@ final class PasswordHashing implements PasswordHashingInterface
                 sodium_memzero($plainPassword);
             }
 
-            if (false === $hash) {
+            if (!\is_string($hash)) {
                 throw new \RuntimeException(sprintf('Unable to hash password with algorithm "%s".', $algorithm->type));
             }
 
