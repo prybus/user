@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace MsgPhp\User\Tests\Role;
 
 use MsgPhp\Domain\DomainCollection;
-use MsgPhp\User\Entity\{User, UserRole};
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserRole;
 use MsgPhp\User\Repository\UserRoleRepositoryInterface;
 use MsgPhp\User\Role\UserRoleProvider;
 use MsgPhp\User\UserIdInterface;

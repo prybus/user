@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\User\{CredentialInterface, UserIdInterface};
+use MsgPhp\User\CredentialInterface;
 use MsgPhp\User\Entity\Credential\Anonymous;
+use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity\Credential\Features;
 
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordSalt};
+use MsgPhp\User\Password\PasswordAlgorithm;
+use MsgPhp\User\Password\PasswordSalt;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

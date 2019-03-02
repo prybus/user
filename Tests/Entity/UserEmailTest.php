@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
-use MsgPhp\User\Entity\{User, UserEmail};
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserEmail;
 use PHPUnit\Framework\TestCase;
 
 final class UserEmailTest extends TestCase

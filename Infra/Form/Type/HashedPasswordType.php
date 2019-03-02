@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Form\Type;
 
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordHashingInterface, PasswordSalt};
+use MsgPhp\User\Password\PasswordAlgorithm;
+use MsgPhp\User\Password\PasswordHashingInterface;
+use MsgPhp\User\Password\PasswordSalt;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;

@@ -6,7 +6,9 @@ namespace MsgPhp\User\Infra\Console\Command;
 
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
 use MsgPhp\Domain\Infra\Console\Context\ContextFactoryInterface;
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait, MessageReceivingInterface};
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
+use MsgPhp\Domain\Message\MessageReceivingInterface;
 use MsgPhp\User\Command\CreateRoleCommand as CreateRoleDomainCommand;
 use MsgPhp\User\Event\RoleCreatedEvent;
 use Symfony\Component\Console\Command\Command;

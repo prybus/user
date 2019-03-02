@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Password;
 
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordHashing, PasswordSalt};
+use MsgPhp\User\Password\PasswordAlgorithm;
+use MsgPhp\User\Password\PasswordHashing;
+use MsgPhp\User\Password\PasswordSalt;
 use PHPUnit\Framework\TestCase;
 
 final class PasswordHashingTest extends TestCase

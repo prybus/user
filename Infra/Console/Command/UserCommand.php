@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Console\Command;
 
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait, MessageReceivingInterface};
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
+use MsgPhp\Domain\Message\MessageReceivingInterface;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;

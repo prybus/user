@@ -6,7 +6,8 @@ namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
 use MsgPhp\User\Command\DeleteUserCommand;
 use MsgPhp\User\Event\UserDeletedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;

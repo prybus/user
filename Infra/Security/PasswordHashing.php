@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Security;
 
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordHashingInterface};
+use MsgPhp\User\Password\PasswordAlgorithm;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyPasswordHashingInterface;
 
 /**

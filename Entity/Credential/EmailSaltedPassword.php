@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\CredentialInterface;
-use MsgPhp\User\Entity\Credential\Features\{EmailAsUsername, PasswordWithSaltProtected};
+use MsgPhp\User\Entity\Credential\Features\EmailAsUsername;
+use MsgPhp\User\Entity\Credential\Features\PasswordWithSaltProtected;
 use MsgPhp\User\Password\PasswordProtectedInterface;
 
 /**

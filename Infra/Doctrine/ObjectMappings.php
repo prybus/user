@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Doctrine;
 
-use MsgPhp\Domain\Infra\Doctrine\{MappingConfig, ObjectMappingProviderInterface};
-use MsgPhp\User\Entity\{Credential, Features, Fields, Role, User, UserEmail, UserRole};
+use MsgPhp\Domain\Infra\Doctrine\MappingConfig;
+use MsgPhp\Domain\Infra\Doctrine\ObjectMappingProviderInterface;
+use MsgPhp\User\Entity\Credential;
+use MsgPhp\User\Entity\Features;
+use MsgPhp\User\Entity\Fields;
+use MsgPhp\User\Entity\Role;
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserEmail;
+use MsgPhp\User\Entity\UserRole;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

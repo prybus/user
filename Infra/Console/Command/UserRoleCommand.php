@@ -6,7 +6,8 @@ namespace MsgPhp\User\Infra\Console\Command;
 
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
 use MsgPhp\Domain\Message\DomainMessageBusInterface;
-use MsgPhp\User\Repository\{RoleRepositoryInterface, UserRepositoryInterface};
+use MsgPhp\User\Repository\RoleRepositoryInterface;
+use MsgPhp\User\Repository\UserRepositoryInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**

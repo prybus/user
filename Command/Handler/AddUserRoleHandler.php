@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
 use MsgPhp\User\Command\AddUserRoleCommand;
-use MsgPhp\User\Entity\{Role, User, UserRole};
+use MsgPhp\User\Entity\Role;
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserRole;
 use MsgPhp\User\Event\UserRoleAddedEvent;
 use MsgPhp\User\Repository\UserRoleRepositoryInterface;
 

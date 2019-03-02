@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
-use MsgPhp\User\Entity\{Credential, User};
+use MsgPhp\User\Entity\Credential;
+use MsgPhp\User\Entity\User;
 use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 

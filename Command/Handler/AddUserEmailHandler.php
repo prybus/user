@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
 use MsgPhp\User\Command\AddUserEmailCommand;
-use MsgPhp\User\Entity\{User, UserEmail};
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserEmail;
 use MsgPhp\User\Event\UserEmailAddedEvent;
 use MsgPhp\User\Repository\UserEmailRepositoryInterface;
 

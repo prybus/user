@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace MsgPhp\User\Command\Handler;
 
 use MsgPhp\Domain\Command\EventSourcingCommandHandlerTrait;
-use MsgPhp\Domain\Event\{DomainEventHandlerInterface, DomainEventInterface};
+use MsgPhp\Domain\Event\DomainEventHandlerInterface;
+use MsgPhp\Domain\Event\DomainEventInterface;
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\Domain\Message\{DomainMessageBusInterface, MessageDispatchingTrait};
+use MsgPhp\Domain\Message\DomainMessageBusInterface;
+use MsgPhp\Domain\Message\MessageDispatchingTrait;
 use MsgPhp\User\Command\ChangeUserCredentialCommand;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\Domain\ChangeCredentialEvent;

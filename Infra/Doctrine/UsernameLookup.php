@@ -6,7 +6,8 @@ namespace MsgPhp\User\Infra\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\User\Entity\{User, Username};
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\Username;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

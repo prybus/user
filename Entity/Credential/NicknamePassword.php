@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\CredentialInterface;
-use MsgPhp\User\Entity\Credential\Features\{NicknameAsUsername, PasswordProtected};
+use MsgPhp\User\Entity\Credential\Features\NicknameAsUsername;
+use MsgPhp\User\Entity\Credential\Features\PasswordProtected;
 use MsgPhp\User\Password\PasswordProtectedInterface;
 
 /**

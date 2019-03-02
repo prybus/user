@@ -8,7 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\Infra\Doctrine\DomainEntityRepositoryTrait;
 use MsgPhp\User\Entity\User;
-use MsgPhp\User\Repository\{UsernameRepositoryInterface, UserRepositoryInterface};
+use MsgPhp\User\Repository\UsernameRepositoryInterface;
+use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 
 /**

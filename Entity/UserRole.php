@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity;
 
-use MsgPhp\User\Entity\Fields\{RoleField, UserField};
+use MsgPhp\User\Entity\Fields\RoleField;
+use MsgPhp\User\Entity\Fields\UserField;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

@@ -10,7 +10,8 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\MappingException;
 use MsgPhp\Domain\Factory\DomainObjectFactoryInterface;
-use MsgPhp\User\Entity\{User, Username};
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\Username;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

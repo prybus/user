@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Entity;
 
-use MsgPhp\User\Entity\{Role, User, UserRole};
+use MsgPhp\User\Entity\Role;
+use MsgPhp\User\Entity\User;
+use MsgPhp\User\Entity\UserRole;
 use PHPUnit\Framework\TestCase;
 
 final class UserRoleTest extends TestCase

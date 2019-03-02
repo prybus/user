@@ -6,12 +6,13 @@ namespace MsgPhp\User\Tests\Command\Handler;
 
 use MsgPhp\Domain\Factory\DomainObjectFactory;
 use MsgPhp\Domain\Message\DomainMessageBusInterface;
-use MsgPhp\User\{ScalarUserId, UserIdInterface};
 use MsgPhp\User\Command\CreateUserCommand;
 use MsgPhp\User\Command\Handler\CreateUserHandler;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\UserCreatedEvent;
 use MsgPhp\User\Repository\UserRepositoryInterface;
+use MsgPhp\User\ScalarUserId;
+use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 
 final class CreateUserHandlerTest extends TestCase
