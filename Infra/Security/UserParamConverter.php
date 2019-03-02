@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserParamConverter implements ParamConverterInterface
 {
-    public const NAME = 'msgphp.current_user';
-
     use TokenStorageAwareTrait;
+
+    public const NAME = 'msgphp.current_user';
 
     public function apply(Request $request, ParamConverter $configuration): bool
     {

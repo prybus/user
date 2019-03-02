@@ -16,14 +16,14 @@ final class Token implements CredentialInterface
      */
     private $token;
 
-    public static function getUsernameField(): string
-    {
-        return 'token';
-    }
-
     public function __construct(string $token)
     {
         $this->token = $token;
+    }
+
+    public static function getUsernameField(): string
+    {
+        return 'token';
     }
 
     public function getUsername(): string

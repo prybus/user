@@ -37,6 +37,15 @@ final class PasswordAlgorithm
     public $salt;
 
     /**
+     * @param int|string $type
+     */
+    private function __construct($type, bool $legacy = false)
+    {
+        $this->type = $type;
+        $this->legacy = $legacy;
+    }
+
+    /**
      * @see https://secure.php.net/manual/en/function.password-hash.php
      */
     public static function create(int $type = \PASSWORD_DEFAULT, array $options = []): self
@@ -72,14 +81,5 @@ final class PasswordAlgorithm
         $instance->salt = $salt;
 
         return $instance;
-    }
-
-    /**
-     * @param int|string $type
-     */
-    private function __construct($type, bool $legacy = false)
-    {
-        $this->type = $type;
-        $this->legacy = $legacy;
     }
 }
