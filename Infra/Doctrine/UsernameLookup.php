@@ -62,7 +62,7 @@ final class UsernameLookup
             foreach ($qb->getQuery()->getArrayResult() as $result) {
                 foreach ($mapping as $field => $mappedBy) {
                     yield $this->factory->create(Username::class, [
-                        'user' => $this->factory->reference(User::class, ['id' => null === $mappedBy ? $result['id'] : $result[$mappedBy]]),
+                        'user' => $this->factory->reference(User::class, ['id' => $result[$mappedBy ?? 'id']]),
                         'username' => $result[$field],
                     ]);
                 }
