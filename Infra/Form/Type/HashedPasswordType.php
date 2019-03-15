@@ -45,6 +45,10 @@ final class HashedPasswordType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $password = new Password();
+        $password->current = $options['password_confirm_current'];
+        $password->algorithm = $this->createAlgorithm($options['password_algorithm'], $password->current);
+
         $defaultOptions = ['required' => $options['required']];
         if (isset($options['invalid_message'])) {
             $defaultOptions += [
@@ -53,12 +57,8 @@ final class HashedPasswordType extends AbstractType
             ];
         }
         $passwordOptions = $options['password_options'] + $defaultOptions;
-        $algorithm = $options['password_algorithm'];
 
-        /** @var mixed $plainPassword */
-        $plainPassword = null;
-
-        if ($confirmCurrent = $options['password_confirm_current']) {
+        if ($options['password_confirm_current']) {
             if (!class_exists(Callback::class)) {
                 throw new \LogicException('Current password confirmation requires "symfony/validator".');
             }
@@ -66,16 +66,9 @@ final class HashedPasswordType extends AbstractType
                 throw new \LogicException('Current password confirmation requires "symfony/security".');
             }
 
-            $passwordOptions = self::withConstraint($passwordOptions, new Callback(function ($value, ExecutionContextInterface $context) use ($passwordOptions, &$algorithm, &$plainPassword): void {
+            $passwordOptions = self::withConstraint($passwordOptions, new Callback(function ($value, ExecutionContextInterface $context) use ($password, $passwordOptions): void {
                 $currentPassword = $this->getCurrentPassword();
-                $algorithm = $this->createAlgorithm($algorithm, true);
-                $valid = null !== $currentPassword && \is_string($plainPassword) && $this->passwordHashing->isValid($currentPassword, $plainPassword, $algorithm);
-                unset($algorithm); // reference
-
-                if (\is_string($plainPassword) && \function_exists('sodium_memzero')) {
-                    sodium_memzero($plainPassword);
-                }
-                unset($plainPassword); // reference
+                $valid = null !== $currentPassword && null !== $password->plainValue && $this->passwordHashing->isValid($currentPassword, $password->plainValue, $password->algorithm);
 
                 if (!$valid) {
                     /** @var FormInterface $form */
@@ -88,31 +81,27 @@ final class HashedPasswordType extends AbstractType
         $builder->add('password', PasswordType::class, $passwordOptions);
         $builder->get('password')->addModelTransformer(new CallbackTransformer(function ($value): ?string {
             return null;
-        }, function ($value) use ($confirmCurrent, &$algorithm, &$plainPassword): ?string {
-            $algorithm = $this->createAlgorithm($algorithm, $confirmCurrent);
-            $plainPassword = $confirmCurrent ? $value : null;
+        }, function ($value) use ($password): ?string {
+            $password->submit($value);
 
-            if (null === $value || !\is_string($value)) {
-                unset($algorithm, $plainPassword); // reference
+            if (null === $value) {
+                return null;
+            }
 
-                if (null === $value) {
-                    return null;
-                }
+            if (\is_string($value) && \function_exists('sodium_memzero')) {
+                sodium_memzero($value);
+            }
 
+            if (null === $password->plainValue) {
                 throw new TransformationFailedException();
             }
 
-            $hashed = $this->passwordHashing->hash($value, $algorithm);
-
-            if (\function_exists('sodium_memzero')) {
-                sodium_memzero($value);
-                if (!$confirmCurrent && \is_string($plainPassword)) {
-                    sodium_memzero($plainPassword);
-                }
+            $password->hashedValue = $this->passwordHashing->hash($password->plainValue, $password->algorithm);
+            if (!$password->current) {
+                $password->plainValue = null;
             }
-            unset($algorithm, $plainPassword); // reference
 
-            return $hashed;
+            return $password->hashedValue;
         }));
 
         if ($options['password_confirm']) {
@@ -121,27 +110,22 @@ final class HashedPasswordType extends AbstractType
             }
 
             $passwordConfirmOptions = ['mapped' => false] + $options['password_confirm_options'] + $defaultOptions;
-            $passwordConfirmOptions = self::withConstraint($passwordConfirmOptions, new Callback(function ($value, ExecutionContextInterface $context) use ($passwordConfirmOptions, $confirmCurrent, &$algorithm): void {
-                /** @var FormInterface $form */
-                $form = $context->getObject();
-                /** @var FormInterface $root */
-                $root = $form->getParent();
-                $password = $root->get('password')->getData();
-                $algorithm = $this->createAlgorithm($algorithm, $confirmCurrent);
-
-                if (null === $value && null === $password) {
-                    unset($algorithm); // reference
-
+            $passwordConfirmOptions = self::withConstraint($passwordConfirmOptions, new Callback(function ($value, ExecutionContextInterface $context) use ($password, $passwordConfirmOptions): void {
+                if (null === $value && null === $password->hashedValue) {
                     return;
                 }
 
-                $valid = \is_string($value) && \is_string($password) && $this->passwordHashing->isValid($password, $value, $algorithm);
-                unset($algorithm); // reference
-
-                if (\is_string($value) && \function_exists('sodium_memzero')) {
-                    sodium_memzero($value);
+                $valid = false;
+                if (\is_string($value)) {
+                    $valid = null == $password->hashedValue ? false : $this->passwordHashing->isValid($password->hashedValue, $value, $password->algorithm);
+                    if (\function_exists('sodium_memzero')) {
+                        sodium_memzero($value);
+                    }
                 }
+
                 if (!$valid) {
+                    /** @var FormInterface $form */
+                    $form = $context->getObject();
                     $form->addError($this->createError($passwordConfirmOptions));
                 }
             }));
@@ -244,5 +228,40 @@ final class HashedPasswordType extends AbstractType
         $user = $token->getUser();
 
         return $user instanceof UserInterface ? $user->getPassword() : null;
+    }
+}
+
+/**
+ * @internal
+ */
+final class Password
+{
+    /**
+     * @var bool
+     */
+    public $current = false;
+
+    /**
+     * @var PasswordAlgorithm|null
+     */
+    public $algorithm;
+
+    /**
+     * @var string|null
+     */
+    public $plainValue;
+
+    /**
+     * @var string|null
+     */
+    public $hashedValue;
+
+    /**
+     * @param mixed $value
+     */
+    public function submit($value): void
+    {
+        $this->plainValue = \is_string($value) ? $value : null;
+        $this->hashedValue = null;
     }
 }
