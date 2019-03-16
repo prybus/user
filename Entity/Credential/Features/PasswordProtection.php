@@ -9,7 +9,7 @@ use MsgPhp\User\Password\PasswordAlgorithm;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-trait PasswordProtected
+trait PasswordProtection
 {
     /**
      * @var string
