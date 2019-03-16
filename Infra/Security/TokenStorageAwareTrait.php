@@ -40,9 +40,7 @@ trait TokenStorageAwareTrait
 
     private function toUser(): ?User
     {
-        $token = $this->tokenStorage->getToken();
-
-        if (null === $token) {
+        if (null === $token = $this->tokenStorage->getToken()) {
             return null;
         }
 
