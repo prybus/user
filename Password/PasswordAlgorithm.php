@@ -17,19 +17,19 @@ final class PasswordAlgorithm
     public $type;
 
     /**
-     * @var array|null
-     */
-    public $options;
-
-    /**
      * @var bool
      */
     public $legacy;
 
     /**
-     * @var bool|null
+     * @var (int|string|bool|float|null)[]
      */
-    public $encodeBase64;
+    public $options = [];
+
+    /**
+     * @var bool
+     */
+    public $encodeBase64 = false;
 
     /**
      * @var PasswordSalt|null
@@ -62,7 +62,6 @@ final class PasswordAlgorithm
     public static function createLegacy(string $type = self::DEFAULT_LEGACY): self
     {
         $instance = new self($type, true);
-        $instance->encodeBase64 = false;
 
         return $instance;
     }

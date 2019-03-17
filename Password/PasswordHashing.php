@@ -30,7 +30,7 @@ final class PasswordHashing implements PasswordHashingInterface
         $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
         if (!$algorithm->legacy) {
-            $hash = password_hash($plainPassword, (int) $algorithm->type, $algorithm->options ?? []);
+            $hash = password_hash($plainPassword, (int) $algorithm->type, $algorithm->options);
 
             if (\function_exists('sodium_memzero')) {
                 sodium_memzero($plainPassword);
