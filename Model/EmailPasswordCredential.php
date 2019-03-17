@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity\Features;
+namespace MsgPhp\User\Model;
 
 use MsgPhp\User\Entity\Credential\EmailPassword;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Tests\Entity\Fields;
+namespace MsgPhp\User\Tests\Model;
 
 use MsgPhp\Domain\DomainCollectionInterface;
-use MsgPhp\User\Entity\Fields\RolesField;
 use MsgPhp\User\Entity\UserRole;
+use MsgPhp\User\Model\RolesField;
 use PHPUnit\Framework\TestCase;
 
 final class RolesFieldTest extends TestCase

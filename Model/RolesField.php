@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity\Fields;
+namespace MsgPhp\User\Model;
 
 use MsgPhp\Domain\DomainCollectionInterface;
 use MsgPhp\Domain\GenericDomainCollection;
