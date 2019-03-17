@@ -30,7 +30,19 @@ final class HashingFactory implements EncoderFactoryInterface
 
     public function getEncoder($user): PasswordEncoderInterface
     {
-        if (!$user instanceof SecurityUser || null === $algorithm = $user->getPasswordAlgorithm()) {
+        $algorithm = null;
+
+        if (SecurityUser::class === $user || ($user instanceof SecurityUser && null === $algorithm = $user->getPasswordAlgorithm())) {
+            $encoder = $this->factory->getEncoder($user);
+
+            if (!$encoder instanceof SelfSaltingEncoderInterface) {
+                throw new \LogicException(sprintf('Only a self-salting password hashing method is supported, got "%s".', \get_class($encoder)));
+            }
+
+            return $encoder;
+        }
+
+        if (null === $algorithm) {
             return $this->factory->getEncoder($user);
         }
 

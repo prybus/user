@@ -17,15 +17,15 @@ final class PasswordHashing implements PasswordHashingInterface
     /**
      * @var PasswordEncoderInterface
      */
-    private $hashing;
+    private $encoder;
 
-    public function __construct(PasswordEncoderInterface $hashing)
+    public function __construct(PasswordEncoderInterface $encoder)
     {
-        if (!$hashing instanceof SelfSaltingEncoderInterface) {
-            throw new \LogicException(sprintf('Only a self-salting password hashing method is supported, got "%s".', \get_class($hashing)));
+        if (!$encoder instanceof SelfSaltingEncoderInterface) {
+            throw new \LogicException(sprintf('Only a self-salting password hashing method is supported, got "%s".', \get_class($encoder)));
         }
 
-        $this->hashing = $hashing;
+        $this->encoder = $encoder;
     }
 
     public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string
@@ -34,7 +34,7 @@ final class PasswordHashing implements PasswordHashingInterface
             throw new \LogicException('A custom password algorithm is not supported.');
         }
 
-        $hash = $this->hashing->encodePassword($plainPassword, '');
+        $hash = $this->encoder->encodePassword($plainPassword, '');
 
         if (\function_exists('sodium_memzero')) {
             sodium_memzero($plainPassword);
@@ -49,7 +49,7 @@ final class PasswordHashing implements PasswordHashingInterface
             throw new \LogicException('A custom password algorithm is not supported.');
         }
 
-        $valid = $this->hashing->isPasswordValid($hashedPassword, $plainPassword, '');
+        $valid = $this->encoder->isPasswordValid($hashedPassword, $plainPassword, '');
 
         if (\function_exists('sodium_memzero')) {
             sodium_memzero($plainPassword);
