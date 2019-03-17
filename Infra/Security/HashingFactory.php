@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class SecurityUserHashingFactory implements EncoderFactoryInterface
+final class HashingFactory implements EncoderFactoryInterface
 {
     /**
      * @var EncoderFactoryInterface
