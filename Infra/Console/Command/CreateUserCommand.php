@@ -45,9 +45,6 @@ final class CreateUserCommand extends Command implements MessageReceivingInterfa
         parent::__construct();
     }
 
-    /**
-     * @internal
-     */
     public function onMessageReceived($message): void
     {
         if ($message instanceof UserCreatedEvent) {

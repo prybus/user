@@ -41,9 +41,6 @@ abstract class UserCommand extends Command implements MessageReceivingInterface
         parent::__construct();
     }
 
-    /**
-     * @internal
-     */
     public function onMessageReceived($message): void
     {
     }
