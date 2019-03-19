@@ -21,17 +21,9 @@
     },
     "require-dev": {
         "doctrine/orm": "^2.6",
-        "lexik/jwt-authentication-bundle": "^2.5",
-        "sensio/framework-extra-bundle": "^5.1",
-        "symfony/console": "^3.4 || ^4.0",
         "symfony/form": "^3.4 || ^4.0",
-        "symfony/http-kernel": "^3.4 || ^4.0",
         "symfony/security-core": "^3.4 || ^4.0",
         "symfony/validator": "^3.4 || ^4.0"
-    },
-    "suggest": {
-        "ext-sodium": "To clear plain passwords from memory if applicable",
-        "msgphp/user-eav": "To enable user attribute values"
     },
     "config": {
         "preferred-install": {
