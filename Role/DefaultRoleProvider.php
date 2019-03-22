@@ -19,9 +19,9 @@ final class DefaultRoleProvider implements RoleProviderInterface
     /**
      * @param string[] $roles
      */
-    public function __construct(array $roles, bool $sanitize = true)
+    public function __construct(array $roles)
     {
-        $this->roles = $sanitize ? array_values(array_unique($roles)) : $roles;
+        $this->roles = $roles;
     }
 
     public function getRoles(User $user): array
