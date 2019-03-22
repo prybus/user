@@ -3,9 +3,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="MsgPhp\User\Entity\Credential\EmailPassword">
-        <field name="email" unique="true" length="%msgphp.doctrine.mapping_config.key_max_length%" />
-        <field name="password" />
-    </embeddable>
+    <mapped-superclass name="MsgPhp\User\UserEmail">
+        <id name="email" length="%msgphp.doctrine.mapping_config.key_max_length%" />
+
+        <many-to-one field="user" target-entity="MsgPhp\User\User">
+            <join-column on-delete="CASCADE" nullable="false" />
+        </many-to-one>
+    </mapped-superclass>
 
 </doctrine-mapping>

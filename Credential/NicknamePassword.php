@@ -2,37 +2,37 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity\Credential;
+namespace MsgPhp\User\Credential;
 
+use MsgPhp\User\Credential\Features\NicknameAsUsername;
+use MsgPhp\User\Credential\Features\PasswordProtection;
 use MsgPhp\User\CredentialInterface;
-use MsgPhp\User\Entity\Credential\Features\EmailAsUsername;
-use MsgPhp\User\Entity\Credential\Features\PasswordProtection;
 use MsgPhp\User\Event\Domain\ChangeCredentialEvent;
 use MsgPhp\User\Password\PasswordProtectedInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class EmailPassword implements CredentialInterface, PasswordProtectedInterface
+final class NicknamePassword implements CredentialInterface, PasswordProtectedInterface
 {
-    use EmailAsUsername;
+    use NicknameAsUsername;
     use PasswordProtection;
 
-    public function __construct(string $email, string $password)
+    public function __construct(string $nickname, string $password)
     {
-        $this->email = $email;
+        $this->nickname = $nickname;
         $this->password = $password;
     }
 
     public function __invoke(ChangeCredentialEvent $event): bool
     {
-        if ($emailChanged = ($this->email !== $email = $event->getStringField('email'))) {
-            $this->email = $email;
+        if ($nicknameChanged = ($this->nickname !== $nickname = $event->getStringField('nickname'))) {
+            $this->nickname = $nickname;
         }
         if ($passwordChanged = ($this->password !== $password = $event->getStringField('password'))) {
             $this->password = $password;
         }
 
-        return $emailChanged || $passwordChanged;
+        return $nicknameChanged || $passwordChanged;
     }
 }

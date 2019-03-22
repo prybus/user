@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity\Credential;
+namespace MsgPhp\User\Credential;
 
+use MsgPhp\User\Credential\Features\EmailAsUsername;
 use MsgPhp\User\CredentialInterface;
-use MsgPhp\User\Entity\Credential\Features\EmailAsUsername;
 use MsgPhp\User\Event\Domain\ChangeCredentialEvent;
 
 /**

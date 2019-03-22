@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity\Credential;
+namespace MsgPhp\User\Credential;
 
 use MsgPhp\User\CredentialInterface;
 

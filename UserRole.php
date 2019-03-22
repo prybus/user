@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity;
+namespace MsgPhp\User;
 
 use MsgPhp\User\Model\RoleField;
 use MsgPhp\User\Model\UserField;

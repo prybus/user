@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity;
+namespace MsgPhp\User;
 
-use MsgPhp\User\CredentialInterface;
-use MsgPhp\User\Entity\Credential\Anonymous;
-use MsgPhp\User\UserIdInterface;
+use MsgPhp\User\Credential\Anonymous;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>

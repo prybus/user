@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Entity;
+namespace MsgPhp\User;
 
 use MsgPhp\User\Model\UserField;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-abstract class UserEmail
+abstract class Username
 {
     use UserField;
 
     /**
      * @var string
      */
-    private $email;
+    private $username;
 
-    public function __construct(User $user, string $email)
+    public function __construct(User $user, string $username)
     {
         $this->user = $user;
-        $this->email = $email;
+        $this->username = $username;
     }
 
-    public function getEmail(): string
+    public function __toString(): string
     {
-        return $this->email;
+        return $this->username;
     }
 }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Tests\Entity;
+namespace MsgPhp\User\Tests;
 
-use MsgPhp\User\Entity\User;
-use MsgPhp\User\Entity\UserEmail;
+use MsgPhp\User\User;
+use MsgPhp\User\UserEmail;
 use PHPUnit\Framework\TestCase;
 
 final class UserEmailTest extends TestCase

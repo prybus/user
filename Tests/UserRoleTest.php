@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Tests\Entity;
+namespace MsgPhp\User\Tests;
 
-use MsgPhp\User\Entity\Role;
-use MsgPhp\User\Entity\User;
-use MsgPhp\User\Entity\UserRole;
+use MsgPhp\User\Role;
+use MsgPhp\User\User;
+use MsgPhp\User\UserRole;
 use PHPUnit\Framework\TestCase;
 
 final class UserRoleTest extends TestCase

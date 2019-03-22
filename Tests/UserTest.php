@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Tests\Entity;
+namespace MsgPhp\User\Tests;
 
-use MsgPhp\User\Entity\Credential;
-use MsgPhp\User\Entity\User;
+use MsgPhp\User\Credential;
+use MsgPhp\User\User;
 use MsgPhp\User\UserIdInterface;
 use PHPUnit\Framework\TestCase;
 
