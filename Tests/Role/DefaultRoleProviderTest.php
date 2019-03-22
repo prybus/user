@@ -12,15 +12,8 @@ final class DefaultRoleProviderTest extends TestCase
 {
     public function testRoles(): void
     {
-        $provider = new DefaultRoleProvider(['ROLE_USER', 'foo' => 'ROLE_admin', 'duplicate', 'duplicate']);
+        $provider = new DefaultRoleProvider($roles = ['ROLE_USER', 'foo' => 'ROLE_admin', 'duplicate', 'duplicate']);
 
-        self::assertSame(['ROLE_USER', 'ROLE_admin', 'duplicate'], $provider->getRoles($this->createMock(User::class)));
-    }
-
-    public function testRolesWithoutSanitizing(): void
-    {
-        $provider = new DefaultRoleProvider($expected = ['ROLE_USER', 'foo' => 'ROLE_admin', 'duplicate', 'duplicate'], false);
-
-        self::assertSame($expected, $provider->getRoles($this->createMock(User::class)));
+        self::assertSame($roles, $provider->getRoles($this->createMock(User::class)));
     }
 }
