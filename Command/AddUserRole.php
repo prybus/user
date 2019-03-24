@@ -26,7 +26,7 @@ class AddUserRole
      */
     public $context;
 
-    final public function __construct(UserId $userId, string $roleName, array $context = [])
+    public function __construct(UserId $userId, string $roleName, array $context = [])
     {
         $this->userId = $userId;
         $this->roleName = $roleName;

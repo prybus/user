@@ -16,7 +16,7 @@ class RoleDeleted
      */
     public $role;
 
-    final public function __construct(Role $role)
+    public function __construct(Role $role)
     {
         $this->role = $role;
     }

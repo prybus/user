@@ -21,7 +21,7 @@ class RequestUserPassword
      */
     public $token;
 
-    final public function __construct(UserId $userId, string $token = null)
+    public function __construct(UserId $userId, string $token = null)
     {
         $this->userId = $userId;
         $this->token = $token;

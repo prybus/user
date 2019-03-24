@@ -21,7 +21,7 @@ class UserRoleAdded
      */
     public $context;
 
-    final public function __construct(UserRole $userRole, array $context)
+    public function __construct(UserRole $userRole, array $context)
     {
         $this->userRole = $userRole;
         $this->context = $context;

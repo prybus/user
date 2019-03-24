@@ -26,7 +26,7 @@ class AddUserEmail
      */
     public $context;
 
-    final public function __construct(UserId $userId, string $email, array $context = [])
+    public function __construct(UserId $userId, string $email, array $context = [])
     {
         $this->userId = $userId;
         $this->email = $email;

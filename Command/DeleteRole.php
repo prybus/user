@@ -14,7 +14,7 @@ class DeleteRole
      */
     public $roleName;
 
-    final public function __construct(string $roleName)
+    public function __construct(string $roleName)
     {
         $this->roleName = $roleName;
     }

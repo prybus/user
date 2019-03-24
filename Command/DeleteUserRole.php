@@ -21,7 +21,7 @@ class DeleteUserRole
      */
     public $roleName;
 
-    final public function __construct(UserId $userId, string $roleName)
+    public function __construct(UserId $userId, string $roleName)
     {
         $this->userId = $userId;
         $this->roleName = $roleName;

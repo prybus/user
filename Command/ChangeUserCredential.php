@@ -21,7 +21,7 @@ class ChangeUserCredential
      */
     public $fields;
 
-    final public function __construct(UserId $userId, array $fields)
+    public function __construct(UserId $userId, array $fields)
     {
         $this->userId = $userId;
         $this->fields = $fields;

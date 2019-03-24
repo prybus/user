@@ -16,7 +16,7 @@ class ChangeCredential implements DomainEvent
      */
     public $fields;
 
-    final public function __construct(array $fields)
+    public function __construct(array $fields)
     {
         $this->fields = $fields;
     }

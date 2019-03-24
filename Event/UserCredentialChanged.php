@@ -27,7 +27,7 @@ class UserCredentialChanged
      */
     public $newCredential;
 
-    final public function __construct(User $user, Credential $oldCredential, Credential $newCredential)
+    public function __construct(User $user, Credential $oldCredential, Credential $newCredential)
     {
         $this->user = $user;
         $this->oldCredential = $oldCredential;

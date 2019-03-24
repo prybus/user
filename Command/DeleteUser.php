@@ -16,7 +16,7 @@ class DeleteUser
      */
     public $userId;
 
-    final public function __construct(UserId $userId)
+    public function __construct(UserId $userId)
     {
         $this->userId = $userId;
     }

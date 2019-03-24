@@ -14,7 +14,7 @@ class DeleteUserEmail
      */
     public $email;
 
-    final public function __construct(string $email)
+    public function __construct(string $email)
     {
         $this->email = $email;
     }

@@ -21,7 +21,7 @@ class RoleCreated
      */
     public $context;
 
-    final public function __construct(Role $role, array $context)
+    public function __construct(Role $role, array $context)
     {
         $this->role = $role;
         $this->context = $context;

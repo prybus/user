@@ -16,7 +16,7 @@ class UserEmailDeleted
      */
     public $userEmail;
 
-    final public function __construct(UserEmail $userEmail)
+    public function __construct(UserEmail $userEmail)
     {
         $this->userEmail = $userEmail;
     }

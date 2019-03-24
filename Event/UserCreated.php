@@ -21,7 +21,7 @@ class UserCreated
      */
     public $context;
 
-    final public function __construct(User $user, array $context)
+    public function __construct(User $user, array $context)
     {
         $this->user = $user;
         $this->context = $context;
