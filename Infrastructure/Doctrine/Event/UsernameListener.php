@@ -7,6 +7,7 @@ namespace MsgPhp\User\Infrastructure\Doctrine\Event;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\MappingException;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
@@ -27,6 +28,16 @@ final class UsernameListener
      * @var array[]
      */
     private $mapping;
+
+    /**
+     * @var string[]
+     */
+    private $removals = [];
+
+    /**
+     * @var array[]
+     */
+    private $insertions = [];
 
     /**
      * @param array[] $mapping
@@ -51,6 +62,26 @@ final class UsernameListener
             $metadata->addEntityListener('preRemove', self::class, 'remove');
         } catch (MappingException $e) {
             // duplicate
+        }
+    }
+
+    public function preFlush(PreFlushEventArgs $event): void
+    {
+        $em = $event->getEntityManager();
+        $usernameClass = $this->factory->getClass(Username::class);
+
+        while (null !== $username = array_shift($this->removals)) {
+            if (null !== $entity = $em->find($usernameClass, $username)) {
+                $em->remove($entity);
+            }
+        }
+
+        while (null !== $username = array_shift($this->insertions)) {
+            /** @var User $dirtyUser */
+            [$dirtyUser, $username] = $username;
+
+            $user = $em->find(\get_class($dirtyUser), $dirtyUser->getId());
+            $em->persist($this->factory->create(Username::class, compact('user', 'username')));
         }
     }
 
@@ -82,14 +113,14 @@ final class UsernameListener
             $newUsername = $event->getNewValue($field);
 
             if (null !== $oldUsername) {
-                $em->remove($this->getUsername($oldUsername));
+                $this->removals[] = $oldUsername;
             }
 
             if (null !== $newUsername) {
                 $user = null === $mappedBy ? $entity : $em->getClassMetadata(\get_class($entity))->getFieldValue($entity, $mappedBy);
 
                 if (null !== $user) {
-                    $em->persist($this->createUsername($user, $newUsername));
+                    $this->insertions[] = [$user, $newUsername];
                 }
             }
         }
@@ -108,7 +139,7 @@ final class UsernameListener
                 continue;
             }
 
-            $em->remove($this->getUsername($username));
+            $em->remove($this->factory->reference(Username::class, compact('username')));
         }
     }
 
@@ -128,18 +159,8 @@ final class UsernameListener
                 continue;
             }
 
-            yield $this->createUsername($user, $username);
+            yield $this->factory->create(Username::class, compact('user', 'username'));
         }
-    }
-
-    private function createUsername(User $user, string $username): Username
-    {
-        return $this->factory->create(Username::class, compact('user', 'username'));
-    }
-
-    private function getUsername(string $username): Username
-    {
-        return $this->factory->reference(Username::class, compact('username'));
     }
 
     /**
