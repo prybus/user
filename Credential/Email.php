@@ -20,10 +20,10 @@ final class Email implements Credential
 
     public function __invoke(ChangeCredential $event): bool
     {
-        if ($emailChanged = ($this->email !== $email = $event->getStringField('email'))) {
-            $this->email = $email;
-        }
+        [
+            'email' => $this->email,
+        ] = $event->fields + $vars = get_object_vars($this);
 
-        return $emailChanged;
+        return $vars !== get_object_vars($this);
     }
 }

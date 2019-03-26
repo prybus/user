@@ -20,17 +20,4 @@ class ChangeCredential implements DomainEvent
     {
         $this->fields = $fields;
     }
-
-    public function getStringField(string $field, string $default = null): string
-    {
-        if (null === $value = $this->fields[$field] ?? $default) {
-            throw new \LogicException(sprintf('No value available for field "%s".', $field));
-        }
-
-        if (!\is_string($value)) {
-            throw new \LogicException(sprintf('Field value for "%s" must be a string, got "%s".', $field, \gettype($value)));
-        }
-
-        return $value;
-    }
 }

@@ -23,11 +23,11 @@ final class Token implements Credential
 
     public function __invoke(ChangeCredential $event): bool
     {
-        if ($tokenChanged = ($this->token !== $token = $event->getStringField('token'))) {
-            $this->token = $token;
-        }
+        [
+            'token' => $this->token,
+        ] = $event->fields + $vars = get_object_vars($this);
 
-        return $tokenChanged;
+        return $vars !== get_object_vars($this);
     }
 
     public static function getUsernameField(): string

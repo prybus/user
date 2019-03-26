@@ -22,13 +22,11 @@ final class NicknamePassword implements PasswordProtectedCredential
 
     public function __invoke(ChangeCredential $event): bool
     {
-        if ($nicknameChanged = ($this->nickname !== $nickname = $event->getStringField('nickname'))) {
-            $this->nickname = $nickname;
-        }
-        if ($passwordChanged = ($this->password !== $password = $event->getStringField('password'))) {
-            $this->password = $password;
-        }
+        [
+            'nickname' => $this->nickname,
+            'password' => $this->password,
+        ] = $event->fields + $vars = get_object_vars($this);
 
-        return $nicknameChanged || $passwordChanged;
+        return $vars !== get_object_vars($this);
     }
 }

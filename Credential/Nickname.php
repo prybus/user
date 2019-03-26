@@ -20,10 +20,10 @@ final class Nickname implements Credential
 
     public function __invoke(ChangeCredential $event): bool
     {
-        if ($nicknameChanged = ($this->nickname !== $nickname = $event->getStringField('nickname'))) {
-            $this->nickname = $nickname;
-        }
+        [
+            'nickname' => $this->nickname,
+        ] = $event->fields + $vars = get_object_vars($this);
 
-        return $nicknameChanged;
+        return $vars !== get_object_vars($this);
     }
 }

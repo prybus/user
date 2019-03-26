@@ -22,13 +22,11 @@ final class EmailPassword implements PasswordProtectedCredential
 
     public function __invoke(ChangeCredential $event): bool
     {
-        if ($emailChanged = ($this->email !== $email = $event->getStringField('email'))) {
-            $this->email = $email;
-        }
-        if ($passwordChanged = ($this->password !== $password = $event->getStringField('password'))) {
-            $this->password = $password;
-        }
+        [
+            'email' => $this->email,
+            'password' => $this->password,
+        ] = $event->fields + $vars = get_object_vars($this);
 
-        return $emailChanged || $passwordChanged;
+        return $vars !== get_object_vars($this);
     }
 }
