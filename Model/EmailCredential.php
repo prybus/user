@@ -31,6 +31,6 @@ trait EmailCredential
 
     public function changeEmail(string $email): void
     {
-        ($this->credential)(new ChangeCredential([Email::getUsernameField() => $email]));
+        ($this->credential)(new ChangeCredential(compact('email')));
     }
 }

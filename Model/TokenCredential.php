@@ -31,6 +31,6 @@ trait TokenCredential
 
     public function changeToken(string $token): void
     {
-        ($this->credential)(new ChangeCredential([Token::getUsernameField() => $token]));
+        ($this->credential)(new ChangeCredential(compact('token')));
     }
 }

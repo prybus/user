@@ -13,7 +13,7 @@ trait EmailPasswordCredential
 {
     use AbstractPasswordCredential;
     use EmailCredential {
-        EmailCredential::handleChangeCredentialEvent insteadof AbstractPasswordCredential;
+        EmailCredential::onChangeCredentialEvent insteadof AbstractPasswordCredential;
     }
 
     /**

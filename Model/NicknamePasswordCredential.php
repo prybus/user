@@ -13,7 +13,7 @@ trait NicknamePasswordCredential
 {
     use AbstractPasswordCredential;
     use NicknameCredential {
-        NicknameCredential::handleChangeCredentialEvent insteadof AbstractPasswordCredential;
+        NicknameCredential::onChangeCredentialEvent insteadof AbstractPasswordCredential;
     }
 
     /**

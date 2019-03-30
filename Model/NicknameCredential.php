@@ -31,6 +31,6 @@ trait NicknameCredential
 
     public function changeNickname(string $nickname): void
     {
-        ($this->credential)(new ChangeCredential([Nickname::getUsernameField() => $nickname]));
+        ($this->credential)(new ChangeCredential(compact('nickname')));
     }
 }
