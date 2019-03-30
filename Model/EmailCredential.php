@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MsgPhp\User\Model;
 
 use MsgPhp\User\Credential\Email;
-use MsgPhp\User\Event\Domain\ChangeCredential;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -27,10 +26,5 @@ trait EmailCredential
     public function getEmail(): string
     {
         return $this->credential->getUsername();
-    }
-
-    public function changeEmail(string $email): void
-    {
-        ($this->credential)(new ChangeCredential(compact('email')));
     }
 }
