@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infrastructure\Console\Command;
 
-use MsgPhp\User\Command\DeleteRole as DeleteRoleDomainCommand;
+use MsgPhp\User\Command\DeleteRole;
 use MsgPhp\User\Event\RoleDeleted;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,7 +50,7 @@ final class DeleteRoleCommand extends RoleCommand
             }
         }
 
-        $this->dispatch(DeleteRoleDomainCommand::class, compact('roleName'));
+        $this->dispatch(DeleteRole::class, compact('roleName'));
 
         return 0;
     }

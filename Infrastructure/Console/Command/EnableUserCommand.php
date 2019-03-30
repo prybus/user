@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infrastructure\Console\Command;
 
-use MsgPhp\User\Command\EnableUser as EnableUserDomainCommand;
+use MsgPhp\User\Command\EnableUser;
 use MsgPhp\User\Event\UserEnabled;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -42,7 +42,7 @@ final class EnableUserCommand extends UserCommand
         $this->io = new SymfonyStyle($input, $output);
         $userId = $this->getUser($input, $this->io)->getId();
 
-        $this->dispatch(EnableUserDomainCommand::class, compact('userId'));
+        $this->dispatch(EnableUser::class, compact('userId'));
 
         return 0;
     }

@@ -8,7 +8,7 @@ use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
 use MsgPhp\Domain\Infrastructure\Console\Context\ContextFactory;
 use MsgPhp\Domain\Message\DomainMessageBus;
-use MsgPhp\User\Command\AddUserRole as AddUserRoleDomainCommand;
+use MsgPhp\User\Command\AddUserRole;
 use MsgPhp\User\Event\RoleCreated;
 use MsgPhp\User\Event\UserRoleAdded;
 use MsgPhp\User\Repository\RoleRepository;
@@ -96,7 +96,7 @@ final class AddUserRoleCommand extends UserRoleCommand
         $roleName = $role->getName();
         $context = $this->contextFactory->getContext($input, $this->io, compact('user', 'role'));
 
-        $this->dispatch(AddUserRoleDomainCommand::class, compact('userId', 'roleName', 'context'));
+        $this->dispatch(AddUserRole::class, compact('userId', 'roleName', 'context'));
 
         return 0;
     }

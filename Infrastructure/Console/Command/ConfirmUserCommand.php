@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infrastructure\Console\Command;
 
-use MsgPhp\User\Command\ConfirmUser as ConfirmUserDomainCommand;
+use MsgPhp\User\Command\ConfirmUser;
 use MsgPhp\User\Event\UserConfirmed;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -42,7 +42,7 @@ final class ConfirmUserCommand extends UserCommand
         $this->io = new SymfonyStyle($input, $output);
         $userId = $this->getUser($input, $this->io)->getId();
 
-        $this->dispatch(ConfirmUserDomainCommand::class, compact('userId'));
+        $this->dispatch(ConfirmUser::class, compact('userId'));
 
         return 0;
     }

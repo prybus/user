@@ -9,7 +9,7 @@ use MsgPhp\Domain\Infrastructure\Console\Context\ContextFactory;
 use MsgPhp\Domain\Message\DomainMessageBus;
 use MsgPhp\Domain\Message\MessageDispatchingTrait;
 use MsgPhp\Domain\Message\MessageReceiving;
-use MsgPhp\User\Command\CreateRole as CreateRoleDomainCommand;
+use MsgPhp\User\Command\CreateRole;
 use MsgPhp\User\Event\RoleCreated;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -63,7 +63,7 @@ final class CreateRoleCommand extends Command implements MessageReceiving
         $this->io = new SymfonyStyle($input, $output);
         $context = $this->contextFactory->getContext($input, $this->io);
 
-        $this->dispatch(CreateRoleDomainCommand::class, compact('context'));
+        $this->dispatch(CreateRole::class, compact('context'));
 
         return 0;
     }
