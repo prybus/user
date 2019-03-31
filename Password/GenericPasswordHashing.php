@@ -37,25 +37,25 @@ final class GenericPasswordHashing implements PasswordHashing
             }
 
             if (!\is_string($hash)) {
-                throw new \RuntimeException(sprintf('Unable to hash password with algorithm "%s".', $algorithm->type));
+                throw new \RuntimeException('Unable to hash password with algorithm "'.$algorithm->type.'".');
             }
 
             return $hash;
         }
 
         if ($this->deprecateLegacyApi) {
-            @trigger_error(sprintf('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "%s::create()" instead.', PasswordAlgorithm::class), \E_USER_DEPRECATED);
+            @trigger_error('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "'.PasswordAlgorithm::class.'::create()" instead.', \E_USER_DEPRECATED);
         }
 
         $type = (string) $algorithm->type;
 
         if (null !== $algorithm->salt) {
             if (1 > $algorithm->salt->iterations) {
-                throw new \LogicException(sprintf('No. of password salt iterations must be 1 or higher, got %d.', $algorithm->salt->iterations));
+                throw new \LogicException('No. of password salt iterations must be 1 or higher, got '.$algorithm->salt->iterations.'.');
             }
 
             if (2 !== ($c = substr_count($algorithm->salt->format, '%s'))) {
-                throw new \LogicException(sprintf('Password salt format should have exactly 2 value placeholders, found %d.', $c));
+                throw new \LogicException('Password salt format should have exactly 2 value placeholders, found '.$c.'.');
             }
 
             $salted = sprintf($algorithm->salt->format, $plainPassword, $algorithm->salt->token);

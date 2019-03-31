@@ -22,7 +22,7 @@ final class PasswordHashing implements BasePasswordHashing
     public function __construct(PasswordEncoderInterface $encoder)
     {
         if (!$encoder instanceof SelfSaltingEncoderInterface) {
-            throw new \LogicException(sprintf('Only a self-salting password hashing method is supported, got "%s".', \get_class($encoder)));
+            throw new \LogicException('Only a self-salting password hashing method is supported, got "'.\get_class($encoder).'".');
         }
 
         $this->encoder = $encoder;

@@ -48,7 +48,7 @@ final class UserIdentityProvider implements UserProviderInterface
     public function refreshUser(UserInterface $identity): UserInterface
     {
         if (!$identity instanceof UserIdentity) {
-            throw new UnsupportedUserException(sprintf('Unsupported user "%s".', \get_class($identity)));
+            throw new UnsupportedUserException('Unsupported user "'.\get_class($identity).'".');
         }
 
         try {

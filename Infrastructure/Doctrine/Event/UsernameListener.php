@@ -165,6 +165,6 @@ final class UsernameListener
             }
         }
 
-        throw new \LogicException(sprintf('No username mapping available for entity "%s".', $class));
+        throw new \LogicException('No username mapping available for entity "'.$class.'".');
     }
 }
