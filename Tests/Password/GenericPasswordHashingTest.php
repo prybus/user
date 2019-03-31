@@ -174,7 +174,7 @@ final class GenericPasswordHashingTest extends TestCase
      * NOT A LEGACY TEST.
      *
      * @group legacy
-     * @expectedDeprecation Using PHP's legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "MsgPhp\User\Password\PasswordAlgorithm::create()" instead.
+     * @expectedDeprecation Using PHPs legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "MsgPhp\User\Password\PasswordAlgorithm::create()" instead.
      */
     public function testHashWithLegacyAlgorithm(): void
     {
@@ -187,7 +187,7 @@ final class GenericPasswordHashingTest extends TestCase
      * NOT A LEGACY TEST.
      *
      * @group legacy
-     * @expectedDeprecation Using PHP's legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "MsgPhp\User\Password\PasswordAlgorithm::create()" instead.
+     * @expectedDeprecation Using PHPs legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "MsgPhp\User\Password\PasswordAlgorithm::create()" instead.
      */
     public function testIsValidhWithLegacyAlgorithm(): void
     {
