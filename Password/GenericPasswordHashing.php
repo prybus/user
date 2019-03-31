@@ -44,7 +44,7 @@ final class GenericPasswordHashing implements PasswordHashing
         }
 
         if ($this->deprecateLegacyApi) {
-            @trigger_error('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "'.PasswordAlgorithm::class.'::create()" instead.', \E_USER_DEPRECATED);
+            @trigger_error('Using PHPs legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "'.PasswordAlgorithm::class.'::create()" instead.', \E_USER_DEPRECATED);
         }
 
         $type = (string) $algorithm->type;
