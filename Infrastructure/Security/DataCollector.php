@@ -24,8 +24,6 @@ use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  *
- * @todo decorate instead
- *
  * @internal
  */
 final class DataCollector extends BaseDataCollector
