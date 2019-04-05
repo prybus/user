@@ -163,7 +163,7 @@ final class UserIdentityProviderTest extends TestCase
         $repository = $this->createMock(UserRepository::class);
         $repository->expects(self::any())
             ->method('find')
-            ->willReturnCallback(function (UserId $id) use ($user) {
+            ->willReturnCallback(static function (UserId $id) use ($user) {
                 if (null === $user || $id->toString() !== $user->getId()->toString()) {
                     throw EntityNotFoundException::createForId(User::class, $id->toString());
                 }
@@ -173,7 +173,7 @@ final class UserIdentityProviderTest extends TestCase
         ;
         $repository->expects(self::any())
             ->method('findByUsername')
-            ->willReturnCallback(function (string $username) use ($user) {
+            ->willReturnCallback(static function (string $username) use ($user) {
                 if (null !== $user && \in_array($username, ['username', 'origin-username'], true)) {
                     return $user;
                 }

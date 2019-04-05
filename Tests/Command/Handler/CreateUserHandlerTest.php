@@ -22,7 +22,7 @@ final class CreateUserHandlerTest extends TestCase
         $bus = $this->createMock(DomainMessageBus::class);
         $bus->expects(self::once())
             ->method('dispatch')
-            ->with(self::callback(function (UserCreated $message): bool {
+            ->with(self::callback(static function (UserCreated $message): bool {
                 self::assertInstanceOf(TestUser::class, $message->user);
                 self::assertTrue($message->user->getId()->isEmpty());
                 self::assertSame('value', $message->user->field);
@@ -35,7 +35,7 @@ final class CreateUserHandlerTest extends TestCase
         $repository = $this->createMock(UserRepository::class);
         $repository->expects(self::once())
             ->method('save')
-            ->with(self::callback(function (TestUser $entity): bool {
+            ->with(self::callback(static function (TestUser $entity): bool {
                 $entity->saved = true;
 
                 return true;
@@ -52,7 +52,7 @@ final class CreateUserHandlerTest extends TestCase
         $bus = $this->createMock(DomainMessageBus::class);
         $bus->expects(self::once())
             ->method('dispatch')
-            ->with(self::callback(function (UserCreated $message) use ($id): bool {
+            ->with(self::callback(static function (UserCreated $message) use ($id): bool {
                 self::assertInstanceOf(TestUser::class, $message->user);
                 self::assertSame($id, $message->user->getId());
                 self::assertNull($message->user->field);

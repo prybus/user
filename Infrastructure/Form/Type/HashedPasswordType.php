@@ -44,9 +44,9 @@ final class HashedPasswordType extends AbstractType
         ];
 
         $builder
-            ->addViewTransformer(new CallbackTransformer(function ($value): ?array {
+            ->addViewTransformer(new CallbackTransformer(static function ($value): ?array {
                 return null;
-            }, function ($value) use ($password): ?string {
+            }, static function ($value) use ($password): ?string {
                 $password->hash = null;
 
                 if (!\is_array($value)) {
@@ -117,7 +117,7 @@ final class HashedPasswordType extends AbstractType
             'password_algorithm' => null,
             'password_options' => [],
             'password_confirm' => false,
-            'password_confirm_options' => function (Options $options, $value) {
+            'password_confirm_options' => static function (Options $options, $value) {
                 return $value ?? $options['password_options'];
             },
         ]);

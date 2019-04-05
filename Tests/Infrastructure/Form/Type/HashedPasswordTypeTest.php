@@ -92,7 +92,7 @@ final class HashedPasswordTypeTest extends TypeTestCase
         yield [\PASSWORD_BCRYPT, 1];
         yield ['md5', 'md5'];
         yield [PasswordAlgorithm::createLegacy('md2'), 'md2'];
-        yield [function (): PasswordAlgorithm {
+        yield [static function (): PasswordAlgorithm {
             return PasswordAlgorithm::create(2);
         }, 2];
     }
@@ -162,7 +162,7 @@ final class HashedPasswordTypeTest extends TypeTestCase
 
     public function testCustomOptions(): void
     {
-        $form = $this->createForm(['password_options' => ['constraints' => new Callback(function ($value, ExecutionContextInterface $context): void {
+        $form = $this->createForm(['password_options' => ['constraints' => new Callback(static function ($value, ExecutionContextInterface $context): void {
             $context->buildViolation('invalid')->addViolation();
 
             self::assertSame('secret', $value);
@@ -180,13 +180,13 @@ final class HashedPasswordTypeTest extends TypeTestCase
         $hashing = $this->createMock(PasswordHashing::class);
         $hashing->expects(self::any())
             ->method('hash')
-            ->willReturnCallback($hasher = function (string $plainPassword, ?PasswordAlgorithm $algorithm): string {
+            ->willReturnCallback($hasher = static function (string $plainPassword, ?PasswordAlgorithm $algorithm): string {
                 return (string) json_encode([$plainPassword, null === $algorithm ? null : $algorithm->type]);
             })
         ;
         $hashing->expects(self::any())
             ->method('isValid')
-            ->willReturnCallback(function (string $hashedPassword, string $plainPassword, ?PasswordAlgorithm $algorithm) use ($hasher) {
+            ->willReturnCallback(static function (string $hashedPassword, string $plainPassword, ?PasswordAlgorithm $algorithm) use ($hasher) {
                 return $hashedPassword === $hasher($plainPassword, $algorithm);
             })
         ;
