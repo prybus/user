@@ -23,11 +23,13 @@ final class CreateUserHandlerTest extends TestCase
         $bus->expects(self::once())
             ->method('dispatch')
             ->with(self::callback(static function (UserCreated $message): bool {
-                self::assertInstanceOf(TestUser::class, $message->user);
-                self::assertTrue($message->user->getId()->isEmpty());
-                self::assertSame('value', $message->user->field);
-                self::assertTrue($message->user->saved);
-                self::assertSame(['field' => 'value', 'id' => $message->user->getId()], $message->context);
+                /** @var TestUser $user */
+                $user = $message->user;
+                self::assertInstanceOf(TestUser::class, $user);
+                self::assertTrue($user->getId()->isEmpty());
+                self::assertSame('value', $user->field);
+                self::assertTrue($user->saved);
+                self::assertSame(['field' => 'value', 'id' => $user->getId()], $message->context);
 
                 return true;
             }))
@@ -53,10 +55,12 @@ final class CreateUserHandlerTest extends TestCase
         $bus->expects(self::once())
             ->method('dispatch')
             ->with(self::callback(static function (UserCreated $message) use ($id): bool {
-                self::assertInstanceOf(TestUser::class, $message->user);
-                self::assertSame($id, $message->user->getId());
-                self::assertNull($message->user->field);
-                self::assertSame(['id' => $message->user->getId()], $message->context);
+                /** @var TestUser $user */
+                $user = $message->user;
+                self::assertInstanceOf(TestUser::class, $user);
+                self::assertSame($id, $user->getId());
+                self::assertNull($user->field);
+                self::assertSame(['id' => $user->getId()], $message->context);
 
                 return true;
             }))
