@@ -11,13 +11,11 @@ use MsgPhp\User\User;
  */
 final class DefaultRoleProvider implements RoleProvider
 {
-    /**
-     * @var string[]
-     */
+    /** @var array<int, string> */
     private $roles;
 
     /**
-     * @param string[] $roles
+     * @param array<int, string> $roles
      */
     public function __construct(array $roles)
     {

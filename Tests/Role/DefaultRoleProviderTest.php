@@ -12,7 +12,7 @@ final class DefaultRoleProviderTest extends TestCase
 {
     public function testRoles(): void
     {
-        $provider = new DefaultRoleProvider($roles = ['ROLE_USER', 'foo' => 'ROLE_admin', 'duplicate', 'duplicate']);
+        $provider = new DefaultRoleProvider($roles = ['ROLE_USER', 'duplicate', 'duplicate']);
 
         self::assertSame($roles, $provider->getRoles($this->createMock(User::class)));
     }

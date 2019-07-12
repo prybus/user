@@ -19,18 +19,11 @@ final class UsernameRepository implements BaseUsernameRepository
 {
     use DomainEntityRepositoryTrait;
 
-    /**
-     * @var UsernameLookup
-     */
+    /** @var UsernameLookup */
     private $lookup;
 
     /**
-     * @var array[]
-     */
-    private $targetMappings;
-
-    /**
-     * @psalm-param class-string $class
+     * @param class-string $class
      */
     public function __construct(string $class, EntityManagerInterface $em, UsernameLookup $lookup)
     {
@@ -40,7 +33,7 @@ final class UsernameRepository implements BaseUsernameRepository
     }
 
     /**
-     * @return DomainCollection|Username[]
+     * @return DomainCollection<Username>
      */
     public function lookup(): DomainCollection
     {
@@ -48,7 +41,7 @@ final class UsernameRepository implements BaseUsernameRepository
     }
 
     /**
-     * @return DomainCollection|Username[]
+     * @return DomainCollection<Username>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
     {

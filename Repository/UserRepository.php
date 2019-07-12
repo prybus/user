@@ -14,7 +14,7 @@ use MsgPhp\User\UserId;
 interface UserRepository
 {
     /**
-     * @return DomainCollection|User[]
+     * @return DomainCollection<User>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection;
 

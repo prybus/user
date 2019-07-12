@@ -11,19 +11,8 @@ use MsgPhp\User\UserId;
  */
 class AddUserEmail
 {
-    /**
-     * @var UserId
-     */
     public $userId;
-
-    /**
-     * @var string
-     */
     public $email;
-
-    /**
-     * @var array
-     */
     public $context;
 
     public function __construct(UserId $userId, string $email, array $context = [])

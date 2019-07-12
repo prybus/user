@@ -11,9 +11,6 @@ use MsgPhp\User\UserEmail;
  */
 class UserEmailDeleted
 {
-    /**
-     * @var UserEmail
-     */
     public $userEmail;
 
     public function __construct(UserEmail $userEmail)

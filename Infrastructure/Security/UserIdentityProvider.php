@@ -18,14 +18,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 final class UserIdentityProvider implements UserProviderInterface
 {
-    /**
-     * @var UserRepository
-     */
     private $repository;
-
-    /**
-     * @var RoleProvider|null
-     */
     private $roleProvider;
 
     public function __construct(UserRepository $repository, RoleProvider $roleProvider = null)
@@ -34,6 +27,9 @@ final class UserIdentityProvider implements UserProviderInterface
         $this->roleProvider = $roleProvider;
     }
 
+    /**
+     * @return UserIdentity
+     */
     public function loadUserByUsername($username): UserInterface
     {
         try {
@@ -45,6 +41,9 @@ final class UserIdentityProvider implements UserProviderInterface
         return $this->fromUser($user, $username);
     }
 
+    /**
+     * @return UserIdentity
+     */
     public function refreshUser(UserInterface $identity): UserInterface
     {
         if (!$identity instanceof UserIdentity) {

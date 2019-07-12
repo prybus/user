@@ -14,9 +14,7 @@ use Symfony\Component\Console\Style\StyleInterface;
  */
 trait RoleAwareTrait
 {
-    /**
-     * @var RoleRepository
-     */
+    /** @var RoleRepository */
     private $repository;
 
     protected function getRole(InputInterface $input, StyleInterface $io): Role

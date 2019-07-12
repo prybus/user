@@ -12,14 +12,7 @@ use MsgPhp\User\User;
  */
 class UserCredentialChanged
 {
-    /**
-     * @var User
-     */
     public $user;
-
-    /**
-     * @var Credential
-     */
     public $oldCredential;
 
     public function __construct(User $user, Credential $oldCredential)

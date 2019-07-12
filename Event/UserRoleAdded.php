@@ -11,14 +11,7 @@ use MsgPhp\User\UserRole;
  */
 class UserRoleAdded
 {
-    /**
-     * @var UserRole
-     */
     public $userRole;
-
-    /**
-     * @var array
-     */
     public $context;
 
     public function __construct(UserRole $userRole, array $context)

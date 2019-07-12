@@ -11,14 +11,7 @@ use MsgPhp\User\UserId;
  */
 class DeleteUserRole
 {
-    /**
-     * @var UserId
-     */
     public $userId;
-
-    /**
-     * @var string
-     */
     public $roleName;
 
     public function __construct(UserId $userId, string $roleName)

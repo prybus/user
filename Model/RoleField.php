@@ -11,9 +11,7 @@ use MsgPhp\User\Role;
  */
 trait RoleField
 {
-    /**
-     * @var Role
-     */
+    /** @var Role */
     private $role;
 
     public function getRole(): Role

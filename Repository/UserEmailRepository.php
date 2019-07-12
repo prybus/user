@@ -14,7 +14,7 @@ use MsgPhp\User\UserId;
 interface UserEmailRepository
 {
     /**
-     * @return DomainCollection|UserEmail[]
+     * @return DomainCollection<UserEmail>
      */
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection;
 

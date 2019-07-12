@@ -11,29 +11,15 @@ final class PasswordAlgorithm
 {
     public const DEFAULT_LEGACY = 'sha512';
 
-    /**
-     * @var int|string
-     */
+    /** @var int|string */
     public $type;
-
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $legacy;
-
-    /**
-     * @var (int|string|bool|float|null)[]
-     */
+    /** @var array */
     public $options = [];
-
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $encodeBase64 = false;
-
-    /**
-     * @var PasswordSalt|null
-     */
+    /** @var PasswordSalt|null */
     public $salt;
 
     /**

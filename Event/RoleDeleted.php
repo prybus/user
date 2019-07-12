@@ -11,9 +11,6 @@ use MsgPhp\User\Role;
  */
 class RoleDeleted
 {
-    /**
-     * @var Role
-     */
     public $role;
 
     public function __construct(Role $role)

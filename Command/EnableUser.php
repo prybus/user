@@ -11,9 +11,6 @@ use MsgPhp\User\UserId;
  */
 class EnableUser
 {
-    /**
-     * @var UserId
-     */
     public $userId;
 
     public function __construct(UserId $userId)

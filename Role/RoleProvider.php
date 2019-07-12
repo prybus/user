@@ -12,7 +12,7 @@ use MsgPhp\User\User;
 interface RoleProvider
 {
     /**
-     * @return string[]
+     * @return array<int, string>
      */
     public function getRoles(User $user): array;
 }

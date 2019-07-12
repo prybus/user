@@ -14,9 +14,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class UniqueUsernameValidator extends ConstraintValidator
 {
-    /**
-     * @var UserRepository
-     */
     private $repository;
 
     public function __construct(UserRepository $repository)

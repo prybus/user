@@ -19,9 +19,7 @@ final class CreateRoleHandler
 {
     use MessageDispatchingTrait;
 
-    /**
-     * @var RoleRepository
-     */
+    /** @var RoleRepository */
     private $repository;
 
     public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, RoleRepository $repository)

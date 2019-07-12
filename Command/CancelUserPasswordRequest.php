@@ -11,9 +11,6 @@ use MsgPhp\User\UserId;
  */
 class CancelUserPasswordRequest
 {
-    /**
-     * @var UserId
-     */
     public $userId;
 
     public function __construct(UserId $userId)

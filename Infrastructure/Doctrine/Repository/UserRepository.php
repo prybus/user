@@ -19,18 +19,13 @@ final class UserRepository implements BaseUserRepository
 {
     use DomainEntityRepositoryTrait;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $usernameField;
-
-    /**
-     * @var UsernameRepository|null
-     */
+    /** @var UsernameRepository|null */
     private $usernameRepository;
 
     /**
-     * @psalm-param class-string $class
+     * @param class-string $class
      */
     public function __construct(string $class, EntityManagerInterface $em, string $usernameField = null, UsernameRepository $usernameRepository = null)
     {
@@ -41,7 +36,7 @@ final class UserRepository implements BaseUserRepository
     }
 
     /**
-     * @return DomainCollection|User[]
+     * @return DomainCollection<User>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
     {

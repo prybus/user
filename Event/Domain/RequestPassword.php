@@ -11,9 +11,6 @@ use MsgPhp\Domain\Event\DomainEvent;
  */
 class RequestPassword implements DomainEvent
 {
-    /**
-     * @var string|null
-     */
     public $token;
 
     public function __construct(string $token = null)

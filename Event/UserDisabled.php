@@ -11,9 +11,6 @@ use MsgPhp\User\User;
  */
 class UserDisabled
 {
-    /**
-     * @var User
-     */
     public $user;
 
     public function __construct(User $user)

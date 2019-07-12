@@ -13,13 +13,11 @@ use MsgPhp\User\UserEmail;
  */
 trait EmailsField
 {
-    /**
-     * @var iterable|UserEmail[]
-     */
+    /** @var iterable<UserEmail> */
     private $emails = [];
 
     /**
-     * @return DomainCollection|UserEmail[]
+     * @return DomainCollection<UserEmail>
      */
     public function getEmails(): DomainCollection
     {

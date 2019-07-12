@@ -18,9 +18,7 @@ final class DeleteUserRoleCommand extends UserRoleCommand
 {
     protected static $defaultName = 'user:role:delete';
 
-    /**
-     * @var StyleInterface
-     */
+    /** @var StyleInterface */
     private $io;
 
     public function onMessageReceived(object $message): void

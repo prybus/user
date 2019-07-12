@@ -18,9 +18,6 @@ use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
  */
 final class HashingFactory implements EncoderFactoryInterface
 {
-    /**
-     * @var EncoderFactoryInterface
-     */
     private $factory;
 
     public function __construct(EncoderFactoryInterface $factory)
@@ -66,9 +63,6 @@ final class HashingFactory implements EncoderFactoryInterface
         }
 
         return new class($algorithm) implements PasswordEncoderInterface, SelfSaltingEncoderInterface {
-            /**
-             * @var PasswordAlgorithm
-             */
             private $algorithm;
 
             public function __construct(PasswordAlgorithm $algorithm)

@@ -11,14 +11,7 @@ use MsgPhp\User\User;
  */
 class UserCreated
 {
-    /**
-     * @var User
-     */
     public $user;
-
-    /**
-     * @var array
-     */
     public $context;
 
     public function __construct(User $user, array $context)

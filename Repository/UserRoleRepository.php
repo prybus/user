@@ -14,7 +14,7 @@ use MsgPhp\User\UserRole;
 interface UserRoleRepository
 {
     /**
-     * @return DomainCollection|UserRole[]
+     * @return DomainCollection<UserRole>
      */
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection;
 

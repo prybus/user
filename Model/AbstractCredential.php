@@ -12,9 +12,7 @@ use MsgPhp\User\Event\Domain\ChangeCredential;
  */
 trait AbstractCredential
 {
-    /**
-     * @var Credential
-     */
+    /** @var Credential */
     private $credential;
 
     public function getCredential(): Credential

@@ -15,14 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 trait TokenStorageAwareTrait
 {
-    /**
-     * @var TokenStorageInterface
-     */
     private $tokenStorage;
-
-    /**
-     * @var UserRepository
-     */
     private $repository;
 
     public function __construct(TokenStorageInterface $tokenStorage, UserRepository $repository)

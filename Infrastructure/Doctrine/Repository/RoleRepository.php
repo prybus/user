@@ -17,7 +17,7 @@ final class RoleRepository implements BaseRoleRepository
     use DomainEntityRepositoryTrait;
 
     /**
-     * @return DomainCollection|Role[]
+     * @return DomainCollection<Role>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
     {

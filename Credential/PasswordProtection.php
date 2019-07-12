@@ -11,9 +11,7 @@ use MsgPhp\User\Password\PasswordAlgorithm;
  */
 trait PasswordProtection
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $password;
 
     public static function getPasswordField(): string

@@ -22,7 +22,6 @@ final class UserIdentityProviderTest extends TestCase
 {
     public function testLoadUserByUsername(): void
     {
-        /** @var UserIdentity $identity */
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser())))->loadUserByUsername('username');
 
         self::assertInstanceOf(UserIdentity::class, $identity);
@@ -36,7 +35,6 @@ final class UserIdentityProviderTest extends TestCase
 
     public function testLoadUserByUsernameWithOriginUsername(): void
     {
-        /** @var UserIdentity $identity */
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser())))->loadUserByUsername('origin-username');
 
         self::assertInstanceOf(UserIdentity::class, $identity);
@@ -55,8 +53,6 @@ final class UserIdentityProviderTest extends TestCase
             ->method('getRoles')
             ->willReturn(['ROLE_FOO'])
         ;
-
-        /** @var UserIdentity $identity */
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser()), $roleProvider))->loadUserByUsername('username');
 
         self::assertInstanceOf(UserIdentity::class, $identity);
@@ -81,8 +77,6 @@ final class UserIdentityProviderTest extends TestCase
     public function testRefreshUser(): void
     {
         $provider = new UserIdentityProvider($this->createRepository($this->createUser()));
-
-        /** @var UserIdentity $refreshedIdentity */
         $refreshedIdentity = $provider->refreshUser($user = $provider->loadUserByUsername('username'));
 
         self::assertInstanceOf(UserIdentity::class, $refreshedIdentity);
@@ -94,8 +88,6 @@ final class UserIdentityProviderTest extends TestCase
     public function testRefreshUserWithOriginUsername(): void
     {
         $provider = new UserIdentityProvider($this->createRepository($this->createUser()));
-
-        /** @var UserIdentity $refreshedIdentity */
         $refreshedIdentity = $provider->refreshUser($user = $provider->loadUserByUsername('origin-username'));
 
         self::assertInstanceOf(UserIdentity::class, $refreshedIdentity);

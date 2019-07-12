@@ -18,9 +18,7 @@ final class DisableUserCommand extends UserCommand
 {
     protected static $defaultName = 'user:disable';
 
-    /**
-     * @var StyleInterface
-     */
+    /** @var StyleInterface */
     private $io;
 
     public function onMessageReceived(object $message): void

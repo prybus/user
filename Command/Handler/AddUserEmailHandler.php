@@ -20,9 +20,7 @@ final class AddUserEmailHandler
 {
     use MessageDispatchingTrait;
 
-    /**
-     * @var UserEmailRepository
-     */
+    /** @var UserEmailRepository */
     private $repository;
 
     public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserEmailRepository $repository)

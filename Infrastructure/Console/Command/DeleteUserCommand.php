@@ -18,9 +18,7 @@ final class DeleteUserCommand extends UserCommand
 {
     protected static $defaultName = 'user:delete';
 
-    /**
-     * @var StyleInterface
-     */
+    /** @var StyleInterface */
     private $io;
 
     public function onMessageReceived(object $message): void

@@ -11,19 +11,8 @@ use MsgPhp\User\UserId;
  */
 class ResetUserPassword
 {
-    /**
-     * @var UserId
-     */
     public $userId;
-
-    /**
-     * @var string
-     */
     public $password;
-
-    /**
-     * @var array
-     */
     public $context;
 
     public function __construct(UserId $userId, string $password, array $context = [])

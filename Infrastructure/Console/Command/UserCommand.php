@@ -28,9 +28,7 @@ abstract class UserCommand extends Command implements MessageReceiving
         dispatch as protected;
     }
 
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $repository;
 
     public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $repository)

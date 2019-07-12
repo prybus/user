@@ -9,14 +9,9 @@ namespace MsgPhp\User\Password;
  */
 final class GenericPasswordHashing implements PasswordHashing
 {
-    /**
-     * @var PasswordAlgorithm
-     */
+    /** @var PasswordAlgorithm */
     private $defaultAlgorithm;
-
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $deprecateLegacyApi;
 
     public function __construct(PasswordAlgorithm $defaultAlgorithm = null, bool $deprecateLegacyApi = true)

@@ -11,14 +11,7 @@ use MsgPhp\User\UserId;
  */
 class ChangeUserCredential
 {
-    /**
-     * @var UserId
-     */
     public $userId;
-
-    /**
-     * @var array
-     */
     public $fields;
 
     public function __construct(UserId $userId, array $fields)

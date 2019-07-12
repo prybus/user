@@ -12,9 +12,7 @@ use MsgPhp\User\UserId;
  */
 trait UserField
 {
-    /**
-     * @var User
-     */
+    /** @var User */
     private $user;
 
     public function getUser(): User

@@ -14,23 +14,13 @@ use MsgPhp\User\Username;
  */
 final class UsernameLookup
 {
-    /**
-     * @var DomainObjectFactory
-     */
     private $factory;
-
-    /**
-     * @var EntityManagerInterface
-     */
     private $em;
-
-    /**
-     * @var array[]
-     */
+    /** @var array<class-string, array<string, string|null>> */
     private $mapping;
 
     /**
-     * @param array[] $mapping
+     * @param array<class-string, array<string, string|null>> $mapping
      */
     public function __construct(DomainObjectFactory $factory, EntityManagerInterface $em, array $mapping)
     {

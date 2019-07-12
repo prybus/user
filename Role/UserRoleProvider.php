@@ -13,9 +13,6 @@ use MsgPhp\User\UserRole;
  */
 final class UserRoleProvider implements RoleProvider
 {
-    /**
-     * @var UserRoleRepository
-     */
     private $repository;
 
     public function __construct(UserRoleRepository $repository)

@@ -11,13 +11,11 @@ use MsgPhp\User\User;
  */
 final class ChainRoleProvider implements RoleProvider
 {
-    /**
-     * @var iterable|RoleProvider[]
-     */
+    /** @var iterable<int, RoleProvider> */
     private $providers;
 
     /**
-     * @param RoleProvider[] $providers
+     * @param iterable<int, RoleProvider> $providers
      */
     public function __construct(iterable $providers)
     {

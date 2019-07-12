@@ -21,9 +21,7 @@ final class CancelUserPasswordRequestHandler
     use EventSourcingCommandHandlerTrait;
     use MessageDispatchingTrait;
 
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $repository;
 
     public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $repository)

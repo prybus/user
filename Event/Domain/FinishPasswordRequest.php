@@ -12,9 +12,6 @@ use MsgPhp\User\Credential\Credential;
  */
 class FinishPasswordRequest implements DomainEvent
 {
-    /**
-     * @var Credential
-     */
     public $oldCredential;
 
     public function __construct(Credential $oldCredential)

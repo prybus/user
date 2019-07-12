@@ -15,9 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserExtension extends AbstractTypeExtension
 {
-    /**
-     * @var UserRepository
-     */
     private $repository;
 
     public function __construct(UserRepository $repository)

@@ -13,13 +13,11 @@ use MsgPhp\User\UserRole;
  */
 trait RolesField
 {
-    /**
-     * @var iterable|UserRole[]
-     */
+    /** @var iterable<UserRole> */
     private $roles = [];
 
     /**
-     * @return DomainCollection|UserRole[]
+     * @return DomainCollection<UserRole>
      */
     public function getRoles(): DomainCollection
     {

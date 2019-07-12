@@ -82,9 +82,11 @@ final class CreateUserHandlerTest extends TestCase
 
 class TestUser extends User
 {
+    /** @var mixed */
     public $field;
+    /** @var bool */
     public $saved = false;
-
+    /** @var UserId */
     private $id;
 
     public function __construct($id, $field = null)

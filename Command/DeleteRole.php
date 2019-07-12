@@ -9,9 +9,6 @@ namespace MsgPhp\User\Command;
  */
 class DeleteRole
 {
-    /**
-     * @var string
-     */
     public $roleName;
 
     public function __construct(string $roleName)

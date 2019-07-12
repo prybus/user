@@ -26,14 +26,9 @@ final class CreateRoleCommand extends Command implements MessageReceiving
 
     protected static $defaultName = 'role:create';
 
-    /**
-     * @var ContextFactory
-     */
+    /** @var ContextFactory */
     private $contextFactory;
-
-    /**
-     * @var StyleInterface
-     */
+    /** @var StyleInterface */
     private $io;
 
     public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, ContextFactory $contextFactory)

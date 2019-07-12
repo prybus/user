@@ -11,9 +11,6 @@ use MsgPhp\Domain\Event\DomainEvent;
  */
 class ChangeCredential implements DomainEvent
 {
-    /**
-     * @var array
-     */
     public $fields;
 
     public function __construct(array $fields)

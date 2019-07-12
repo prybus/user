@@ -17,28 +17,16 @@ use MsgPhp\User\Username;
  */
 final class UsernameListener
 {
-    /**
-     * @var DomainObjectFactory
-     */
     private $factory;
-
-    /**
-     * @var array[]
-     */
+    /** @var array<class-string, array<string, string>> */
     private $mapping;
-
-    /**
-     * @var string[]
-     */
+    /** @var array<int, string|null> */
     private $removals = [];
-
-    /**
-     * @var array[]
-     */
+    /** @var array<int, array{0:User,1:string}> */
     private $insertions = [];
 
     /**
-     * @param array[] $mapping
+     * @param array<class-string, array<string, string>> $mapping
      */
     public function __construct(DomainObjectFactory $factory, array $mapping)
     {
@@ -58,7 +46,6 @@ final class UsernameListener
         }
 
         while (null !== $username = array_shift($this->insertions)) {
-            /** @var User $dirtyUser */
             [$dirtyUser, $username] = $username;
 
             $user = $em->find(\get_class($dirtyUser), $dirtyUser->getId());
@@ -84,7 +71,9 @@ final class UsernameListener
                 continue;
             }
 
+            /** @var string|null $oldUsername */
             $oldUsername = $event->getOldValue($field);
+            /** @var string|null $newUsername */
             $newUsername = $event->getNewValue($field);
 
             if (null !== $oldUsername) {
@@ -92,6 +81,7 @@ final class UsernameListener
             }
 
             if (null !== $newUsername) {
+                /** @var User|null $user */
                 $user = null === $mappedBy ? $entity : $em->getClassMetadata(\get_class($entity))->getFieldValue($entity, $mappedBy);
 
                 if (null !== $user) {
@@ -116,7 +106,7 @@ final class UsernameListener
     }
 
     /**
-     * @return iterable|Username[]
+     * @return iterable<int, Username>
      */
     private function createUsernames(object $entity, EntityManagerInterface $em): iterable
     {
@@ -133,6 +123,9 @@ final class UsernameListener
         }
     }
 
+    /**
+     * @return array<string, string|null>
+     */
     private function getMapping(object $entity, EntityManagerInterface $em): array
     {
         if (isset($this->mapping[$class = \get_class($entity)])) {
@@ -142,6 +135,7 @@ final class UsernameListener
         $metadata = $em->getClassMetadata($class);
 
         if (isset($this->mapping[$realClass = $metadata->getName()])) {
+            /** @psalm-suppress PossiblyInvalidArrayOffset */
             return $this->mapping[$realClass];
         }
 

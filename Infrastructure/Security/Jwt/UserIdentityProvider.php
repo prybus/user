@@ -7,6 +7,7 @@ namespace MsgPhp\User\Infrastructure\Security\Jwt;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\PayloadAwareUserProviderInterface;
 use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
+use MsgPhp\User\Infrastructure\Security\UserIdentity;
 use MsgPhp\User\Infrastructure\Security\UserIdentityProvider as BaseUserIdentityProvider;
 use MsgPhp\User\Repository\UserRepository;
 use MsgPhp\User\UserId;
@@ -18,19 +19,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class UserIdentityProvider implements PayloadAwareUserProviderInterface
 {
-    /**
-     * @var BaseUserIdentityProvider
-     */
     private $provider;
-
-    /**
-     * @var UserRepository
-     */
     private $repository;
-
-    /**
-     * @var DomainObjectFactory
-     */
     private $factory;
 
     public function __construct(BaseUserIdentityProvider $provider, UserRepository $repository, DomainObjectFactory $factory)
@@ -40,6 +30,9 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
         $this->factory = $factory;
     }
 
+    /**
+     * @return UserIdentity
+     */
     public function loadUserByUsernameAndPayload($username, array $payload): UserInterface
     {
         try {
@@ -51,11 +44,17 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
         return $this->provider->fromUser($user);
     }
 
+    /**
+     * @return UserIdentity
+     */
     public function loadUserByUsername($username): UserInterface
     {
         return $this->provider->loadUserByUsername($username);
     }
 
+    /**
+     * @return UserIdentity
+     */
     public function refreshUser(UserInterface $user): UserInterface
     {
         return $this->provider->refreshUser($user);

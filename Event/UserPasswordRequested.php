@@ -11,9 +11,6 @@ use MsgPhp\User\User;
  */
 class UserPasswordRequested
 {
-    /**
-     * @var User
-     */
     public $user;
 
     public function __construct(User $user)

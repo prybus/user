@@ -14,17 +14,13 @@ use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
  */
 final class PasswordHashing implements BasePasswordHashing
 {
-    /**
-     * @var PasswordEncoderInterface
-     */
     private $encoder;
 
+    /**
+     * @param PasswordEncoderInterface&SelfSaltingEncoderInterface $encoder
+     */
     public function __construct(PasswordEncoderInterface $encoder)
     {
-        if (!$encoder instanceof SelfSaltingEncoderInterface) {
-            throw new \LogicException('Only a self-salting password hashing method is supported, got "'.\get_class($encoder).'".');
-        }
-
         $this->encoder = $encoder;
     }
 

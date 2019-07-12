@@ -16,14 +16,10 @@ final class UniqueUsername extends Constraint
 {
     public const IS_NOT_UNIQUE_ERROR = '37c4ba30-07ae-48e5-9767-19764e027346';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $message = 'This value is not valid.';
 
-    /**
-     * @var string[]
-     */
+    /** @var array<string, string> */
     protected static $errorNames = [
         self::IS_NOT_UNIQUE_ERROR => 'IS_NOT_UNIQUE_ERROR',
     ];

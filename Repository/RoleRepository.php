@@ -13,7 +13,7 @@ use MsgPhp\User\Role;
 interface RoleRepository
 {
     /**
-     * @return DomainCollection|Role[]
+     * @return DomainCollection<Role>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection;
 

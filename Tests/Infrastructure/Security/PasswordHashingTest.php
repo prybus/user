@@ -13,13 +13,6 @@ use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
 
 final class PasswordHashingTest extends TestCase
 {
-    public function testSelfSaltingEncoderIsRequired(): void
-    {
-        $this->expectException(\LogicException::class);
-
-        new PasswordHashing($this->createMock(PasswordEncoderInterface::class));
-    }
-
     public function testHash(): void
     {
         /** @var PasswordEncoderInterface&SelfSaltingEncoderInterface&MockObject $encoder */

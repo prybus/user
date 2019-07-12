@@ -23,9 +23,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 final class HashedPasswordType extends AbstractType
 {
-    /**
-     * @var PasswordHashing|null
-     */
     private $hashing;
 
     public function __construct(PasswordHashing $hashing = null)
@@ -168,19 +165,9 @@ final class HashedPasswordType extends AbstractType
  */
 final class Password
 {
-    /**
-     * @var PasswordHashing
-     */
     public $hashing;
-
-    /**
-     * @var PasswordAlgorithm|null
-     */
     public $algorithm;
-
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     public $hash;
 
     public function __construct(PasswordHashing $hashing, ?PasswordAlgorithm $algorithm)

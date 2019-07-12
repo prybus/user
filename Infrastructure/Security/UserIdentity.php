@@ -16,33 +16,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class UserIdentity implements UserInterface, EquatableInterface
 {
-    /**
-     * @var UserId
-     */
+    /** @var UserId */
     private $id;
-
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $originUsername;
-
-    /**
-     * @var string[]
-     */
+    /** @var array<int, string> */
     private $roles;
-
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $password;
-
-    /**
-     * @var PasswordAlgorithm|null
-     */
+    /** @var PasswordAlgorithm|null */
     private $passwordAlgorithm;
 
     /**
-     * @param string[] $roles
+     * @param array<int, string> $roles
      */
     public function __construct(User $user, string $originUsername = null, array $roles = [])
     {
@@ -79,7 +65,7 @@ final class UserIdentity implements UserInterface, EquatableInterface
     }
 
     /**
-     * @return string[]
+     * @return array<int, string>
      */
     public function getRoles(): array
     {
