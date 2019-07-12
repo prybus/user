@@ -6,6 +6,7 @@ namespace MsgPhp\User\Tests\Infrastructure\Security;
 
 use MsgPhp\User\Infrastructure\Security\PasswordHashing;
 use MsgPhp\User\Password\PasswordAlgorithm;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
@@ -21,6 +22,7 @@ final class PasswordHashingTest extends TestCase
 
     public function testHash(): void
     {
+        /** @var PasswordEncoderInterface&SelfSaltingEncoderInterface&MockObject $encoder */
         $encoder = $this->createMock([PasswordEncoderInterface::class, SelfSaltingEncoderInterface::class]);
         $encoder->expects(self::once())
             ->method('encodePassword')
@@ -33,6 +35,7 @@ final class PasswordHashingTest extends TestCase
 
     public function testHashWithCustomAlgorithm(): void
     {
+        /** @var PasswordEncoderInterface&SelfSaltingEncoderInterface&MockObject $encoder */
         $encoder = $this->createMock([PasswordEncoderInterface::class, SelfSaltingEncoderInterface::class]);
         $hashing = new PasswordHashing($encoder);
 
@@ -43,6 +46,7 @@ final class PasswordHashingTest extends TestCase
 
     public function testIsValid(): void
     {
+        /** @var PasswordEncoderInterface&SelfSaltingEncoderInterface&MockObject $encoder */
         $encoder = $this->createMock([PasswordEncoderInterface::class, SelfSaltingEncoderInterface::class]);
         $encoder->expects(self::once())
             ->method('isPasswordValid')
@@ -55,6 +59,7 @@ final class PasswordHashingTest extends TestCase
 
     public function testIsValidWithCustomAlgorithm(): void
     {
+        /** @var PasswordEncoderInterface&SelfSaltingEncoderInterface&MockObject $encoder */
         $encoder = $this->createMock([PasswordEncoderInterface::class, SelfSaltingEncoderInterface::class]);
         $hashing = new PasswordHashing($encoder);
 
