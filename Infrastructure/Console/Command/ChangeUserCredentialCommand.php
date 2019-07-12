@@ -45,7 +45,7 @@ final class ChangeUserCredentialCommand extends UserCommand
         parent::__construct($factory, $bus, $repository);
     }
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof UserCredentialChanged) {
             $this->io->success('Changed user credential for '.self::getUsername($message->user));

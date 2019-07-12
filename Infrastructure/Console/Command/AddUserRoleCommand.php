@@ -43,7 +43,7 @@ final class AddUserRoleCommand extends UserRoleCommand
         parent::__construct($factory, $bus, $userRepository, $roleRepository);
     }
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof RoleCreated) {
             $this->io->success('Created role '.$message->role->getName());

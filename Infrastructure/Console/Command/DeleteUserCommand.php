@@ -23,7 +23,7 @@ final class DeleteUserCommand extends UserCommand
      */
     private $io;
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof UserDeleted) {
             $this->io->success('Deleted user '.self::getUsername($message->user));

@@ -23,7 +23,7 @@ final class EnableUserCommand extends UserCommand
      */
     private $io;
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof UserEnabled) {
             $this->io->success('Enabled user '.self::getUsername($message->user));

@@ -23,7 +23,7 @@ final class DeleteRoleCommand extends RoleCommand
      */
     private $io;
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof RoleDeleted) {
             $this->io->success('Deleted role '.$message->role->getName());

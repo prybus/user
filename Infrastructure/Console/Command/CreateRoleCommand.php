@@ -45,7 +45,7 @@ final class CreateRoleCommand extends Command implements MessageReceiving
         parent::__construct();
     }
 
-    public function onMessageReceived($message): void
+    public function onMessageReceived(object $message): void
     {
         if ($message instanceof RoleCreated) {
             $this->io->success('Created role '.$message->role->getName());

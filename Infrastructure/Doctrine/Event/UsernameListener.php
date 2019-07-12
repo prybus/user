@@ -66,10 +66,7 @@ final class UsernameListener
         }
     }
 
-    /**
-     * @param object $entity
-     */
-    public function prePersist($entity, LifecycleEventArgs $event): void
+    public function prePersist(object $entity, LifecycleEventArgs $event): void
     {
         $em = $event->getEntityManager();
 
@@ -78,10 +75,7 @@ final class UsernameListener
         }
     }
 
-    /**
-     * @param object $entity
-     */
-    public function preUpdate($entity, PreUpdateEventArgs $event): void
+    public function preUpdate(object $entity, PreUpdateEventArgs $event): void
     {
         $em = $event->getEntityManager();
 
@@ -107,10 +101,7 @@ final class UsernameListener
         }
     }
 
-    /**
-     * @param object $entity
-     */
-    public function preRemove($entity, LifecycleEventArgs $event): void
+    public function preRemove(object $entity, LifecycleEventArgs $event): void
     {
         $em = $event->getEntityManager();
         $metadata = $em->getClassMetadata(\get_class($entity));
@@ -125,11 +116,9 @@ final class UsernameListener
     }
 
     /**
-     * @param object $entity
-     *
      * @return iterable|Username[]
      */
-    private function createUsernames($entity, EntityManagerInterface $em): iterable
+    private function createUsernames(object $entity, EntityManagerInterface $em): iterable
     {
         $metadata = $em->getClassMetadata(\get_class($entity));
 
@@ -144,10 +133,7 @@ final class UsernameListener
         }
     }
 
-    /**
-     * @param object $entity
-     */
-    private function getMapping($entity, EntityManagerInterface $em): array
+    private function getMapping(object $entity, EntityManagerInterface $em): array
     {
         if (isset($this->mapping[$class = \get_class($entity)])) {
             return $this->mapping[$class];
