@@ -20,10 +20,7 @@ final class RolesFieldTest extends TestCase
         self::assertNotSame($collection = $this->createMock(DomainCollection::class), $this->getObject($collection)->getRoles());
     }
 
-    /**
-     * @return object
-     */
-    private function getObject($value)
+    private function getObject($value): object
     {
         return new class($value) {
             use RolesField;
