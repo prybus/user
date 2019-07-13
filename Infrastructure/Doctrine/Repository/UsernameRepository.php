@@ -34,7 +34,7 @@ final class UsernameRepository implements BaseUsernameRepository
 
     public function lookup(): DomainCollection
     {
-        return new GenericDomainCollection($this->lookup->lookup());
+        return GenericDomainCollection::fromValue($this->lookup->lookup());
     }
 
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection

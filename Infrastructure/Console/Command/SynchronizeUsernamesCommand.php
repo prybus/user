@@ -67,7 +67,7 @@ final class SynchronizeUsernamesCommand extends Command
                 $this->repository->delete($unknownUsername);
             }
 
-            $rows[] = 'Deleted username <info>'.$unknownUsername.'</info> from user <info>'.$unknownUsername->getUser()->getId()->toString().'</info>';
+            $rows[] = 'Deleted username <info>'.$unknownUsername->toString().'</info> from user <info>'.$unknownUsername->getUser()->getId()->toString().'</info>';
             ++$deleted;
         }
 

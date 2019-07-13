@@ -13,12 +13,12 @@ use MsgPhp\User\Username;
 interface UsernameRepository
 {
     /**
-     * @return DomainCollection<Username>
+     * @return DomainCollection<array-key, Username>
      */
     public function lookup(): DomainCollection;
 
     /**
-     * @return DomainCollection<Username>
+     * @return DomainCollection<array-key, Username>
      */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection;
 
