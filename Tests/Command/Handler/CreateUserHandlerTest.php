@@ -84,10 +84,12 @@ class TestUser extends User
     public $field;
     /** @var bool */
     public $saved = false;
-    /** @var UserId */
     private $id;
 
-    public function __construct($id, $field = null)
+    /**
+     * @param mixed $field
+     */
+    public function __construct(UserId $id, $field = null)
     {
         $this->id = $id;
         $this->field = $field;

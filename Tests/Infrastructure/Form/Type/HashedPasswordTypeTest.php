@@ -204,6 +204,9 @@ final class HashedPasswordTypeTest extends TypeTestCase
         ];
     }
 
+    /**
+     * @param mixed $data
+     */
     private function createForm(array $options = [], $data = null): FormInterface
     {
         return $this->factory->create(HashedPasswordType::class, $data, $options);

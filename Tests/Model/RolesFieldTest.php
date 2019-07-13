@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Model;
 
-use MsgPhp\Domain\DomainCollection;
 use MsgPhp\User\Model\RolesField;
 use MsgPhp\User\UserRole;
 use PHPUnit\Framework\TestCase;
@@ -13,22 +12,19 @@ final class RolesFieldTest extends TestCase
 {
     public function testField(): void
     {
-        $object = $this->getObject($roles = [$this->createMock(UserRole::class)]);
-
-        self::assertInstanceOf(DomainCollection::class, $collection = $object->getRoles());
-        self::assertSame($roles, iterator_to_array($collection));
-        self::assertNotSame($collection = $this->createMock(DomainCollection::class), $this->getObject($collection)->getRoles());
+        self::assertSame($roles = [$this->createMock(UserRole::class)], iterator_to_array((new TestRolesFieldModel($roles))->getRoles()));
     }
+}
 
-    private function getObject($value): object
+class TestRolesFieldModel
+{
+    use RolesField;
+
+    /**
+     * @param iterable<array-key, UserRole> $roles
+     */
+    public function __construct(iterable $roles)
     {
-        return new class($value) {
-            use RolesField;
-
-            public function __construct($value)
-            {
-                $this->roles = $value;
-            }
-        };
+        $this->roles = $roles;
     }
 }

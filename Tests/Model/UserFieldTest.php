@@ -13,27 +13,25 @@ final class UserFieldTest extends TestCase
 {
     public function testField(): void
     {
-        $value = $this->createMock(User::class);
-        $value->expects(self::any())
+        $user = $this->createMock(User::class);
+        $user->expects(self::any())
             ->method('getId')
             ->willReturn($this->createMock(UserId::class))
         ;
 
-        $object = $this->getObject($value);
+        $model = new TestUserFieldModel($user);
 
-        self::assertSame($value, $object->getUser());
-        self::assertSame($value->getId(), $object->getUserId());
+        self::assertSame($user, $model->getUser());
+        self::assertSame($user->getId(), $model->getUserId());
     }
+}
 
-    private function getObject($value): object
+class TestUserFieldModel
+{
+    use UserField;
+
+    public function __construct(User $user)
     {
-        return new class($value) {
-            use UserField;
-
-            public function __construct($value)
-            {
-                $this->user = $value;
-            }
-        };
+        $this->user = $user;
     }
 }
