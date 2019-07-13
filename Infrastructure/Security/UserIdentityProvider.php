@@ -28,6 +28,8 @@ final class UserIdentityProvider implements UserProviderInterface
     }
 
     /**
+     * @inheritDoc
+     *
      * @return UserIdentity
      */
     public function loadUserByUsername($username): UserInterface
@@ -42,6 +44,8 @@ final class UserIdentityProvider implements UserProviderInterface
     }
 
     /**
+     * @inheritDoc
+     *
      * @return UserIdentity
      */
     public function refreshUser(UserInterface $identity): UserInterface

@@ -31,6 +31,8 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
+     * @inheritDoc
+     *
      * @return UserIdentity
      */
     public function loadUserByUsernameAndPayload($username, array $payload): UserInterface
@@ -45,6 +47,8 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
+     * @inheritDoc
+     *
      * @return UserIdentity
      */
     public function loadUserByUsername($username): UserInterface
@@ -53,6 +57,8 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
+     * @inheritDoc
+     *
      * @return UserIdentity
      */
     public function refreshUser(UserInterface $user): UserInterface

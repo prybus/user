@@ -34,6 +34,8 @@ final class HashedPasswordTypeTest extends TypeTestCase
 
     /**
      * @dataProvider provideEmptyValues
+     *
+     * @param mixed $value
      */
     public function testSubmitEmpty($value): void
     {
@@ -56,6 +58,8 @@ final class HashedPasswordTypeTest extends TypeTestCase
 
     /**
      * @dataProvider provideInvalidValues
+     *
+     * @param mixed $value
      */
     public function testSubmitInvalid($value): void
     {
@@ -75,6 +79,9 @@ final class HashedPasswordTypeTest extends TypeTestCase
 
     /**
      * @dataProvider provideAlgorithms
+     *
+     * @param mixed $algorithm
+     * @param mixed $type
      */
     public function testSubmitValid($algorithm, $type): void
     {
