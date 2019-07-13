@@ -24,7 +24,6 @@ final class UserIdentityProviderTest extends TestCase
     {
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser())))->loadUserByUsername('username');
 
-        self::assertInstanceOf(UserIdentity::class, $identity);
         self::assertSame($entity->getId(), $identity->getUserId());
         self::assertSame('id', $identity->getUsername());
         self::assertSame('username', $identity->getOriginUsername());
@@ -37,7 +36,6 @@ final class UserIdentityProviderTest extends TestCase
     {
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser())))->loadUserByUsername('origin-username');
 
-        self::assertInstanceOf(UserIdentity::class, $identity);
         self::assertSame($entity->getId(), $identity->getUserId());
         self::assertSame('id', $identity->getUsername());
         self::assertSame('origin-username', $identity->getOriginUsername());
@@ -55,7 +53,6 @@ final class UserIdentityProviderTest extends TestCase
         ;
         $identity = (new UserIdentityProvider($this->createRepository($entity = $this->createUser()), $roleProvider))->loadUserByUsername('username');
 
-        self::assertInstanceOf(UserIdentity::class, $identity);
         self::assertSame($entity->getId(), $identity->getUserId());
         self::assertSame('id', $identity->getUsername());
         self::assertSame('username', $identity->getOriginUsername());
@@ -79,7 +76,6 @@ final class UserIdentityProviderTest extends TestCase
         $provider = new UserIdentityProvider($this->createRepository($this->createUser()));
         $refreshedIdentity = $provider->refreshUser($user = $provider->loadUserByUsername('username'));
 
-        self::assertInstanceOf(UserIdentity::class, $refreshedIdentity);
         self::assertEquals($user, $refreshedIdentity);
         self::assertNotSame($user, $refreshedIdentity);
         self::assertSame('username', $refreshedIdentity->getOriginUsername());
@@ -90,7 +86,6 @@ final class UserIdentityProviderTest extends TestCase
         $provider = new UserIdentityProvider($this->createRepository($this->createUser()));
         $refreshedIdentity = $provider->refreshUser($user = $provider->loadUserByUsername('origin-username'));
 
-        self::assertInstanceOf(UserIdentity::class, $refreshedIdentity);
         self::assertEquals($user, $refreshedIdentity);
         self::assertNotSame($user, $refreshedIdentity);
         self::assertSame('origin-username', $refreshedIdentity->getOriginUsername());

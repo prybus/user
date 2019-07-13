@@ -16,12 +16,12 @@ final class UserTest extends TestCase
         self::assertInstanceOf(Credential\Anonymous::class, $this->createEntity($this->createMock(UserId::class))->getCredential());
     }
 
-    private function createEntity($id): User
+    private function createEntity(UserId $id): User
     {
         return new class($id) extends User {
             private $id;
 
-            public function __construct($id)
+            public function __construct(UserId $id)
             {
                 $this->id = $id;
             }

@@ -25,7 +25,6 @@ final class CreateUserHandlerTest extends TestCase
             ->with(self::callback(static function (UserCreated $message): bool {
                 /** @var TestUser $user */
                 $user = $message->user;
-                self::assertInstanceOf(TestUser::class, $user);
                 self::assertTrue($user->getId()->isEmpty());
                 self::assertSame('value', $user->field);
                 self::assertTrue($user->saved);
@@ -57,7 +56,6 @@ final class CreateUserHandlerTest extends TestCase
             ->with(self::callback(static function (UserCreated $message) use ($id): bool {
                 /** @var TestUser $user */
                 $user = $message->user;
-                self::assertInstanceOf(TestUser::class, $user);
                 self::assertSame($id, $user->getId());
                 self::assertNull($user->field);
                 self::assertSame(['id' => $user->getId()], $message->context);
