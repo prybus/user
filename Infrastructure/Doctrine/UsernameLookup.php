@@ -30,7 +30,7 @@ final class UsernameLookup
     }
 
     /**
-     * @return iterable|Username[]
+     * @return iterable<Username>
      */
     public function lookup(): iterable
     {
