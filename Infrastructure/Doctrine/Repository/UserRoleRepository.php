@@ -12,9 +12,13 @@ use MsgPhp\User\UserRole;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of UserRole
+ * @implements BaseUserRoleRepository<T>
  */
 final class UserRoleRepository implements BaseUserRoleRepository
 {
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection

@@ -14,9 +14,13 @@ use MsgPhp\User\UserId;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of User
+ * @implements BaseUserRepository<T>
  */
 final class UserRepository implements BaseUserRepository
 {
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
     /** @var string|null */

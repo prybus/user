@@ -14,9 +14,13 @@ use MsgPhp\User\Username;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of Username
+ * @implements BaseUsernameRepository<T>
  */
 final class UsernameRepository implements BaseUsernameRepository
 {
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
     /** @var UsernameLookup */
@@ -42,6 +46,7 @@ final class UsernameRepository implements BaseUsernameRepository
         $qb = $this->createQueryBuilder();
         $qb->indexBy($this->getAlias(), 'username');
 
+        /** @var DomainCollection<string, T> */
         return $this->createResultSet($qb->getQuery(), $offset, $limit);
     }
 

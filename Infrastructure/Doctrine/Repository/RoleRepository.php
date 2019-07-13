@@ -11,9 +11,13 @@ use MsgPhp\User\Role;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of Role
+ * @implements RoleRepository<T>
  */
 final class RoleRepository implements BaseRoleRepository
 {
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
