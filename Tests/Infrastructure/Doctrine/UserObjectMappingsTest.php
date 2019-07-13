@@ -6,11 +6,11 @@ namespace MsgPhp\User\Tests\Infrastructure\Doctrine;
 
 use MsgPhp\Domain\Infrastructure\Doctrine\MappingConfig;
 use MsgPhp\User\Credential;
-use MsgPhp\User\Infrastructure\Doctrine\ObjectMappings;
+use MsgPhp\User\Infrastructure\Doctrine\UserObjectMappings;
 use MsgPhp\User\Model;
 use PHPUnit\Framework\TestCase;
 
-final class ObjectMappingsTest extends TestCase
+final class UserObjectMappingsTest extends TestCase
 {
     public function testMapping(): void
     {
@@ -24,7 +24,7 @@ final class ObjectMappingsTest extends TestCase
         }, glob(\dirname(__DIR__, 3).'/Model/*.php')));
         unset($available[Model\AbstractCredential::class]);
 
-        $mappings = ObjectMappings::provideObjectMappings(new MappingConfig([]));
+        $mappings = UserObjectMappings::provideObjectMappings(new MappingConfig([]));
         $mappings = array_keys($mappings instanceof \Traversable ? iterator_to_array($mappings) : $mappings);
         sort($mappings);
 

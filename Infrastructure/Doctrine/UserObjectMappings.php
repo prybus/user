@@ -18,7 +18,7 @@ use MsgPhp\User\UserRole;
  *
  * @internal
  */
-final class ObjectMappings implements ObjectMappingProvider
+final class UserObjectMappings implements ObjectMappingProvider
 {
     private const CREDENTIALS = [
         Model\EmailCredential::class => Credential\Email::class,
@@ -47,7 +47,6 @@ final class ObjectMappings implements ObjectMappingProvider
                 'length' => $config->keyMaxLength,
             ],
         ];
-
         yield Credential\NicknameAsUsername::class => [
             'nickname' => [
                 'type' => 'string',
@@ -55,13 +54,11 @@ final class ObjectMappings implements ObjectMappingProvider
                 'length' => $config->keyMaxLength,
             ],
         ];
-
         yield Credential\PasswordProtection::class => [
             'password' => [
                 'type' => 'string',
             ],
         ];
-
         yield Model\ResettablePassword::class => [
             'passwordResetToken' => [
                 'type' => 'string',
