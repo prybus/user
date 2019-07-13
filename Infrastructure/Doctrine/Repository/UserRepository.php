@@ -35,9 +35,6 @@ final class UserRepository implements BaseUserRepository
         $this->usernameRepository = $usernameRepository;
     }
 
-    /**
-     * @return DomainCollection<User>
-     */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
     {
         return $this->doFindAll($offset, $limit);

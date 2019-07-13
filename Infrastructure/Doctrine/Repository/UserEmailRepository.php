@@ -17,9 +17,6 @@ final class UserEmailRepository implements BaseUserEmailRepository
 {
     use DomainEntityRepositoryTrait;
 
-    /**
-     * @return DomainCollection<UserEmail>
-     */
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection
     {
         return $this->doFindAllByFields(['user' => $userId], $offset, $limit);

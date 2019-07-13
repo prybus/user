@@ -17,9 +17,6 @@ final class UserRoleRepository implements BaseUserRoleRepository
 {
     use DomainEntityRepositoryTrait;
 
-    /**
-     * @return DomainCollection<UserRole>
-     */
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection
     {
         return $this->doFindAllByFields(['user' => $userId], $offset, $limit);

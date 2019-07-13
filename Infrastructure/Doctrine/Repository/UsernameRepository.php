@@ -32,17 +32,11 @@ final class UsernameRepository implements BaseUsernameRepository
         $this->lookup = $lookup;
     }
 
-    /**
-     * @return DomainCollection<Username>
-     */
     public function lookup(): DomainCollection
     {
         return new GenericDomainCollection($this->lookup->lookup());
     }
 
-    /**
-     * @return DomainCollection<Username>
-     */
     public function findAll(int $offset = 0, int $limit = 0): DomainCollection
     {
         $qb = $this->createQueryBuilder();
