@@ -13,7 +13,7 @@ use MsgPhp\User\Role;
  * @author Roland Franssen <franssen.roland@gmail.com>
  *
  * @template T of Role
- * @implements RoleRepository<T>
+ * @implements BaseRoleRepository<T>
  */
 final class RoleRepository implements BaseRoleRepository
 {
