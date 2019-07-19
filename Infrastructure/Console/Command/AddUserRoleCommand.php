@@ -6,7 +6,7 @@ namespace MsgPhp\User\Infrastructure\Console\Command;
 
 use MsgPhp\Domain\Exception\EntityNotFoundException;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
-use MsgPhp\Domain\Infrastructure\Console\Context\ContextFactory;
+use MsgPhp\Domain\Infrastructure\Console\Definition\DomainContextDefinition;
 use MsgPhp\Domain\Message\DomainMessageBus;
 use MsgPhp\User\Command\AddUserRole;
 use MsgPhp\User\Infrastructure\Console\UserDefinition;
@@ -24,12 +24,12 @@ final class AddUserRoleCommand extends UserRoleCommand
 {
     protected static $defaultName = 'user:role:add';
 
-    /** @var ContextFactory */
-    private $contextFactory;
+    /** @var DomainContextDefinition */
+    private $definition;
 
-    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $userRepository, RoleRepository $roleRepository, ContextFactory $contextFactory)
+    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $userRepository, RoleRepository $roleRepository, DomainContextDefinition $definition)
     {
-        $this->contextFactory = $contextFactory;
+        $this->definition = $definition;
 
         parent::__construct($factory, $bus, $userRepository, $roleRepository);
     }
@@ -39,7 +39,7 @@ final class AddUserRoleCommand extends UserRoleCommand
         parent::configure();
 
         $this->setDescription('Add a user role');
-        $this->contextFactory->configure($this->getDefinition());
+        $this->definition->configure($this->getDefinition());
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -75,7 +75,7 @@ final class AddUserRoleCommand extends UserRoleCommand
 
         $userId = $user->getId();
         $roleName = $role->getName();
-        $context = $this->contextFactory->getContext($input, $io, compact('user', 'role'));
+        $context = $this->definition->getContext($input, $io, compact('user', 'role'));
 
         $this->dispatch(AddUserRole::class, compact('userId', 'roleName', 'context'));
         $io->success('Added role '.$roleName.' to user '.UserDefinition::getDisplayName($user));

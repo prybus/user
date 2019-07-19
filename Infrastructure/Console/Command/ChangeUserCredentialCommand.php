@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infrastructure\Console\Command;
 
 use MsgPhp\Domain\Factory\DomainObjectFactory;
-use MsgPhp\Domain\Infrastructure\Console\Context\ContextFactory;
+use MsgPhp\Domain\Infrastructure\Console\Definition\DomainContextDefinition;
 use MsgPhp\Domain\Message\DomainMessageBus;
 use MsgPhp\User\Command\ChangeUserCredential;
 use MsgPhp\User\Infrastructure\Console\UserDefinition;
@@ -22,14 +22,14 @@ final class ChangeUserCredentialCommand extends UserCommand
 {
     protected static $defaultName = 'user:change-credential';
 
-    /** @var ContextFactory */
-    private $contextFactory;
+    /** @var DomainContextDefinition */
+    private $definition;
     /** @var array<int, string> */
     private $fields = [];
 
-    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $repository, ContextFactory $contextFactory)
+    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $repository, DomainContextDefinition $definition)
     {
-        $this->contextFactory = $contextFactory;
+        $this->definition = $definition;
 
         parent::__construct($factory, $bus, $repository);
     }
@@ -43,7 +43,7 @@ final class ChangeUserCredentialCommand extends UserCommand
         $definition = $this->getDefinition();
         $currentFields = array_keys($definition->getOptions() + $definition->getArguments());
 
-        $this->contextFactory->configure($this->getDefinition());
+        $this->definition->configure($this->getDefinition());
         $this->fields = array_values(array_diff(array_keys($definition->getOptions() + $definition->getArguments()), $currentFields));
     }
 
@@ -52,7 +52,7 @@ final class ChangeUserCredentialCommand extends UserCommand
         $io = new SymfonyStyle($input, $output);
         $user = $this->getUser($input, $io);
         $userId = $user->getId();
-        $fields = $this->contextFactory->getContext($input, $io);
+        $fields = $this->definition->getContext($input, $io);
 
         if (!$fields) {
             $field = $io->choice('Select a field to change', $this->fields);
