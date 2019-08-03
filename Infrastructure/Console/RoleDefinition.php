@@ -33,18 +33,18 @@ final class RoleDefinition implements DomainDefinition
 
     public function getRole(InputInterface $input, StyleInterface $io): Role
     {
-        if (null === $name = $input->getArgument('role')) {
+        if (null === $role = $input->getArgument('role')) {
             if (!$input->isInteractive()) {
                 throw new \LogicException('No value provided for "role".');
             }
 
             do {
-                $name = $io->ask('Role name');
-            } while (null === $name);
+                $role = $io->ask('Role name');
+            } while (null === $role);
 
-            $input->setArgument('role', $name);
+            $input->setArgument('role', $role);
         }
 
-        return $this->repository->find($name);
+        return $this->repository->find($role);
     }
 }
