@@ -61,7 +61,7 @@ final class UserDefinition implements DomainDefinition
             }
 
             do {
-                $user = $io->ask($byId ? 'Identifier' : 'Username');
+                $user = $io->ask($byId ? 'User ID' : 'Username');
             } while (null === $user);
 
             $input->setArgument('user', $user);
