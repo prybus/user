@@ -9,9 +9,9 @@ use MsgPhp\Domain\Exception\EntityNotFound;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
 use MsgPhp\Domain\Infrastructure\Console\Definition\DomainContextDefinition;
 use MsgPhp\User\Command\AddUserRole;
+use MsgPhp\User\Infrastructure\Console\Definition\RoleDefinition;
 use MsgPhp\User\Infrastructure\Console\Definition\UserDefinition;
-use MsgPhp\User\Repository\RoleRepository;
-use MsgPhp\User\Repository\UserRepository;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,35 +20,47 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class AddUserRoleCommand extends UserRoleCommand
+final class AddUserRoleCommand extends Command
 {
     protected static $defaultName = 'user:role:add';
 
+    /** @var DomainObjectFactory */
+    private $factory;
+    /** @var DomainMessageBus */
+    private $bus;
+    /** @var UserDefinition */
+    private $userDefinition;
+    /** @var RoleDefinition */
+    private $roleDefinition;
     /** @var DomainContextDefinition */
-    private $definition;
+    private $contextDefinition;
 
-    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserRepository $userRepository, RoleRepository $roleRepository, DomainContextDefinition $definition)
+    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, UserDefinition $userDefinition, RoleDefinition $roleDefinition, DomainContextDefinition $contextDefinition)
     {
-        $this->definition = $definition;
+        $this->factory = $factory;
+        $this->bus = $bus;
+        $this->userDefinition = $userDefinition;
+        $this->roleDefinition = $roleDefinition;
+        $this->contextDefinition = $contextDefinition;
 
-        parent::__construct($factory, $bus, $userRepository, $roleRepository);
+        parent::__construct();
     }
 
     protected function configure(): void
     {
-        parent::configure();
-
         $this->setDescription('Add a user role');
-        $this->definition->configure($this->getDefinition());
+        $this->userDefinition->configure($this->getDefinition());
+        $this->roleDefinition->configure($this->getDefinition());
+        $this->contextDefinition->configure($this->getDefinition());
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $user = $this->getUser($input, $io);
+        $user = $this->userDefinition->getUser($input, $io);
 
         try {
-            $role = $this->getRole($input, $io);
+            $role = $this->roleDefinition->getRole($input, $io);
         } catch (EntityNotFound $e) {
             $roleName = $input->getArgument('role');
 
@@ -70,12 +82,12 @@ final class AddUserRoleCommand extends UserRoleCommand
                 throw new \RuntimeException('Cannot create role "'.$roleName.'". Something went wrong.');
             }
 
-            $role = $this->getRole($input, $io);
+            $role = $this->roleDefinition->getRole($input, $io);
         }
 
         $userId = $user->getId();
         $roleName = $role->getName();
-        $context = $this->definition->getContext($input, $io, compact('user', 'role'));
+        $context = $this->contextDefinition->getContext($input, $io, compact('user', 'role'));
 
         $this->bus->dispatch($this->factory->create(AddUserRole::class, compact('userId', 'roleName', 'context')));
         $io->success('Added role '.$roleName.' to user '.UserDefinition::getDisplayName($user));

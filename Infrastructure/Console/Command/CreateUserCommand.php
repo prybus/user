@@ -25,13 +25,13 @@ final class CreateUserCommand extends Command
     /** @var DomainMessageBus */
     private $bus;
     /** @var DomainContextDefinition */
-    private $definition;
+    private $contextDefinition;
 
-    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, DomainContextDefinition $definition)
+    public function __construct(DomainObjectFactory $factory, DomainMessageBus $bus, DomainContextDefinition $contextDefinition)
     {
         $this->factory = $factory;
         $this->bus = $bus;
-        $this->definition = $definition;
+        $this->contextDefinition = $contextDefinition;
 
         parent::__construct();
     }
@@ -39,13 +39,13 @@ final class CreateUserCommand extends Command
     protected function configure(): void
     {
         $this->setDescription('Create a user');
-        $this->definition->configure($this->getDefinition());
+        $this->contextDefinition->configure($this->getDefinition());
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $context = $this->definition->getContext($input, $io);
+        $context = $this->contextDefinition->getContext($input, $io);
 
         $this->bus->dispatch($this->factory->create(CreateUser::class, compact('context')));
         $io->success('User created');

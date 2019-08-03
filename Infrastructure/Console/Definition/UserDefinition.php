@@ -18,8 +18,6 @@ use Symfony\Component\Console\Style\StyleInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
- *
- * @internal
  */
 final class UserDefinition implements DomainDefinition
 {
