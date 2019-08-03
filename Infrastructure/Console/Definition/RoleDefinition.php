@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Infrastructure\Console;
+namespace MsgPhp\User\Infrastructure\Console\Definition;
 
 use MsgPhp\Domain\Infrastructure\Console\Definition\DomainDefinition;
 use MsgPhp\User\Infrastructure\Doctrine\Repository\RoleRepository;
