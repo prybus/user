@@ -9,7 +9,7 @@ use MsgPhp\Domain\Exception\EntityNotFound;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
 use MsgPhp\Domain\Infrastructure\Console\Definition\DomainContextDefinition;
 use MsgPhp\User\Command\AddUserRole;
-use MsgPhp\User\Infrastructure\Console\UserDefinition;
+use MsgPhp\User\Infrastructure\Console\Definition\UserDefinition;
 use MsgPhp\User\Repository\RoleRepository;
 use MsgPhp\User\Repository\UserRepository;
 use Symfony\Component\Console\Input\ArrayInput;

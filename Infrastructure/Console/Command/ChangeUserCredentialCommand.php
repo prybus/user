@@ -8,7 +8,7 @@ use MsgPhp\Domain\DomainMessageBus;
 use MsgPhp\Domain\Factory\DomainObjectFactory;
 use MsgPhp\Domain\Infrastructure\Console\Definition\DomainContextDefinition;
 use MsgPhp\User\Command\ChangeUserCredential;
-use MsgPhp\User\Infrastructure\Console\UserDefinition;
+use MsgPhp\User\Infrastructure\Console\Definition\UserDefinition;
 use MsgPhp\User\Repository\UserRepository;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;

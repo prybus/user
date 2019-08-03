@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infrastructure\Console\Command;
 
 use MsgPhp\User\Command\DeleteUser;
-use MsgPhp\User\Infrastructure\Console\UserDefinition;
+use MsgPhp\User\Infrastructure\Console\Definition\UserDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
