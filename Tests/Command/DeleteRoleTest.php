@@ -22,6 +22,7 @@ final class DeleteRoleTest extends TestCase
 
         self::assertMessageIsDispatchedOnce(Event\RoleDeleted::class);
         self::assertCount(0, $repository->findAll());
+        self::assertFalse($repository->exists('ROLE_USER'));
     }
 
     public function testDeleteUnknownName(): void
