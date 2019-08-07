@@ -17,12 +17,16 @@ final class DeleteUserTest extends TestCase
     public function testDelete(): void
     {
         $repository = self::createUserRepository();
-        $repository->save($user = self::createDomainFactory()->create(User::class));
+        $repository->save($user = self::createDomainFactory()->create(User::class, [
+            'email' => 'user@localhost',
+            'password' => 'pa$$word',
+        ]));
 
         self::$bus->dispatch(new Command\DeleteUser($user->getId()));
 
         self::assertMessageIsDispatchedOnce(Event\UserDeleted::class);
         self::assertCount(0, $repository->findAll());
+        self::assertFalse($repository->usernameExists('user@localhost'));
     }
 
     public function testDeleteUnknownId(): void

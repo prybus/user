@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Tests\Fixtures\Entities;
 
+use MsgPhp\Domain\Event\DomainEventHandler;
+use MsgPhp\Domain\Event\DomainEventHandlerTrait;
+use MsgPhp\Domain\Model\CanBeConfirmed;
+use MsgPhp\Domain\Model\CanBeEnabled;
+use MsgPhp\User\Credential\EmailPassword;
+use MsgPhp\User\Model\EmailPasswordCredential;
 use MsgPhp\User\ScalarUserId;
 use MsgPhp\User\User;
 use MsgPhp\User\UserId;
@@ -11,8 +17,13 @@ use MsgPhp\User\UserId;
 /**
  * @Doctrine\ORM\Mapping\Entity()
  */
-class TestUser extends User
+class TestUser extends User implements DomainEventHandler
 {
+    use DomainEventHandlerTrait;
+    use EmailPasswordCredential;
+    use CanBeConfirmed;
+    use CanBeEnabled;
+
     /**
      * @var UserId
      * @Doctrine\ORM\Mapping\Id()
@@ -21,8 +32,9 @@ class TestUser extends User
      */
     private $id;
 
-    public function __construct(UserId $id = null)
+    public function __construct(string $email, string $password, UserId $id = null)
     {
+        $this->credential = new EmailPassword($email, $password);
         $this->id = $id ?? new ScalarUserId();
     }
 

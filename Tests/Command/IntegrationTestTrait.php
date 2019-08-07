@@ -98,6 +98,6 @@ trait IntegrationTestTrait
 
     private static function createUserRepository(): Repository\UserRepository
     {
-        return new Repository\UserRepository(Entities\TestUser::class, self::$em);
+        return new Repository\UserRepository(Entities\TestUser::class, self::$em, 'credential.email');
     }
 }
