@@ -72,9 +72,9 @@ final class UserIdentity implements UserInterface, EquatableInterface, EncoderAw
         return $this->roles;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return $this->password ?? '';
+        return $this->password;
     }
 
     public function getSalt(): ?string
