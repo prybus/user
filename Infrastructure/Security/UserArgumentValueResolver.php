@@ -18,7 +18,11 @@ final class UserArgumentValueResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return is_a($argument->getType(), User::class, true) ? ($argument->isNullable() || $this->isUser()) : false;
+        if (null === $type = $argument->getType()) {
+            return false;
+        }
+
+        return is_a($type, User::class, true) ? ($argument->isNullable() || $this->isUser()) : false;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator

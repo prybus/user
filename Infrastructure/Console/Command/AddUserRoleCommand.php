@@ -72,15 +72,7 @@ final class AddUserRoleCommand extends Command
                 throw $e;
             }
 
-            $command = $this->getApplication()->find($commandName = 'role:create');
-            $result = $command->run(new ArrayInput([
-                'command' => $commandName,
-                'name' => $roleName,
-            ]), $io);
-
-            if (0 !== $result) {
-                throw new \RuntimeException('Cannot create role "'.$roleName.'". Something went wrong.');
-            }
+            $this->createRole($roleName, $output);
 
             $role = $this->roleDefinition->getRole($input, $io);
         }
@@ -93,5 +85,19 @@ final class AddUserRoleCommand extends Command
         $io->success('Added role '.$roleName.' to user '.UserDefinition::getDisplayName($user));
 
         return 0;
+    }
+
+    private function createRole(string $name, OutputInterface $output): void
+    {
+        if (null === $application = $this->getApplication()) {
+            throw new \LogicException('Application not set.');
+        }
+
+        if (0 !== $application->find($command = 'role:create')->run(new ArrayInput([
+            'command' => $command,
+            'name' => $name,
+        ]), $output)) {
+            throw new \RuntimeException('Cannot create role "'.$name.'". Something went wrong.');
+        }
     }
 }
