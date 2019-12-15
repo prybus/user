@@ -40,6 +40,7 @@ final class DataCollector extends BaseDataCollector
 
     public function collect(Request $request, Response $response, \Exception $exception = null): void
     {
+        /** @psalm-suppress TooManyArguments */
         parent::collect($request, $response, $exception);
 
         if (!isset($this->data['token'])) {

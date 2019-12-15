@@ -67,6 +67,7 @@ final class UserDefinition implements DomainDefinition
             $input->setArgument('user', $user);
         }
 
+        /** @var string $user */
         return $byId
             ? $this->repository->find($this->factory->create(UserId::class, ['value' => $user]))
             : $this->repository->findByUsername($user);

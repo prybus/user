@@ -43,6 +43,7 @@ final class RoleDefinition implements DomainDefinition
             $input->setArgument('role', $role);
         }
 
+        /** @var string $role */
         return $this->repository->find($role);
     }
 }

@@ -20,7 +20,7 @@ use MsgPhp\User\Username;
  */
 final class UsernameRepository implements BaseUsernameRepository
 {
-    /** @use DomainEntityRepositoryTrait<T> */
+    /** @use DomainEntityRepositoryTrait<Username> */
     use DomainEntityRepositoryTrait;
 
     /** @var UsernameLookup */
