@@ -8,6 +8,9 @@ use MsgPhp\User\Model\EmailsField;
 use MsgPhp\User\UserEmail;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class EmailsFieldTest extends TestCase
 {
     public function testField(): void

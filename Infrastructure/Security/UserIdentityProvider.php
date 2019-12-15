@@ -21,14 +21,14 @@ final class UserIdentityProvider implements UserProviderInterface
     private $repository;
     private $roleProvider;
 
-    public function __construct(UserRepository $repository, RoleProvider $roleProvider = null)
+    public function __construct(UserRepository $repository, ?RoleProvider $roleProvider = null)
     {
         $this->repository = $repository;
         $this->roleProvider = $roleProvider;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @return UserIdentity
      */
@@ -44,7 +44,7 @@ final class UserIdentityProvider implements UserProviderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @return UserIdentity
      */
@@ -68,7 +68,7 @@ final class UserIdentityProvider implements UserProviderInterface
         return UserIdentity::class === $class;
     }
 
-    public function fromUser(User $user, string $originUsername = null): UserIdentity
+    public function fromUser(User $user, ?string $originUsername = null): UserIdentity
     {
         return new UserIdentity($user, $originUsername, $this->roleProvider ? $this->roleProvider->getRoles($user) : []);
     }

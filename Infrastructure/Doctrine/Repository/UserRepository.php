@@ -23,15 +23,15 @@ final class UserRepository implements BaseUserRepository
     /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
-    /** @var string|null */
+    /** @var null|string */
     private $usernameField;
-    /** @var UsernameRepository|null */
+    /** @var null|UsernameRepository */
     private $usernameRepository;
 
     /**
      * @param class-string $class
      */
-    public function __construct(string $class, EntityManagerInterface $em, string $usernameField = null, UsernameRepository $usernameRepository = null)
+    public function __construct(string $class, EntityManagerInterface $em, ?string $usernameField = null, ?UsernameRepository $usernameRepository = null)
     {
         $this->class = $class;
         $this->em = $em;

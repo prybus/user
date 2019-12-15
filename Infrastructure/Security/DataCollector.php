@@ -28,17 +28,17 @@ use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
  */
 final class DataCollector extends BaseDataCollector
 {
-    /** @var UserRepository|null */
+    /** @var null|UserRepository */
     private $repository;
 
-    public function __construct(TokenStorageInterface $tokenStorage = null, RoleHierarchyInterface $roleHierarchy = null, LogoutUrlGenerator $logoutUrlGenerator = null, AccessDecisionManagerInterface $accessDecisionManager = null, FirewallMapInterface $firewallMap = null, TraceableFirewallListener $firewall = null, UserRepository $repository = null)
+    public function __construct(?TokenStorageInterface $tokenStorage = null, ?RoleHierarchyInterface $roleHierarchy = null, ?LogoutUrlGenerator $logoutUrlGenerator = null, ?AccessDecisionManagerInterface $accessDecisionManager = null, ?FirewallMapInterface $firewallMap = null, ?TraceableFirewallListener $firewall = null, ?UserRepository $repository = null)
     {
         parent::__construct($tokenStorage, $roleHierarchy, $logoutUrlGenerator, $accessDecisionManager, $firewallMap, $firewall);
 
         $this->repository = $repository;
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null): void
+    public function collect(Request $request, Response $response, ?\Exception $exception = null): void
     {
         /** @psalm-suppress TooManyArguments */
         parent::collect($request, $response, $exception);

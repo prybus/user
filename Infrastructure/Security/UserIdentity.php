@@ -18,11 +18,11 @@ final class UserIdentity implements UserInterface, EquatableInterface, EncoderAw
 {
     /** @var UserId */
     private $id;
-    /** @var string|null */
+    /** @var null|string */
     private $originUsername;
     /** @var array<int, string> */
     private $roles;
-    /** @var string|null */
+    /** @var null|string */
     private $password;
     /** @var string */
     private $hashing;
@@ -30,7 +30,7 @@ final class UserIdentity implements UserInterface, EquatableInterface, EncoderAw
     /**
      * @param array<int, string> $roles
      */
-    public function __construct(User $user, string $originUsername = null, array $roles = [], string $hashing = null)
+    public function __construct(User $user, ?string $originUsername = null, array $roles = [], ?string $hashing = null)
     {
         $this->id = $user->getId();
 

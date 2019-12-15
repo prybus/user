@@ -9,6 +9,9 @@ use MsgPhp\User\Role\RoleProvider;
 use MsgPhp\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class ChainRoleProviderTest extends TestCase
 {
     public function testRoles(): void

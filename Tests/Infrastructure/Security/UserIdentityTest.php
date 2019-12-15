@@ -12,6 +12,9 @@ use MsgPhp\User\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @internal
+ */
 final class UserIdentityTest extends TestCase
 {
     public function testCreate(): void
@@ -95,7 +98,7 @@ final class UserIdentityTest extends TestCase
         self::assertEquals($identity, unserialize(serialize($identity)));
     }
 
-    private function createUser(string $password = null, string $id = 'id'): User
+    private function createUser(?string $password = null, string $id = 'id'): User
     {
         $user = $this->createMock(User::class);
         $user->expects(self::any())

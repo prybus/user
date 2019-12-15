@@ -10,6 +10,9 @@ use MsgPhp\User\User;
 use MsgPhp\User\UserId;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class DeleteUserTest extends TestCase
 {
     use IntegrationTestTrait;

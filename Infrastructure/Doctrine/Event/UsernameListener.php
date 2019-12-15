@@ -20,7 +20,7 @@ final class UsernameListener
     private $factory;
     /** @var array<class-string, array<string, string>> */
     private $mapping;
-    /** @var array<int, string|null> */
+    /** @var array<int, null|string> */
     private $removals = [];
     /** @var array<int, array{0:User,1:string}> */
     private $insertions = [];
@@ -71,9 +71,9 @@ final class UsernameListener
                 continue;
             }
 
-            /** @var string|null $oldUsername */
+            /** @var null|string $oldUsername */
             $oldUsername = $event->getOldValue($field);
-            /** @var string|null $newUsername */
+            /** @var null|string $newUsername */
             $newUsername = $event->getNewValue($field);
 
             if (null !== $oldUsername) {
@@ -81,7 +81,7 @@ final class UsernameListener
             }
 
             if (null !== $newUsername) {
-                /** @var User|null $user */
+                /** @var null|User $user */
                 $user = null === $mappedBy ? $entity : $em->getClassMetadata(\get_class($entity))->getFieldValue($entity, $mappedBy);
 
                 if (null !== $user) {
@@ -124,7 +124,7 @@ final class UsernameListener
     }
 
     /**
-     * @return array<string, string|null>
+     * @return array<string, null|string>
      */
     private function getMapping(object $entity, EntityManagerInterface $em): array
     {

@@ -9,6 +9,9 @@ use MsgPhp\User\Event;
 use MsgPhp\User\Role;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class DeleteRoleTest extends TestCase
 {
     use IntegrationTestTrait;

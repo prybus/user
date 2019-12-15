@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 
+/**
+ * @internal
+ */
 final class UserExtensionTest extends FormIntegrationTestCase
 {
     public function testSubmit(): void

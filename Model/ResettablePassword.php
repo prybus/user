@@ -13,9 +13,9 @@ use MsgPhp\User\Event\Domain\RequestPassword;
  */
 trait ResettablePassword
 {
-    /** @var string|null */
+    /** @var null|string */
     private $passwordResetToken;
-    /** @var \DateTimeInterface|null */
+    /** @var null|\DateTimeInterface */
     private $passwordRequestedAt;
 
     public function getPasswordResetToken(): ?string
@@ -28,7 +28,7 @@ trait ResettablePassword
         return $this->passwordRequestedAt;
     }
 
-    public function requestPassword(string $token = null): void
+    public function requestPassword(?string $token = null): void
     {
         $this->passwordResetToken = $token ?? bin2hex(random_bytes(32));
         $this->passwordRequestedAt = new \DateTimeImmutable();

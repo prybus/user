@@ -8,6 +8,9 @@ use MsgPhp\User\Credential\Token;
 use MsgPhp\User\Event\Domain\ChangeCredential;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class TokenTest extends TestCase
 {
     public function testCredential(): void

@@ -13,7 +13,7 @@ class RequestPassword implements DomainEvent
 {
     public $token;
 
-    public function __construct(string $token = null)
+    public function __construct(?string $token = null)
     {
         $this->token = $token;
     }

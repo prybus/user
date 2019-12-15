@@ -10,6 +10,9 @@ use MsgPhp\User\Infrastructure\Doctrine\UserObjectMappings;
 use MsgPhp\User\Model;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class UserObjectMappingsTest extends TestCase
 {
     public function testMapping(): void

@@ -32,7 +32,7 @@ class TestUser extends User implements DomainEventHandler
      */
     private $id;
 
-    public function __construct(string $email, string $password, UserId $id = null)
+    public function __construct(string $email, string $password, ?UserId $id = null)
     {
         $this->credential = new EmailPassword($email, $password);
         $this->id = $id ?? new ScalarUserId();

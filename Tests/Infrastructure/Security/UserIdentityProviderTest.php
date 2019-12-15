@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @internal
+ */
 final class UserIdentityProviderTest extends TestCase
 {
     public function testLoadUserByUsername(): void
@@ -147,7 +150,7 @@ final class UserIdentityProviderTest extends TestCase
         self::assertSame('origin-username', $identity->getOriginUsername());
     }
 
-    private function createRepository(User $user = null): UserRepository
+    private function createRepository(?User $user = null): UserRepository
     {
         $repository = $this->createMock(UserRepository::class);
         $repository->expects(self::any())

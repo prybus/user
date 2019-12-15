@@ -8,6 +8,9 @@ use MsgPhp\User\Credential\Anonymous;
 use MsgPhp\User\Event\Domain\ChangeCredential;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class AnonymousTest extends TestCase
 {
     public function testInvoke(): void

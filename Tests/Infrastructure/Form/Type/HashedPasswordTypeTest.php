@@ -16,6 +16,9 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validation;
 
+/**
+ * @internal
+ */
 final class HashedPasswordTypeTest extends TypeTestCase
 {
     public function testDefaultData(): void

@@ -144,7 +144,7 @@ final class HashedPasswordType extends AbstractType
 final class Password
 {
     public $hashing;
-    /** @var string|null */
+    /** @var null|string */
     public $hash;
 
     public function __construct(PasswordEncoderInterface $hashing)

@@ -8,6 +8,9 @@ use MsgPhp\User\Role\DefaultRoleProvider;
 use MsgPhp\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class DefaultRoleProviderTest extends TestCase
 {
     public function testRoles(): void

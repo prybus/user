@@ -9,6 +9,9 @@ use MsgPhp\User\User;
 use MsgPhp\User\UserId;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class UserFieldTest extends TestCase
 {
     public function testField(): void

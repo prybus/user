@@ -8,6 +8,9 @@ use MsgPhp\User\Credential\Anonymous;
 use MsgPhp\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class UserTest extends TestCase
 {
     public function testGetCredential(): void

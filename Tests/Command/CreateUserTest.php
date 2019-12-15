@@ -10,6 +10,9 @@ use MsgPhp\User\Tests\Fixtures\Entities\TestUser;
 use MsgPhp\User\UserId;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class CreateUserTest extends TestCase
 {
     use IntegrationTestTrait;

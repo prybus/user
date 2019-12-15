@@ -8,6 +8,9 @@ use MsgPhp\User\Model\RoleField;
 use MsgPhp\User\Role;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class RoleFieldTest extends TestCase
 {
     public function testField(): void

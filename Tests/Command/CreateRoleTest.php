@@ -8,6 +8,9 @@ use MsgPhp\User\Command;
 use MsgPhp\User\Event;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class CreateRoleTest extends TestCase
 {
     use IntegrationTestTrait;

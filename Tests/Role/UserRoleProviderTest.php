@@ -12,6 +12,9 @@ use MsgPhp\User\UserId;
 use MsgPhp\User\UserRole;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class UserRoleProviderTest extends TestCase
 {
     public function testRoles(): void

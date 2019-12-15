@@ -8,6 +8,9 @@ use MsgPhp\User\Tests\Fixtures\Entities\TestUsername;
 use MsgPhp\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class UsernameTest extends TestCase
 {
     public function testCreate(): void

@@ -48,6 +48,7 @@ final class UserExtension extends AbstractTypeExtension
                     if (!isset($data[$sourceField])) {
                         continue;
                     }
+
                     try {
                         $data[$targetField] = $this->repository->findByUsername($data[$sourceField]);
                     } catch (EntityNotFound $e) {

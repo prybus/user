@@ -31,7 +31,7 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @return UserIdentity
      */
@@ -47,7 +47,7 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @return UserIdentity
      */
@@ -57,7 +57,7 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @return UserIdentity
      */

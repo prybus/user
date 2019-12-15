@@ -8,6 +8,9 @@ use MsgPhp\User\Credential\Nickname;
 use MsgPhp\User\Event\Domain\ChangeCredential;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class NicknameTest extends TestCase
 {
     public function testCredential(): void

@@ -11,6 +11,9 @@ use MsgPhp\User\Event\Domain\RequestPassword;
 use MsgPhp\User\Model\ResettablePassword;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class ResettablePasswordTest extends TestCase
 {
     public function testRequest(): void

@@ -8,6 +8,9 @@ use MsgPhp\User\Credential\Email;
 use MsgPhp\User\Event\Domain\ChangeCredential;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class EmailTest extends TestCase
 {
     public function testCredential(): void
