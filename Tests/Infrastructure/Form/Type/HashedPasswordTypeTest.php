@@ -174,6 +174,11 @@ final class HashedPasswordTypeTest extends TypeTestCase
             {
                 return $encoded === $this->encodePassword($raw, $salt);
             }
+
+            public function needsRehash(string $encoded): bool
+            {
+                return false;
+            }
         };
 
         return [
