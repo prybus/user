@@ -62,7 +62,9 @@ final class DataCollector extends BaseDataCollector
             }
         } else {
             // BC Symfony <4.3
+            /** @psalm-suppress UndefinedInterfaceMethod */
             foreach ($token->getRoles() as $role) {
+                /** @psalm-suppress UndefinedClass */
                 if ($role instanceof SwitchUserRole) {
                     $impersonatorIdentity = $role->getSource()->getUser();
                 }
