@@ -20,14 +20,15 @@ use MsgPhp\User\Username;
  */
 final class UsernameRepository implements BaseUsernameRepository
 {
-    /** @use DomainEntityRepositoryTrait<Username> */
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
-    /** @var UsernameLookup */
+    /** @var UsernameLookup<T> */
     private $lookup;
 
     /**
-     * @param class-string $class
+     * @param class-string<T>   $class
+     * @param UsernameLookup<T> $lookup
      */
     public function __construct(string $class, EntityManagerInterface $em, UsernameLookup $lookup)
     {
@@ -60,13 +61,13 @@ final class UsernameRepository implements BaseUsernameRepository
         return $this->doExists($username);
     }
 
-    public function save(Username $user): void
+    public function save(Username $username): void
     {
-        $this->doSave($user);
+        $this->doSave($username);
     }
 
-    public function delete(Username $user): void
+    public function delete(Username $username): void
     {
-        $this->doDelete($user);
+        $this->doDelete($username);
     }
 }

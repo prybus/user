@@ -11,6 +11,7 @@ use MsgPhp\User\Repository\UsernameRepository;
 use MsgPhp\User\Repository\UserRepository as BaseUserRepository;
 use MsgPhp\User\User;
 use MsgPhp\User\UserId;
+use MsgPhp\User\Username;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -25,11 +26,11 @@ final class UserRepository implements BaseUserRepository
 
     /** @var null|string */
     private $usernameField;
-    /** @var null|UsernameRepository */
+    /** @var null|UsernameRepository<Username<T>> */
     private $usernameRepository;
 
     /**
-     * @param class-string $class
+     * @param class-string<T> $class
      */
     public function __construct(string $class, EntityManagerInterface $em, ?string $usernameField = null, ?UsernameRepository $usernameRepository = null)
     {

@@ -9,12 +9,17 @@ use MsgPhp\User\UserId;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of User
  */
 trait UserField
 {
-    /** @var User */
+    /** @var T */
     private $user;
 
+    /**
+     * @return T
+     */
     public function getUser(): User
     {
         return $this->user;

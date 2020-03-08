@@ -31,7 +31,7 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $username
      *
      * @return UserIdentity
      */
@@ -47,7 +47,7 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $username
      *
      * @return UserIdentity
      */
@@ -57,8 +57,6 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return UserIdentity
      */
     public function refreshUser(UserInterface $user): UserInterface
@@ -66,6 +64,9 @@ final class UserIdentityProvider implements PayloadAwareUserProviderInterface
         return $this->provider->refreshUser($user);
     }
 
+    /**
+     * @param string $class
+     */
     public function supportsClass($class): bool
     {
         return $this->provider->supportsClass($class);

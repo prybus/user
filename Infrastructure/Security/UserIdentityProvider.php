@@ -28,7 +28,7 @@ final class UserIdentityProvider implements UserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $username
      *
      * @return UserIdentity
      */
@@ -44,8 +44,6 @@ final class UserIdentityProvider implements UserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return UserIdentity
      */
     public function refreshUser(UserInterface $identity): UserInterface
@@ -63,6 +61,9 @@ final class UserIdentityProvider implements UserProviderInterface
         return $this->fromUser($user, $identity->getOriginUsername());
     }
 
+    /**
+     * @param string $class
+     */
     public function supportsClass($class): bool
     {
         return UserIdentity::class === $class;

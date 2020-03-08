@@ -11,6 +11,8 @@ use MsgPhp\User\Username;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @template T of Username
  */
 final class UsernameLookup
 {
@@ -30,7 +32,7 @@ final class UsernameLookup
     }
 
     /**
-     * @return iterable<Username>
+     * @return \Generator<int, T, mixed, void>
      */
     public function lookup(): iterable
     {
@@ -52,12 +54,18 @@ final class UsernameLookup
 
             foreach ($qb->getQuery()->getArrayResult() as $result) {
                 foreach ($mapping as $field => $mappedBy) {
-                    yield $this->factory->create(Username::class, [
-                        'user' => $this->factory->reference(User::class, ['id' => $result[$mappedBy ?? 'id']]),
-                        'username' => $result[$field],
-                    ]);
+                    yield $this->create($result[$field], $this->factory->reference(User::class, ['id' => $result[$mappedBy ?? 'id']]));
                 }
             }
         }
+    }
+
+    /**
+     * @return T
+     */
+    private function create(string $username, User $user): Username
+    {
+        /** @var T */
+        return $this->factory->create(Username::class, compact('username', 'user'));
     }
 }

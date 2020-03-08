@@ -18,7 +18,7 @@ use MsgPhp\User\UserId;
  */
 final class UserEmailRepository implements BaseUserEmailRepository
 {
-    /** @use DomainEntityRepositoryTrait<UserEmail> */
+    /** @use DomainEntityRepositoryTrait<T> */
     use DomainEntityRepositoryTrait;
 
     public function findAllByUserId(UserId $userId, int $offset = 0, int $limit = 0): DomainCollection

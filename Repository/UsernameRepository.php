@@ -15,7 +15,7 @@ use MsgPhp\User\Username;
 interface UsernameRepository
 {
     /**
-     * @return DomainCollection<array-key, T>
+     * @return DomainCollection<int, T>
      */
     public function lookup(): DomainCollection;
 
