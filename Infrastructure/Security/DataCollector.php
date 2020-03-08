@@ -38,7 +38,10 @@ final class DataCollector extends BaseDataCollector
         $this->repository = $repository;
     }
 
-    public function collect(Request $request, Response $response, ?\Exception $exception = null): void
+    /**
+     * @param \Throwable|\Exception|null $exception
+     */
+    public function collect(Request $request, Response $response, $exception = null): void
     {
         /** @psalm-suppress TooManyArguments */
         parent::collect($request, $response, $exception);
