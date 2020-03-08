@@ -39,7 +39,7 @@ final class DataCollector extends BaseDataCollector
     }
 
     /**
-     * @param \Throwable|\Exception|null $exception
+     * @param null|\Exception|\Throwable $exception
      */
     public function collect(Request $request, Response $response, $exception = null): void
     {
