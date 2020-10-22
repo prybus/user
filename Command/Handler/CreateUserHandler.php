@@ -33,6 +33,9 @@ final class CreateUserHandler
         $context = $command->context;
         $context['id'] = $context['id'] ?? $this->factory->create(UserId::class);
         $user = $this->factory->create(User::class, $context);
+        if (isset($context['phone'])) {
+            $user->setPhone($context['phone']);
+        }
 
         $this->repository->save($user);
         $this->bus->dispatch($this->factory->create(UserCreated::class, compact('user', 'context')));
